@@ -14,7 +14,7 @@ export class Nutrients implements IIntakeRecommendation {
     public caffeine: number;
     public water: number;
     public carbs: Carbohydrates;
-    public lipides: Lipids;
+    public lipids: Lipids;
     public protein: Protein;
     public vitamins: Vitamins;
     public minerals: Minerals;

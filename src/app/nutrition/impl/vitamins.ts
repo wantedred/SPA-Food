@@ -1,5 +1,3 @@
-import { VitaminE } from './VitaminE';
-import { VitaminA } from './VitaminA';
 import { IIntakeRecommendation } from '../i-intake-recommendation';
 import { Sex } from 'src/app/users/sex';
 import { User } from 'src/app/users/user';
@@ -15,10 +13,10 @@ export class Vitamins implements IIntakeRecommendation {
     public biotin: number; //µg B7
     public choline: number; //mg
     public folate: number; //µg B9
-    public vitaminA: VitaminA; //µg
+    public vitaminA: number; //µg
     public vitaminC: number; //mg
     public vitaminD: number; //μg
-    public vitaminE: VitaminE; //mg
+    public vitaminE: number; //mg
     public vitaminK: number; //µg
 
 
@@ -37,10 +35,10 @@ export class Vitamins implements IIntakeRecommendation {
             vits.biotin = months < 7 ? 5 : 6;
             vits.choline = months < 7 ? 125 : 150;
             vits.folate = months < 7 ? 65 : 80;
-            vits.vitaminA = new VitaminA(months < 7 ? 400 : 500);
+            vits.vitaminA = months < 7 ? 400 : 500;
             vits.vitaminC = months < 7 ? 40 : 50;
             vits.vitaminD = 10;
-            vits.vitaminE = new VitaminE(months < 7 ? 4 : 5);
+            vits.vitaminE = months < 7 ? 4 : 5;
             vits.vitaminK = months < 7 ? 2.0 : 2.5;
 
         } else if (user.getAge() < 4) {
@@ -53,10 +51,10 @@ export class Vitamins implements IIntakeRecommendation {
             vits.biotin = 8;
             vits.choline = 200;
             vits.folate = 150;
-            vits.vitaminA = new VitaminA(300);
+            vits.vitaminA = 300;
             vits.vitaminC = 15;
             vits.vitaminD = 15;
-            vits.vitaminE = new VitaminE(6);
+            vits.vitaminE = 6;
             vits.vitaminK = 30;
 
         } else if (user.getAge() < 9) {
@@ -69,10 +67,10 @@ export class Vitamins implements IIntakeRecommendation {
             vits.biotin = 12;
             vits.choline = 250;
             vits.folate = 200;
-            vits.vitaminA = new VitaminA(400);
+            vits.vitaminA = 400;
             vits.vitaminC = 25;
             vits.vitaminD = 15;
-            vits.vitaminE = new VitaminE(7);
+            vits.vitaminE = 7;
             vits.vitaminK = 55;
 
         } else if (user.getAge() < 14) {
@@ -85,10 +83,10 @@ export class Vitamins implements IIntakeRecommendation {
             vits.biotin = 20;
             vits.choline = 375;
             vits.folate = 300;
-            vits.vitaminA = new VitaminA(600);
+            vits.vitaminA = 600;
             vits.vitaminC = 45;
             vits.vitaminD = 15;
-            vits.vitaminE = new VitaminE(11);
+            vits.vitaminE = 11;
             vits.vitaminK = 60;
 
         } else if (user.getAge() < 19) {
@@ -101,10 +99,10 @@ export class Vitamins implements IIntakeRecommendation {
             vits.biotin = 25;
             vits.choline = user.sex == Sex.Female ? 400 : 550;
             vits.folate = 400;
-            vits.vitaminA = new VitaminA(user.sex == Sex.Female ? 700 : 900);
+            vits.vitaminA = user.sex == Sex.Female ? 700 : 900;
             vits.vitaminC = user.sex == Sex.Female ? 65 : 75;
             vits.vitaminD = 15;
-            vits.vitaminE = new VitaminE(15);
+            vits.vitaminE = 15;
             vits.vitaminK = 75;
             
             if (user.pregnant || user.lactating) {
@@ -117,10 +115,10 @@ export class Vitamins implements IIntakeRecommendation {
                 vits.biotin = user.lactating ? 35 : 30;
                 vits.choline = user.lactating ? 550 : 450;
                 vits.folate = user.lactating ? 600 : 500;
-                vits.vitaminA = new VitaminA(user.lactating ? 1200 : 750);
+                vits.vitaminA = user.lactating ? 1200 : 750;
                 vits.vitaminC = user.lactating ? 115 : 80;
                 vits.vitaminD = 15;
-                vits.vitaminE = new VitaminE(user.lactating ? 19 : 15);
+                vits.vitaminE = user.lactating ? 19 : 15;
                 vits.vitaminK = 75;
             }
         } else if (user.getAge() < 51) {
@@ -133,10 +131,10 @@ export class Vitamins implements IIntakeRecommendation {
             vits.biotin = 30;
             vits.choline = user.sex == Sex.Female ? 425 : 550;
             vits.folate = 400;
-            vits.vitaminA = new VitaminA(user.sex == Sex.Female ? 700 : 900);
+            vits.vitaminA = user.sex == Sex.Female ? 700 : 900;
             vits.vitaminC = user.sex == Sex.Female ? 75 : 90;
             vits.vitaminD = 15;
-            vits.vitaminE = new VitaminE(15);
+            vits.vitaminE = 15;
             vits.vitaminK = user.sex == Sex.Female ? 90 : 120;
             
             if (user.pregnant || user.lactating) {
@@ -149,10 +147,10 @@ export class Vitamins implements IIntakeRecommendation {
                 vits.biotin = user.lactating ? 35 : 30;
                 vits.choline = user.lactating ? 550 : 450;
                 vits.folate = user.lactating ? 600 : 500;
-                vits.vitaminA = new VitaminA(user.lactating ? 1300 : 770);
+                vits.vitaminA = user.lactating ? 1300 : 770;
                 vits.vitaminC = user.lactating ? 120 : 85;
                 vits.vitaminD = 15;
-                vits.vitaminE = new VitaminE(user.lactating ? 19 : 15);
+                vits.vitaminE = user.lactating ? 19 : 15;
                 vits.vitaminK = 90;
             }
         } else {
@@ -165,10 +163,10 @@ export class Vitamins implements IIntakeRecommendation {
             vits.biotin = 30;
             vits.choline = user.sex == Sex.Female ? 425 : 550;
             vits.folate = 400;
-            vits.vitaminA = new VitaminA(user.sex == Sex.Female ? 700 : 900);
+            vits.vitaminA = user.sex == Sex.Female ? 700 : 900;
             vits.vitaminC = user.sex == Sex.Female ? 75 : 90;
             vits.vitaminD = user.getAge() > 70 ? 20 : 15;
-            vits.vitaminE = new VitaminE(15);
+            vits.vitaminE = 15;
             vits.vitaminK = user.sex == Sex.Female ? 90 : 120;
         }
         if (user.smoker) {
@@ -189,10 +187,10 @@ export class Vitamins implements IIntakeRecommendation {
         vits.biotin = 0;
         vits.choline = 3500;
         vits.folate = 1000;
-        vits.vitaminA = new VitaminA(3000);
+        vits.vitaminA = 3000;
         vits.vitaminC = 2000;
         vits.vitaminD = 130;
-        vits.vitaminE = new VitaminE(1000);
+        vits.vitaminE = 1000;
         vits.vitaminK = 0;
 
         return vits;
