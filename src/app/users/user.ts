@@ -1,13 +1,14 @@
 import { Sex } from './sex';
 import { ActivityLevel } from '../nutrition/activity-level';
-import { BmiLevel } from '../nutrition/bmi-level';
 import { AccountState } from './account-state';
+import { BmiLevel } from 'src/app/nutrition/bmi-level';
 
 export class User {
 
     public id: number;
     public emailAddress: string;
     public password: string;
+    public displayName: string;
     public dob: Date;
     public joinedAt: Date;
     public lastActiveAt: Date;
@@ -21,10 +22,11 @@ export class User {
     public accountState: AccountState;
 
 
-    public constructor(id: number, emailAddress: string, password: string, dobDay: number, dobMonth: number, dobYear: number
+    public constructor(emailAddress: string, password: string, displayName: string, dobDay: number, dobMonth: number, dobYear: number
         , sex: Sex, pregnant: boolean, lactating: boolean, smoker: boolean, weight: number, height: number, activity: ActivityLevel) {
         this.emailAddress = emailAddress;
         this.password = password;
+        this.displayName = displayName;
         this.dob = new Date(dobYear, dobMonth, dobDay);
         this.sex = sex;
         this.pregnant = pregnant;

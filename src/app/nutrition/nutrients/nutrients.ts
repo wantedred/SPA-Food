@@ -1,11 +1,11 @@
-import { Minerals } from './impl/minerals';
-import { Vitamins } from './impl/vitamins';
-import { Protein } from './impl/protein';
-import { Sex } from '../users/sex';
-import { User } from '../users/user';
-import { Lipids } from './impl/lipids';
-import { IIntakeRecommendation } from './i-intake-recommendation';
-import { Carbohydrates } from './impl/Carbohydrates';
+import { Minerals } from '../impl/minerals';
+import { Vitamins } from '../impl/vitamins';
+import { Protein } from '../impl/protein';
+import { Sex } from '../../users/sex';
+import { User } from '../../users/user';
+import { Lipids } from '../impl/lipids';
+import { IIntakeRecommendation } from '../i-intake-recommendation';
+import { Carbohydrates } from '../impl/Carbohydrates';
 
 export class Nutrients implements IIntakeRecommendation {
 

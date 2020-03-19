@@ -1,5 +1,5 @@
 export enum BmiLevel {
-
+    
     SevereThinness,
     ModerateThinness,
     MildThinness,

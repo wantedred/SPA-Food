@@ -15,6 +15,10 @@ import { NutrientsComponent } from './nutrition/nutrients/nutrients.component';
 import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { UsersComponent } from './users/user/users.component';
+import { NourishmentComponent } from './nutrition/nourishment/nourishment.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserComponent } from './users/user/user.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +29,19 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     NutrientsComponent,
     MessagesComponent,
     DashboardComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    NourishmentComponent,
+    UsersComponent,
+    UserComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     //Customs
-    FormsModule
+    FormsModule,
+    //Material
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

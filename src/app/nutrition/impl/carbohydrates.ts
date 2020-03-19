@@ -13,6 +13,14 @@ export class Carbohydrates implements ICountable, IIntakeRecommendation {
     public sugarAlcohol: number;
 
 
+    public getNetCarbs(): number {
+        return 0;
+    }
+
+    public getTotalSugars(): number {
+        return this.sugars.getTotalCount() + this.addedSugars + this.sugarAlcohol;
+    }
+
     public getMinimum(user: User) : Carbohydrates {
         let carbs: Carbohydrates = new Carbohydrates();
 

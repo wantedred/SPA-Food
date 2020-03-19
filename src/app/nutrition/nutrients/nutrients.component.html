@@ -1,1 +1,85 @@
-<p>nutrients works!</p>
+<table>
+    <tr><th colspan="2">General</th></tr>
+    <tr><td>Energy</td><td>{{nutrients.kcal}} kcal</td></tr>
+    <tr><td>Alcohol</td><td>{{nutrients.alcohol}} g</td></tr>
+    <tr><td>Caffeine</td><td>{{nutrients.caffeine}} mg</td></tr>
+    <tr><td>Water</td><td>{{nutrients.water}} l</td></tr>
+</table>
+<table>
+    <tr><th colspan="2">Carbohydrates</th></tr>
+    <tr><td>Carbs</td><td>{{nutrients.carbs.getTotalCount()}} g</td></tr>
+    <pre>
+        &#9;<tr><td>Fiber</td><td>{{nutrients.carbs.fiber}} g</td></tr>
+        &#9;<tr><td>Starch</td><td>{{nutrients.carbs.starch}} g</td></tr>
+        &#9;<tr><td>Sugars</td><td>{{nutrients.carbs.getTotalSugars()}} g</td></tr>
+        &#9;<tr><td>Sugars</td><td>{{nutrients.carbs.getNetCarbs()}} g</td></tr>
+    </pre>
+</table>
+<table>
+    <tr><th colspan="2">Lipids</th></tr>
+    <tr><td>Fat</td><td>{{nutrients.lipids.fats.getTotalCount()}} g</td></tr>
+    <pre>
+        &#9;<tr><td>Monounsaturated</td><td>{{nutrients.lipids.fats.monoUnsaturated}} g</td></tr>
+        &#9;<tr><td>Polyunsaturated</td><td>{{nutrients.lipids.fats.polyUnsaturated.getTotalCount()}} g</td></tr>
+        &#9;&#9;<tr><td>Omega-3</td><td>{{nutrients.lipids.fats.polyUnsaturated.omega3}} g</td></tr>
+        &#9;&#9;<tr><td>Omega-6</td><td>{{nutrients.lipids.fats.polyUnsaturated.omega6}} g</td></tr>
+        &#9;<tr><td>Saturated</td><td>{{nutrients.lipids.fats.saturated}} g</td></tr>
+        &#9;<tr><td>Trans-fats</td><td>{{nutrients.lipids.fats.transFats}} g</td></tr>
+    </pre>
+    <tr><td>Cholestrol</td><td>{{nutrients.lipids.cholestrol}} mg</td></tr>
+</table>
+<table>
+    <tr><th colspan="2">Protein</th></tr>
+    <tr><td>Protein</td><td>{{nutrients.protein.getTotalCount()}} g</td></tr>
+    <pre>
+        &#9;<tr><td>Cystine</td><td>{{nutrients.protein.cystine}} g</td></tr>
+        &#9;<tr><td>Histidine</td><td>{{nutrients.protein.histidine}} g</td></tr>
+        &#9;<tr><td>Isoleucine</td><td>{{nutrients.protein.isoleucine}} g</td></tr>
+        &#9;<tr><td>Leucine</td><td>{{nutrients.protein.leucine}} g</td></tr>
+        &#9;<tr><td>Lysine</td><td>{{nutrients.protein.lysine}} g</td></tr>
+        &#9;<tr><td>Methionine</td><td>{{nutrients.protein.methionine}} g</td></tr>
+        &#9;<tr><td>Phenylalanine</td><td>{{nutrients.protein.phenylalanine}} g</td></tr>
+        &#9;<tr><td>Threonine</td><td>{{nutrients.protein.threonine}} g</td></tr>
+        &#9;<tr><td>Tryptophan</td><td>{{nutrients.protein.tryptophan}} g</td></tr>
+        &#9;<tr><td>Tyrosine</td><td>{{nutrients.protein.tyrosine}} g</td></tr>
+        &#9;<tr><td>Valine</td><td>{{nutrients.protein.valine}} g</td></tr>
+    </pre>
+</table>
+<table>
+    <tr><th colspan="2">Vitamins</th></tr>
+    <tr><td>B1</td><td>{{nutrients.vitamins.b1}} mg</td></tr>
+    <tr><td>B2</td><td>{{nutrients.vitamins.b2}} mg</td></tr>
+    <tr><td>B3</td><td>{{nutrients.vitamins.b3}} mg</td></tr>
+    <tr><td>B5</td><td>{{nutrients.vitamins.b5}} mg</td></tr>
+    <tr><td>B6</td><td>{{nutrients.vitamins.b6}} mg</td></tr>
+    <tr><td>B12</td><td>{{nutrients.vitamins.b12}} µg</td></tr>
+    <tr><td>Biotin</td><td>{{nutrients.vitamins.biotin}} µg</td></tr>
+    <tr><td>Choline</td><td>{{nutrients.vitamins.choline}} mg</td></tr>
+    <tr><td>Folate</td><td>{{nutrients.vitamins.folate}} µg</td></tr>
+    <tr><td>A</td><td>{{nutrients.vitamins.vitaminA}} µg</td></tr>
+    <tr><td>C</td><td>{{nutrients.vitamins.vitaminC}} mg</td></tr>
+    <tr><td>D</td><td>{{nutrients.vitamins.vitaminD}} µg</td></tr>
+    <tr><td>E</td><td>{{nutrients.vitamins.vitaminE}} mg</td></tr>
+    <tr><td>K</td><td>{{nutrients.vitamins.vitaminK}} µg</td></tr>
+</table>
+<table>
+    <tr><th colspan="2">Minerals</th></tr>
+    <tr><td>Boron</td><td>{{nutrients.minerals.boron}} mg</td></tr>
+    <tr><td>Calcium</td><td>{{nutrients.minerals.calcium}} mg</td></tr>
+    <tr><td>Chromium</td><td>{{nutrients.minerals.chromium}} µg</td></tr>
+    <tr><td>Chloride</td><td>{{nutrients.minerals.chloride}} mg</td></tr>
+    <tr><td>Copper</td><td>{{nutrients.minerals.copper}} mg</td></tr>
+    <tr><td>Fluoride</td><td>{{nutrients.minerals.fluoride}} mg</td></tr>
+    <tr><td>Iodine</td><td>{{nutrients.minerals.iodine}} µg</td></tr>
+    <tr><td>Iron</td><td>{{nutrients.minerals.iron}} mg</td></tr>
+    <tr><td>Magnesium</td><td>{{nutrients.minerals.magnesium}} mg</td></tr>
+    <tr><td>Manganese</td><td>{{nutrients.minerals.manganese}} mg</td></tr>
+    <tr><td>Molybdenum</td><td>{{nutrients.minerals.molybdenum}} µg</td></tr>
+    <tr><td>Nickel</td><td>{{nutrients.minerals.nickel}} mg</td></tr>
+    <tr><td>Phosphorus</td><td>{{nutrients.minerals.phosphorus}} mg</td></tr>
+    <tr><td>Potassium</td><td>{{nutrients.minerals.potassium}} mg</td></tr>
+    <tr><td>Selenium</td><td>{{nutrients.minerals.selenium}} µg</td></tr>
+    <tr><td>Sodium</td><td>{{nutrients.minerals.sodium}} mg</td></tr>
+    <tr><td>Vanadium</td><td>{{nutrients.minerals.vanadium}} mg</td></tr>
+    <tr><td>Zinc</td><td>{{nutrients.minerals.zinc}} mg</td></tr>
+</table>
