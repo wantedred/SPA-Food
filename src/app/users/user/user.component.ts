@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { UsersService } from './users.service';
+import { UsersService } from '../service/users.service';
 import { User } from '../user';
 
 @Component({

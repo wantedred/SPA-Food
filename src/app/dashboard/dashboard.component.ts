@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../users/user';
-import { UsersService } from '../users/user/users.service';
+import { UsersService } from '../users/service/users.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.usersService.getUsers()
+    this.usersService.fetchUsers()
       .subscribe(users => this.users = users.slice(1, 5));
   }
 }

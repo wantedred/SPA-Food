@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from './users.service';
+import { UsersService } from '../service/users.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../user';
 import { Sex } from '../sex';
@@ -21,7 +21,7 @@ export class UsersComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit(): void {
-    this.usersService.getUsers()
+    this.usersService.fetchUsers()
     .subscribe(users => this.users = users);
   }
 
