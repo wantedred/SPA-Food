@@ -1,1 +1,9 @@
-<p>create works!</p>
+<h4>Basic mat-select</h4>
+<mat-form-field>
+  <mat-label>Favorite food</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let sex of sexes" [value]="sex.value">
+      {{sex.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
