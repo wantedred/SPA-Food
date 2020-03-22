@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { User } from 'src/app/users/user';
@@ -26,36 +26,28 @@ import { Location } from '@angular/common';
 })
 export class OverviewComponent implements OnInit, AfterViewInit {
 
-  user:User = new User("myemail@example.com",
-    "mypassword",
-    "mydisplayname",
-    1,
-    1,
-    2000,
-    Sex.Female,
-    false,
-    false,
-    false,
-    55,
-    168,
-    ActivityLevel.Active);
+  user:User = new User("myemail@example.com", "mypassword", "mydisplayname",
+    1, 1, 2000, Sex.Female, false, false, false, 55, 168, ActivityLevel.Active);
+  user2:User = new User("msecond@example.com", "mypassword", "secondguy",
+    1, 1, 2000, Sex.Female, false, false, false, 55, 168, ActivityLevel.Active);
 
   FAKE_USERS_DATA: User[] = [
-    this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,
-    this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,
-    this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user,this.user
+    this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,
+    this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,
+    this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2
   ];
 
   users: User[] = [];
 
-  displayedColumns: string[] = ['created', 'state', 'number', 'title'];
+  columnNames: string[] = ['id', 'dob', 'email', 'displayName'];
+  expandedElement: User | null;
 
   resultsLength = 0;
   isLoadingResults = true;
-  isRateLimitReached = false;
+  isHasNoResults = false;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   data: MatTableDataSource<User> = null;
 
@@ -68,14 +60,21 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     this.usersService.fetchUsers().subscribe(users => this.users = users);
     this.users = this.FAKE_USERS_DATA; //TODO
 
+    this.user.id = 1;
+    this.user2.id = 2;
+
     this.isLoadingResults = false;
-    this.isRateLimitReached = false;
+    this.isHasNoResults = this.users.length == 0;
     this.resultsLength = this.users.length;
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.data.filter = filterValue.trim().toLowerCase();
+
+    if (this.data.paginator) {
+      this.data.paginator.firstPage();
+    }
   }
 
   ngAfterViewInit() {
@@ -83,32 +82,6 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     this.data = new MatTableDataSource(this.users);
     this.data.paginator = this.paginator;
     this.data.sort = this.sort;
-    
-    //this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    
-/*
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          this.isLoadingResults = true;
-          return of(this.FAKE_USERS_DATA); //TODO this.usersService.fetchUsers();
-        }),
-        map(data => {
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          this.isRateLimitReached = false;
-          this.resultsLength = data.length;
-
-          return data;
-        }),
-        catchError(() => {
-          this.isLoadingResults = false;
-          // Catch if the GitHub API has reached its rate limit. Return empty data.
-          this.isRateLimitReached = true;
-          return of([]);
-        })
-      ).subscribe(data => this.data = data);*/
   }
 
   delete(user: User): void {
