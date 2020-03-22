@@ -32,7 +32,7 @@ import { LoginComponent } from './users/authenticate/login/login.component';
 import { DetailsComponent } from './users/account/details/details.component';
 import { SettingsComponent } from './users/account/settings/settings.component';
 import { UpgradeComponent } from './users/account/upgrade/upgrade.component';
-import { OverviewComponent } from './admin/users/overview/overview.component';
+import { UsersOverviewComponent } from './admin/users/overview/users-overview.component';
 import { SearchComponent } from './admin/users/search/search.component';
 import { CreateUserComponent } from './admin/users/crud/create/create-user.component';
 import { SubmitComponent } from './nutrition/nourishments/submit/submit.component';
@@ -54,7 +54,7 @@ import { SubmitComponent } from './nutrition/nourishments/submit/submit.componen
     DetailsComponent,
     SettingsComponent,
     UpgradeComponent,
-    OverviewComponent,
+    UsersOverviewComponent,
     SearchComponent,
     CreateUserComponent,
     SubmitComponent

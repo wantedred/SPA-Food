@@ -13,9 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.css'],
+  selector: 'app-users-overview',
+  templateUrl: './users-overview.component.html',
+  styleUrls: ['./users-overview.component.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -24,7 +24,7 @@ import { Location } from '@angular/common';
     ]),
   ],
 })
-export class OverviewComponent implements OnInit, AfterViewInit {
+export class UsersOverviewComponent implements OnInit, AfterViewInit {
 
   user:User = new User("myemail@example.com", "mypassword", "mydisplayname",
     1, 1, 2000, Sex.Female, false, false, false, 55, 168, ActivityLevel.Active);

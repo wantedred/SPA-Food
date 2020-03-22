@@ -1,11 +1,8 @@
 /* Structure */
 .extended-table-container {
-  /*position: relative;
-  min-height: 200px;*/
   display: flex;
   flex-direction: column;
   max-height: 500px;
-  min-width: 300px;
 }
 .table-loading-shade {
   position: absolute;
@@ -33,6 +30,7 @@
   position: relative;
   max-height: 400px;
   overflow: auto;
+  display: flex;
 }
 table {
   width: 100%;
@@ -47,12 +45,6 @@ th.mat-sort-header-sorted {
 }
 td, th {
   width: 25%;
-}
-.mat-column-number, .mat-column-state {
-  max-width: 64px;
-}
-.mat-column-created {
-  max-width: 124px;
 }
 
 .example-element-row td {

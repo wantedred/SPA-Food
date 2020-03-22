@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HeroesComponent } from './heroes/heroes.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
-import { OverviewComponent } from './admin/users/overview/overview.component';
+import { UsersOverviewComponent } from './admin/users/overview/users-overview.component';
 import { UserComponent } from './users/user/user.component';
 
 
@@ -12,7 +12,7 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'heroes', component: HeroesComponent },
     { path: 'detail/:id', component: HeroDetailComponent },
-    { path: 'users/overview', component: OverviewComponent },
+    { path: 'users/users-overview', component: UsersOverviewComponent },
     { path: 'users/:id', component: UserComponent },
     { path: '*', component: DashboardComponent },
 ];
