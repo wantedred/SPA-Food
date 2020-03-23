@@ -1,9 +1,44 @@
-<h1>{{title}}</h1>
-<nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/heroes">Heroes</a>
-  <a routerLink="/users/users-overview">Users Overview</a>
-  <a routerLink="/users/create">Create User</a>
-</nav>
+<!-- Constructs the toolbar -->
+<mat-toolbar>
+  <!-- Constructs the home menu -->
+  <button mat-button routerLink="/"><h1>{{title}}</h1></button>
+
+  <!-- Constructs the navigation menu's -->
+  <button mat-button routerLink="/dashboard">Dashboard</button>
+  <button mat-button routerLink="/heroes">Heroes</button>
+  <button mat-button [matMenuTriggerFor]="admin">Admin</button>
+
+  <mat-menu #admin="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="adminUsers">Users</button>
+  </mat-menu>
+
+  <mat-menu #adminUsers="matMenu">
+    <button mat-menu-item routerLink="/users/users-overview">Overview</button>
+    <button mat-menu-item routerLink="/users/create">Create</button>
+  </mat-menu>
+
+  <!-- Fills empty space -->
+  <span class="example-fill-remaining-space"></span>
+
+  <!-- Constructs the toggle menu -->
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
 <router-outlet></router-outlet>
 <app-messages></app-messages>

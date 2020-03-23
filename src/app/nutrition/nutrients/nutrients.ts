@@ -23,7 +23,7 @@ export class Nutrients implements IIntakeRecommendation {
     public getMinimum(user: User) : Nutrients {
         let nutri: Nutrients = new Nutrients();
 
-        nutri.water = user.sex = Sex.Female ? 1.0 : 1.5;
+        nutri.water = user.sex == Sex.Female ? 1.0 : 1.5;
         nutri.carbs = new Carbohydrates();
         
 
@@ -79,7 +79,7 @@ export class Nutrients implements IIntakeRecommendation {
     }
 
     public static getMinimumWater(sex: Sex) : number {
-        return sex = Sex.Female ? 1 : 1.5;
+        return sex == Sex.Female ? 1 : 1.5;
     }
 
     public static getRecommendedWater(sex: Sex) : number {

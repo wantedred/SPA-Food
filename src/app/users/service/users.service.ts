@@ -23,7 +23,7 @@ export class UsersService {
     private messageService: MessageService) { }
 
   public fetchUsers() : Observable<User[]> {
-    return this.http.get<User[]>(this.usersApiUrl)
+    return this.http.get<User[]>(this.usersApiUrl, this.httpOptions)
       .pipe(tap(_ => this.log('fetched users'))
       , catchError(this.handleError<User[]>('fetchUsers', [])));
   }
@@ -31,16 +31,22 @@ export class UsersService {
   public getUser(id: number): Observable<User> {
     const url = `${this.usersApiUrl}/${id}`;
 
-    return this.http.get<User>(url)
+    return this.http.get<User>(url, this.httpOptions)
       .pipe(tap(_ => this.log(`fetched user id=${id}`))
       , catchError(this.handleError<User>(`getUser id=${id}`)));
+  }
+
+  public getUserByEmailAddress(emailAddress: string) : Observable<User> {
+    return this.http.get<User>(`${this.usersApiUrl}/?email=${emailAddress}`, this.httpOptions)
+      .pipe(tap(_ => this.log(`found userby email address`))
+      , catchError(this.handleError<User>('getUserByEmailAddress')));
   }
 
   public searchUsers(searchInput: string) : Observable<User[]> {
     if (!searchInput.trim()) {
       return of([]);
     }
-    return this.http.get<User[]>(`${this.usersApiUrl}/?name=${searchInput}`)
+    return this.http.get<User[]>(`${this.usersApiUrl}/?name=${searchInput}`, this.httpOptions)
       .pipe(tap(x => x.length 
         ? this.log(`found users matching "${searchInput}"`) 
         : this.log(`no users matching "${searchInput}"`)), 

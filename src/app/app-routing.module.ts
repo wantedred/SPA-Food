@@ -12,11 +12,11 @@ const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'heroes', component: HeroesComponent },
-    { path: 'detail/:id', component: HeroDetailComponent },
+    { path: 'detail/:id', component: HeroDetailComponent }, //Should be last to not conflict with the static /detail/ paths
 
     { path: 'users/users-overview', component: UsersOverviewComponent },
-    { path: 'users/:id', component: UserComponent },
     { path: 'users/create', component: CreateUserComponent },
+    { path: 'users/:id', component: UserComponent }, //Should be last to not conflict with the static /users/ paths
 
     { path: '*', component: DashboardComponent },
 ];

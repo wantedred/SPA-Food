@@ -17,6 +17,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 //Project
@@ -77,7 +84,14 @@ import { SubmitComponent } from './nutrition/nourishments/submit/submit.componen
     MatToolbarModule,
     MatTooltipModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatMenuModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill', floatLabel: 'always' } },

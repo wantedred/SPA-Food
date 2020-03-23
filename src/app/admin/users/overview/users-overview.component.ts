@@ -89,16 +89,7 @@ export class UsersOverviewComponent implements OnInit, AfterViewInit {
     this.usersService.deleteUser(user).subscribe();
   }
 
-  add(name: string): void {
-    name = name.trim();
-
-    if (!name) { return; }
-
-    let user: User = new User("email", "pass", name, 1, 1, 2000, Sex.Male, false, false, false, 50, 165, ActivityLevel.Active);
-
-    this.usersService.addUser(user)
-      .subscribe(user => {
-        this.users.push(user);
-      });
+  goBack(): void {
+    this.location.back();
   }
 }
