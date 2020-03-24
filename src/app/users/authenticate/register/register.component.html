@@ -1,1 +1,92 @@
-<p>register works!</p>
+
+<mat-card *ngIf="show=='reg1'" class="example-card">
+    <mat-card-header>
+        <mat-card-title>Registration</mat-card-title>
+        <!--<mat-card-subtitle>Create a new user to be added</mat-card-subtitle>-->
+    </mat-card-header>
+    <mat-card-content>
+        <form class="create-user-form" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="example-full-width">
+                <mat-label>Display name</mat-label>
+                <input matInput placeholder="" formControlName="displayNameControl" minlength="3" maxLength="16" 
+                    [errorStateMatcher]="fieldValidator" required>
+                <mat-error *ngIf="createForm.controls['displayNameControl'].hasError('required')">
+                     Please enter a display name
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['displayNameControl'].hasError('minlength')">
+                     Your display name should be at least 3 characters
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Email address</mat-label>
+                <input type="email" matInput placeholder="example@email.com" formControlName="emailAddressControl" 
+                    minlength="5" maxLength="30" EmailTakenValidator [errorStateMatcher]="fieldValidator" required>
+                <!--<mat-spinner *ngIf="email.pending"></mat-spinner>-->
+                <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('required')">
+                    Please enter your email address
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('minlength') || createForm.controls['emailAddressControl'].hasError('email')">
+                    Enter a valid email address
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput placeholder="" formControlName="passwordControl" minlength="6" maxLength="30" 
+                    [errorStateMatcher]="fieldValidator" required>
+                <mat-error *ngIf="createForm.controls['passwordControl'].hasError('required')">
+                    Please enter a password
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['passwordControl'].hasError('minlength')">
+                    Your password should be at least 6 characters
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Confirm password</mat-label>
+                <input type="password" matInput placeholder="" formControlName="confirmPasswordControl" minlength="6" maxLength="30" 
+                    [errorStateMatcher]="fieldValidator" required>
+                <mat-error *ngIf="createForm.controls['confirmPasswordControl'].hasError('required')">
+                    Please confirm your password
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['confirmPasswordControl'].hasError('matchingFieldsValidation')">
+                    ALO
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="example-full-width" type="submit" [disabled]="!createForm.valid">Register</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+<mat-card *ngIf="show=='reg2'" class="example-card">
+    <mat-card-header>
+        <mat-card-title>Details</mat-card-title>
+        <mat-card-subtitle>We need some details for nutrition calculations</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="create-user-form" [formGroup]="createForm" (ngSubmit)="onRegister()">
+            <mat-form-field class="example-full-width">
+                <mat-label>Sex</mat-label>
+                <mat-select formControlName="sexControl" [errorStateMatcher]="fieldValidator" required>
+                    <mat-option *ngFor="let sexname of sexNames" [value]="sexname.sex">
+                    {{sexname.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="createForm.controls['sexControl'].hasError('required')">
+                    Please select your sex so we can make the right nutrition calculations
+                </mat-error>
+                <!--<mat-error *ngIf="sexControl.hasError('required')">Please choose a sex so we can make the right nutrition calculations</mat-error>-->
+            </mat-form-field>
+            <mat-slide-toggle class="example-full-width" color="primary">Pregnant</mat-slide-toggle>
+            <mat-slide-toggle class="example-full-width" color="primary">Lactating</mat-slide-toggle>
+            <mat-form-field class="example-full-width">
+                <mat-label>Date of birth</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="dobControl" [errorStateMatcher]="fieldValidator" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="createForm.controls['dobControl'].hasError('required')">
+                    Please select your date of birth so we can make the right nutrition calculations
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="example-full-width" type="submit" [disabled]="!createForm.valid">Submit</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+        

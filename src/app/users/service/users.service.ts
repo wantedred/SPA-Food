@@ -11,33 +11,30 @@ import { Constants } from 'src/app/constants';
 })
 export class UsersService {
 
-  private usersApiUrl = Constants.serverUrl + "Users";
-
-  private httpOptions = {
+  jsonHeaders = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-
 
   private constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
 
   public fetchUsers() : Observable<User[]> {
-    return this.http.get<User[]>(this.usersApiUrl, this.httpOptions)
+    return this.http.get<User[]>(Constants.usersUrl, this.jsonHeaders)
       .pipe(tap(_ => this.log('fetched users'))
       , catchError(this.handleError<User[]>('fetchUsers', [])));
   }
 
   public getUser(id: number): Observable<User> {
-    const url = `${this.usersApiUrl}/${id}`;
+    const url = `${Constants.usersUrl}/${id}`;
 
-    return this.http.get<User>(url, this.httpOptions)
+    return this.http.get<User>(url, this.jsonHeaders)
       .pipe(tap(_ => this.log(`fetched user id=${id}`))
       , catchError(this.handleError<User>(`getUser id=${id}`)));
   }
 
   public getUserByEmailAddress(emailAddress: string) : Observable<User> {
-    return this.http.get<User>(`${this.usersApiUrl}/?email=${emailAddress}`, this.httpOptions)
+    return this.http.get<User>(`${Constants.usersUrl}/?email=${emailAddress}`, this.jsonHeaders)
       .pipe(tap(_ => this.log(`found userby email address`))
       , catchError(this.handleError<User>('getUserByEmailAddress')));
   }
@@ -46,7 +43,7 @@ export class UsersService {
     if (!searchInput.trim()) {
       return of([]);
     }
-    return this.http.get<User[]>(`${this.usersApiUrl}/?name=${searchInput}`, this.httpOptions)
+    return this.http.get<User[]>(`${Constants.usersUrl}/?name=${searchInput}`, this.jsonHeaders)
       .pipe(tap(x => x.length 
         ? this.log(`found users matching "${searchInput}"`) 
         : this.log(`no users matching "${searchInput}"`)), 
@@ -55,21 +52,23 @@ export class UsersService {
 
   public deleteUser(user: User | number): Observable<User> {
     const id = typeof user === 'number' ? user : user.id;
-    const url = `${this.usersApiUrl}/${id}`;
+    const url = `${Constants.usersUrl}/${id}`;
   
-    return this.http.delete<User>(url, this.httpOptions)
+    return this.http.delete<User>(url, this.jsonHeaders)
       .pipe(tap(_ => this.log(`deleted user id=${id}`))
       , catchError(this.handleError<User>('deleteUser')));
   }
 
   public addUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersApiUrl, user, this.httpOptions)
+    console.log("Adding user in users service " + Constants.usersUrl);
+
+    return this.http.post<User>(Constants.usersUrl, user, this.jsonHeaders)
       .pipe(tap((newUser: User) => this.log(`added user w/ id=${newUser.id}`))
       , catchError(this.handleError<User>('addUser')));
   }
 
   public updateUser(user: User): Observable<any> {
-    return this.http.put(this.usersApiUrl, user, this.httpOptions)
+    return this.http.put(Constants.usersUrl, user, this.jsonHeaders)
       .pipe(tap(_ => this.log(`updated user id=${user.id}`))
       , catchError(this.handleError<any>('updateUser')));
   }

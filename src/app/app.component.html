@@ -1,44 +1,108 @@
-<!-- Constructs the toolbar -->
-<mat-toolbar>
-  <!-- Constructs the home menu -->
-  <button mat-button routerLink="/"><h1>{{title}}</h1></button>
+<!-- Constructs the navigation container -->
+<div style="height: 100vh;">
+  <!-- Constructs the toolbar -->
+  <mat-toolbar color="primary" class="mat-elevation-z5">
+    <mat-toolbar-row>
+      <!-- Constructs the menu button icon -->
+      <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <!-- Constructs the home/title button -->
+      <button mat-button routerLink="/"><h1>{{title}}</h1></button>
+      <!-- Constructs the menu spacer -->
+      <span class="menu-spacer"></span>
+      <!-- Constructs the wide screen navigation menu -->
+      <div fxShow="true" fxHide.lt-md="true">
 
-  <!-- Constructs the navigation menu's -->
-  <button mat-button routerLink="/dashboard">Dashboard</button>
-  <button mat-button routerLink="/heroes">Heroes</button>
-  <button mat-button [matMenuTriggerFor]="admin">Admin</button>
+        <button mat-button routerLink="/">
+          <mat-icon>notifications</mat-icon>
+          Dashboard
+        </button>
 
-  <mat-menu #admin="matMenu">
-    <button mat-menu-item [matMenuTriggerFor]="adminUsers">Users</button>
-  </mat-menu>
+        <!-- Messages for professionals communicating with clients -->
+        <button mat-button routerLink="/heroes">
+          <mat-icon>message</mat-icon>
+          Heroes
+        </button>
 
-  <mat-menu #adminUsers="matMenu">
-    <button mat-menu-item routerLink="/users/users-overview">Overview</button>
-    <button mat-menu-item routerLink="/users/create">Create</button>
-  </mat-menu>
+        <button mat-button routerLink="/account">
+          <mat-icon>account_box</mat-icon>
+          Account
+        </button>
 
-  <!-- Fills empty space -->
-  <span class="example-fill-remaining-space"></span>
+        <button mat-button routerLink="/auth/register">
+          <mat-icon>account_box</mat-icon>
+          Register
+        </button>
 
-  <!-- Constructs the toggle menu -->
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-      <mat-icon>dialpad</mat-icon>
-      <span>Redial</span>
-    </button>
-    <button mat-menu-item disabled>
-      <mat-icon>voicemail</mat-icon>
-      <span>Check voice mail</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Disable alerts</span>
-    </button>
-  </mat-menu>
-</mat-toolbar>
+        <button mat-button routerLink="/auth/login">
+          <mat-icon>account_box</mat-icon>
+          Login
+        </button>
 
-<router-outlet></router-outlet>
-<app-messages></app-messages>
+        <!-- Constructs the admin menu-->
+        <button mat-button [matMenuTriggerFor]="admin">
+          <mat-icon>lock</mat-icon>
+          Admin
+        </button>
+        <mat-menu #admin="matMenu">
+          <button mat-menu-item [matMenuTriggerFor]="adminUsers">Users</button>
+        </mat-menu>
+        <mat-menu #adminUsers="matMenu">
+        <button mat-menu-item routerLink="/users/users-overview">Overview</button>
+        <button mat-menu-item routerLink="/users/create">Create</button>
+
+      </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <!-- Constructs the side navigation -->
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <!-- Constructs the portrait screen navigation menu -->
+        <mat-list-item routerLink="/">
+          <mat-icon>notifications</mat-icon>
+          Home
+        </mat-list-item>
+
+        <!-- Messages for professionals communicating with clients -->
+        <mat-list-item mat-list-item routerLink="/heroes">
+          <mat-icon>message</mat-icon>
+          Heroes
+        </mat-list-item>
+
+        <mat-list-item mat-list-item routerLink="/account">
+          <mat-icon>account_box</mat-icon>
+          Account
+        </mat-list-item>
+
+        <mat-list-item mat-list-item routerLink="/auth/register">
+          <mat-icon>account_box</mat-icon>
+          Register
+        </mat-list-item>
+
+        <mat-list-item mat-list-item routerLink="/auth/login">
+          <mat-icon>account_box</mat-icon>
+          Login
+        </mat-list-item>
+
+        <!-- Constructs the admin menu -->
+        <mat-list-item mat-list-item [matMenuTriggerFor]="admin">
+          <mat-icon>lock</mat-icon>
+          Admin
+        </mat-list-item>
+
+        <!-- Constructs the side menu close button -->
+        <mat-list-item (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>close</mat-icon> Close
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+      <!-- Construct the page body content -->
+      <router-outlet></router-outlet>
+      <app-messages></app-messages>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

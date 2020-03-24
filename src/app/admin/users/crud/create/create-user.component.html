@@ -47,12 +47,15 @@
                 <mat-error *ngIf="createForm.controls['confirmPasswordControl'].hasError('required')">
                     Please confirm your password
                 </mat-error>
+                <mat-error *ngIf="createForm.controls['confirmPasswordControl'].hasError('matchingFieldsValidation')">
+                    ALO
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>Sex</mat-label>
                 <mat-select formControlName="sexControl" [errorStateMatcher]="fieldValidator" required>
-                    <mat-option *ngFor="let sex of sexes" [value]="sex">
-                    {{sex}}
+                    <mat-option *ngFor="let sexname of sexNames" [value]="sexname.sex">
+                    {{sexname.name}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="createForm.controls['sexControl'].hasError('required')">
@@ -64,10 +67,10 @@
             <mat-slide-toggle class="example-full-width" color="primary">Lactating</mat-slide-toggle>
             <mat-form-field class="example-full-width">
                 <mat-label>Date of birth</mat-label>
-                <input matInput [matDatepicker]="picker1" formControlName="dob" [errorStateMatcher]="fieldValidator" required>
+                <input matInput [matDatepicker]="picker1" formControlName="dobControl" [errorStateMatcher]="fieldValidator" required>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
-                <mat-error *ngIf="createForm.controls['dob'].hasError('required')">
+                <mat-error *ngIf="createForm.controls['dobControl'].hasError('required')">
                     Please select your date of birth so we can make the right nutrition calculations
                 </mat-error>
             </mat-form-field>

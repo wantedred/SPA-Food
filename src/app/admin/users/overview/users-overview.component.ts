@@ -26,17 +26,6 @@ import { Location } from '@angular/common';
 })
 export class UsersOverviewComponent implements OnInit, AfterViewInit {
 
-  user:User = new User("myemail@example.com", "mypassword", "mydisplayname",
-    1, 1, 2000, Sex.Female, false, false, false, 55, 168, ActivityLevel.Active);
-  user2:User = new User("msecond@example.com", "mypassword", "secondguy",
-    1, 1, 2000, Sex.Female, false, false, false, 55, 168, ActivityLevel.Active);
-
-  FAKE_USERS_DATA: User[] = [
-    this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,
-    this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,
-    this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2,this.user,this.user2
-  ];
-
   users: User[] = [];
 
   columnNames: string[] = ['id', 'dob', 'email', 'displayName'];
@@ -58,10 +47,6 @@ export class UsersOverviewComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.usersService.fetchUsers().subscribe(users => this.users = users);
-    this.users = this.FAKE_USERS_DATA; //TODO
-
-    this.user.id = 1;
-    this.user2.id = 2;
 
     this.isLoadingResults = false;
     this.isHasNoResults = this.users.length == 0;

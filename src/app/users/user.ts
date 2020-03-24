@@ -9,34 +9,18 @@ export class User {
     public emailAddress: string;
     public password: string;
     public displayName: string;
-    public dob: Date;
-    public joinedAt: Date;
-    public lastActiveAt: Date;
-    public sex: Sex;
-    public pregnant: boolean;
-    public lactating: boolean;
-    public smoker: boolean;
-    public weight: number;
-    public height: number;
-    public activity: ActivityLevel;
-    public accountState: AccountState;
+    public dob: Date = new Date();
+    public joinedAt: Date = new Date();
+    public lastActiveAt: Date = new Date();
+    public sex: Sex = Sex.Female;
+    public pregnant: boolean = false;
+    public lactating: boolean = false;
+    public smoker: boolean = false;
+    public weight: number = 50;
+    public height: number = 165;
+    public activity: ActivityLevel = ActivityLevel.Active;
+    public accountState: AccountState = AccountState.Member;
 
-
-    public constructor(emailAddress: string, password: string, displayName: string, dobDay: number, dobMonth: number, dobYear: number
-        , sex: Sex, pregnant: boolean, lactating: boolean, smoker: boolean, weight: number, height: number, activity: ActivityLevel) {
-        this.emailAddress = emailAddress;
-        this.password = password;
-        this.displayName = displayName;
-        this.dob = new Date(dobYear, dobMonth, dobDay);
-        this.sex = sex;
-        this.pregnant = pregnant;
-        this.lactating = lactating;
-        this.smoker = smoker;
-        this.weight = weight;
-        this.height = height;
-        this.activity = activity;
-        this.accountState = AccountState.Member;
-    }
 
     public getBmiLevel() : BmiLevel {
         let bmi: number = this.getBmi();
