@@ -14,28 +14,39 @@ export class FormValidatorService {
 
   fieldsMatch(passwordKey: string, confirmPasswordKey: string): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
-      console.log("fieldsMatch => checking");
-
       if (!control) { 
-        console.log("fieldsMatch => no contorl");
         return null; 
       }
       const password = control.get(passwordKey);
       const confirmPassword = control.get(confirmPasswordKey);
 
       if (!password.value || !confirmPassword.value) {
-        console.log("fieldsMatch => not values");
         return null;
       }
       if (password.value !== confirmPassword.value) {
-        console.log("fieldsMatch => not same");
-        console.log("fieldsMatch => " + password.value);
-        console.log("fieldsMatch => " + confirmPassword.value);
         confirmPassword.setErrors({ fieldsMismatch: true });
         return { fieldsMismatch: true };
       }
-      console.log("fieldsMatch => good");
       confirmPassword.setErrors(null);
+      return null;
+    };
+  }
+
+  isValidDate(controlName: string, minDate: Date, maxDate: Date) {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      if (!control) { 
+        return null; 
+      }
+      const dateControl = control.get(controlName);
+
+      if (!dateControl.value) {
+        return null;
+      }
+      if (dateControl.value < minDate || dateControl.value > maxDate) {
+        dateControl.setErrors({ invalidDate: true });
+        return { invalidDate: true };
+      }
+      dateControl.setErrors(null);
       return null;
     };
   }
@@ -45,8 +56,6 @@ export class FormValidatorService {
         if (!control) { 
             return null; 
         }
-        console.log("emailAddressExists => checking");
-  
         return usersService.getUserByEmailAddress(control.value)
             .pipe(map(user => (user ? { emailAddressTaken: true } : null)), catchError(() => of(null)));
     };

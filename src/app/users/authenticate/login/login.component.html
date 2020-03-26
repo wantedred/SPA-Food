@@ -1,1 +1,48 @@
-<p>login works!</p>
+<!-- Constructs the login card -->
+<mat-card class="login-card">
+    <!-- Constructs the card header -->
+    <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+        <!--<mat-card-subtitle>Create an account</mat-card-subtitle>-->
+    </mat-card-header>
+    <!-- Constructs the card content -->
+    <mat-card-content>
+        <!-- Constructs the login form -->
+        <form class="create-user-form" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+              <!-- Constructs the email address input -->
+              <mat-form-field class="form-input-field">
+                <mat-label>Email address</mat-label>
+                <input type="email" matInput [errorStateMatcher]="onChangeValidator" placeholder="example@email.com" formControlName="emailAddressControl" 
+                    minlength="5" maxLength="30" required>
+                <!--<mat-spinner *ngIf="email.pending"></mat-spinner>-->
+                <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('required')">
+                    Please enter your email address
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('minlength') || createForm.controls['emailAddressControl'].hasError('email')">
+                    Enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="isEmailAddressTaken()">
+                    Email address already in use
+                </mat-error>
+            </mat-form-field>
+             <!-- Constructs the password input -->
+             <mat-form-field class="form-input-field">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput [errorStateMatcher]="onChangeValidator" placeholder="" formControlName="passwordControl" minlength="6" maxLength="30" required>
+                <mat-error *ngIf="createForm.controls['passwordControl'].hasError('required')">
+                    Please enter a password
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['passwordControl'].hasError('minlength')">
+                    Your password should be at least 6 characters
+                </mat-error>
+            </mat-form-field>
+            <!-- Constructs the submit button -->
+            <button mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="!isFormValid()">Login</button>
+            <div class="form-input-field" style="text-align: center; padding-top: 8px;">
+                <a href="/auth/register">Recover password</a>
+                <br>
+                <a href="/auth/register">Register a new account</a>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

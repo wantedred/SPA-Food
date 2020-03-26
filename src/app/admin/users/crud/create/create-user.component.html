@@ -64,9 +64,9 @@
             <mat-slide-toggle class="example-full-width" color="primary">Lactating</mat-slide-toggle>
             <mat-form-field class="example-full-width">
                 <mat-label>Date of birth</mat-label>
-                <input matInput [matDatepicker]="picker1" formControlName="dobControl" required>
+                <input matInput [matDatepicker]="picker1" [min]="minDate" [max]="maxDate" formControlName="dobControl" required>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
+                <mat-datepicker #picker1 [startAt]="startDate"></mat-datepicker>
                 <mat-error *ngIf="createForm.controls['dobControl'].hasError('required')">
                     Please select your date of birth so we can make the right nutrition calculations
                 </mat-error>

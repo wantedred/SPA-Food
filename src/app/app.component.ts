@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { User } from './users/user';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +8,27 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  title = 'Nutri Home Manager';
+  title: string = 'Nutri Home Manager';
+  user: User = null;
 
   @Output() public sidenavToggle = new EventEmitter();
-  @Output() sidenavClose = new EventEmitter();
+  @Output() public sidenavClose = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public isLoggedIn() : boolean {
+    return this.user != null;
+  }
+
+  public hasInbox() : boolean {
+    return this.isLoggedIn() && (this.user.isProfessional || this.user.hasProfessional);
+  }
+
+  public isAdmin() : boolean {
+    return false;
   }
 
   public onToggleSidenav = () => {

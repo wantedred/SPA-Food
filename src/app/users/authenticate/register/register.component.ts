@@ -20,6 +20,9 @@ export class RegisterComponent implements OnInit {
   
   step:string = "1";
   user:User;
+  startDate:Date = new Date();
+  minDate: Date = new Date();
+  maxDate: Date = new Date();
 
   onChangeValidator: FormOnChangeValidator = new FormOnChangeValidator();
   createForm:FormGroup;
@@ -29,7 +32,11 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private usersService: UsersService,
     private location: Location,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder) { 
+      this.startDate.setFullYear(this.startDate.getFullYear() - 18);
+      this.minDate.setFullYear(this.startDate.getFullYear() - 120);
+      this.maxDate.setFullYear(this.startDate.getFullYear() - 12);
+    }
 
     ngOnInit(): void {
       this.createForm = this.formBuilder.group(
@@ -43,9 +50,12 @@ export class RegisterComponent implements OnInit {
             , [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
           confirmPasswordControl: new FormControl('', [Validators.required]),
           sexControl: new FormControl('', Validators.required),
-          dobControl: new FormControl(new Date(), Validators.required),
+          dobControl: new FormControl('', Validators.required),
         }, {
-          validators: [this.formValidatorService.fieldsMatch("passwordControl", "confirmPasswordControl")]
+          validators: [
+            this.formValidatorService.fieldsMatch("passwordControl", "confirmPasswordControl"),
+            this.formValidatorService.isValidDate("dobControl", this.minDate, this.maxDate)
+          ]
         }
       );
     }

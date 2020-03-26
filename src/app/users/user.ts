@@ -20,6 +20,8 @@ export class User {
     public height: number = 165;
     public activity: ActivityLevel = ActivityLevel.Active;
     public accountState: AccountState = AccountState.Member;
+    public hasProfessional: boolean = false;
+    public isProfessional: boolean = false;
 
 
     public getBmiLevel() : BmiLevel {

@@ -20,13 +20,21 @@ export class CreateUserComponent implements OnInit {
 
   createForm:FormGroup;
 
+  startDate:Date = new Date();
+  minDate: Date = new Date();
+  maxDate: Date = new Date();
+
   constructor(
     private formValidatorService: FormValidatorService,
     private route: ActivatedRoute,
     private router: Router,
     private usersService: UsersService,
     private location: Location,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder) { 
+      this.startDate.setFullYear(this.startDate.getFullYear() - 18);
+      this.minDate.setFullYear(this.startDate.getFullYear() - 120);
+      this.maxDate.setFullYear(this.startDate.getFullYear() - 12);
+    }
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(
@@ -36,7 +44,7 @@ export class CreateUserComponent implements OnInit {
         passwordControl: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
         confirmPasswordControl: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
         sexControl: new FormControl('', Validators.required),
-        dobControl: new FormControl(new Date(), Validators.required),
+        dobControl: new FormControl(this.startDate, Validators.required),
       },
       {
         validators: [this.formValidatorService.fieldsMatch("passwordControl", "confirmPasswordControl")]
