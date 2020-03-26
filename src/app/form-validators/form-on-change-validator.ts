@@ -1,7 +1,7 @@
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroupDirective, FormControl, NgForm } from '@angular/forms';
 
-export class FormFieldBaseValidator implements ErrorStateMatcher {
+export class FormOnChangeValidator implements ErrorStateMatcher {
     
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         const isSubmitted = form && form.submitted;

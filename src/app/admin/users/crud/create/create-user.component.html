@@ -8,8 +8,7 @@
         <form class="create-user-form" [formGroup]="createForm" (ngSubmit)="onSubmit()">
             <mat-form-field class="example-full-width">
                 <mat-label>Display name</mat-label>
-                <input matInput placeholder="" formControlName="displayNameControl" minlength="3" maxLength="16" 
-                    [errorStateMatcher]="fieldValidator" required>
+                <input matInput placeholder="" formControlName="displayNameControl" minlength="3" maxLength="16" required>
                 <mat-error *ngIf="createForm.controls['displayNameControl'].hasError('required')">
                      Please enter a display name
                 </mat-error>
@@ -20,7 +19,7 @@
             <mat-form-field class="example-full-width">
                 <mat-label>Email address</mat-label>
                 <input type="email" matInput placeholder="example@email.com" formControlName="emailAddressControl" 
-                    minlength="5" maxLength="30" EmailTakenValidator [errorStateMatcher]="fieldValidator" required>
+                    minlength="5" maxLength="30" required>
                 <!--<mat-spinner *ngIf="email.pending"></mat-spinner>-->
                 <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('required')">
                     Please enter your email address
@@ -31,8 +30,7 @@
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>Password</mat-label>
-                <input type="password" matInput placeholder="" formControlName="passwordControl" minlength="6" maxLength="30" 
-                    [errorStateMatcher]="fieldValidator" required>
+                <input type="password" matInput placeholder="" formControlName="passwordControl" minlength="6" maxLength="30" required>
                 <mat-error *ngIf="createForm.controls['passwordControl'].hasError('required')">
                     Please enter a password
                 </mat-error>
@@ -42,18 +40,17 @@
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>Confirm password</mat-label>
-                <input type="password" matInput placeholder="" formControlName="confirmPasswordControl" minlength="6" maxLength="30" 
-                    [errorStateMatcher]="fieldValidator" required>
+                <input type="password" matInput placeholder="" formControlName="confirmPasswordControl" minlength="6" maxLength="30" required>
                 <mat-error *ngIf="createForm.controls['confirmPasswordControl'].hasError('required')">
                     Please confirm your password
                 </mat-error>
-                <mat-error *ngIf="createForm.controls['confirmPasswordControl'].hasError('matchingFieldsValidation')">
+                <mat-error *ngIf="createForm.controls['confirmPasswordControl'].hasError('fieldsMismatch')">
                     ALO
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>Sex</mat-label>
-                <mat-select formControlName="sexControl" [errorStateMatcher]="fieldValidator" required>
+                <mat-select formControlName="sexControl" required>
                     <mat-option *ngFor="let sexname of sexNames" [value]="sexname.sex">
                     {{sexname.name}}
                     </mat-option>
@@ -67,7 +64,7 @@
             <mat-slide-toggle class="example-full-width" color="primary">Lactating</mat-slide-toggle>
             <mat-form-field class="example-full-width">
                 <mat-label>Date of birth</mat-label>
-                <input matInput [matDatepicker]="picker1" formControlName="dobControl" [errorStateMatcher]="fieldValidator" required>
+                <input matInput [matDatepicker]="picker1" formControlName="dobControl" required>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
                 <mat-error *ngIf="createForm.controls['dobControl'].hasError('required')">

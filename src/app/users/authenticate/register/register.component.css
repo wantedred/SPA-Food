@@ -1,4 +1,4 @@
-.example-card {
+.registration-card {
     width: auto;
     margin: 1%;
     display: flex;
@@ -9,7 +9,7 @@
     width: 96%;
     margin: 2%;
 }
-.example-full-width {
+.form-input-field {
     width: 100%;
     /*white-space: pre;*/
     margin-bottom: 8px;

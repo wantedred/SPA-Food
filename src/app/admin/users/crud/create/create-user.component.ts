@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Sex } from 'src/app/users/sex';
+import { Sex, SexName, sexNames } from 'src/app/users/sex';
 
 import { UsersService } from 'src/app/users/service/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators, AsyncValidator, AbstractControl, ValidationErrors, FormBuilder, ValidatorFn } from '@angular/forms';
 import { ActivityLevel } from 'src/app/nutrition/activity-level';
 import { User } from 'src/app/users/user';
-import { FormFieldBaseValidator } from 'src/app/form-validators/form-field-base-validator';
+import { FormValidatorService } from 'src/app/form-validators/form-validator.service';
 
 @Component({
   selector: 'app-create-user',
@@ -16,15 +16,12 @@ import { FormFieldBaseValidator } from 'src/app/form-validators/form-field-base-
 })
 export class CreateUserComponent implements OnInit {
 
-  sexNames: SexName[] = [
-    {sex: Sex.Male, name: 'Male'},
-    {sex: Sex.Female, name: 'Female'},
-  ];
+  sexNames: SexName[] = sexNames;
 
-  fieldValidator: FormFieldBaseValidator = new FormFieldBaseValidator();
   createForm:FormGroup;
 
   constructor(
+    private formValidatorService: FormValidatorService,
     private route: ActivatedRoute,
     private router: Router,
     private usersService: UsersService,
@@ -32,30 +29,28 @@ export class CreateUserComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.createForm = this.formBuilder.group({
-      displayNameControl: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-      emailAddressControl: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email]),
-      passwordControl: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
-      confirmPasswordControl: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)
-        , this.matchingFieldsValidation("passwordControl", "confirmPasswordControl")]),
-      sexControl: new FormControl('', Validators.required),
-      dobControl: new FormControl(new Date(), Validators.required),
-    });
-  }
-
-  matchingFieldsValidation(firstControlName: string, secondControlName: string): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} => {
-        const firstControl= control.get(firstControlName);
-        const secondControl= control.get(secondControlName);
-        if (!firstControl || !secondControl) return null;
-        return JSON.stringify(firstControl.value) === JSON.stringify(secondControl.value) ? null : {matchingFields: true};
-        //return firstControl.value == secondControl.value ? null : {matchingFields: true}
-    }
+    this.createForm = this.formBuilder.group(
+      {
+        displayNameControl: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
+        emailAddressControl: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email]),
+        passwordControl: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
+        confirmPasswordControl: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
+        sexControl: new FormControl('', Validators.required),
+        dobControl: new FormControl(new Date(), Validators.required),
+      },
+      {
+        validators: [this.formValidatorService.fieldsMatch("passwordControl", "confirmPasswordControl")]
+      }
+    );
   }
 
   onSubmit(): void {
     console.log("Posting user");
 
+    if (this.createForm.invalid) {
+      console.log("Invalid form");
+      return;
+    }
     let displayName:string = this.createForm.controls['displayNameControl'].value;
     let emailAddress:string = this.createForm.controls['emailAddressControl'].value;
     let password:string = this.createForm.controls['passwordControl'].value;
@@ -89,8 +84,4 @@ export class CreateUserComponent implements OnInit {
     this.location.back();
   }
 
-}
-export interface SexName {
-  sex: Sex;
-  name: string;
 }
