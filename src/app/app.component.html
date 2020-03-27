@@ -15,7 +15,7 @@
       <div fxShow="true" fxHide.lt-md="true">
 
         <!-- Messages for professionals communicating with clients -->
-        <button *ngIf="hasInbox()" mat-button routerLink="/heroes">
+        <button *ngIf="hasInbox()" mat-button routerLink="/inbox">
           <mat-icon>message</mat-icon>
           Inbox
         </button>
@@ -25,9 +25,9 @@
           Notifications
         </button>
 
-        <button *ngIf="isLoggedIn()" mat-button routerLink="/account">
+        <button *ngIf="isLoggedIn()" mat-button routerLink="/account/details">
           <mat-icon>account_box</mat-icon>
-          Account
+          Account Details
         </button>
 
         <button *ngIf="!isLoggedIn()" mat-button routerLink="/auth/register">
@@ -77,9 +77,9 @@
           Notifications
         </mat-list-item>
 
-        <mat-list-item *ngIf="isLoggedIn()" mat-list-item (click)="sidenav.toggle()" routerLink="/account">
+        <mat-list-item *ngIf="isLoggedIn()" mat-list-item (click)="sidenav.toggle()" routerLink="/account/details">
           <mat-icon>account_box</mat-icon>
-          Account
+          Account Details
         </mat-list-item>
 
         <mat-list-item *ngIf="!isLoggedIn()" mat-list-item (click)="sidenav.toggle()" routerLink="/auth/register">
@@ -107,7 +107,6 @@
     <mat-sidenav-content fxFlexFill>
       <!-- Construct the page body content -->
       <router-outlet></router-outlet>
-      <app-messages></app-messages>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

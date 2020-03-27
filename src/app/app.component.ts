@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { User } from './users/user';
+import { AccountState } from './users/account-state';
+import { ActivityLevel } from './nutrition/activity-level';
+import { Sex } from './users/sex';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +17,22 @@ export class AppComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
   @Output() public sidenavClose = new EventEmitter();
 
-  constructor() { }
+  constructor() {
+    /*this.user = new User();
+    this.user.displayName = "MyDisplayName";
+    this.user.dob = new Date();
+    this.user.emailAddress = "email@email.com";
+    this.user.accountState = AccountState.Administrator;
+    this.user.activity = ActivityLevel.Active;
+    this.user.hasProfessional = true;
+    this.user.isProfessional = true;
+    this.user.height = 185;
+    this.user.weight = 60;
+    this.user.joinedAt = new Date();
+    this.user.lastActiveAt = new Date();
+    this.user.sex = Sex.Female;
+    this.user.password = "password";*/
+  }
 
   ngOnInit() {
   }
@@ -28,7 +46,7 @@ export class AppComponent implements OnInit {
   }
 
   public isAdmin() : boolean {
-    return false;
+    return true;
   }
 
   public onToggleSidenav = () => {

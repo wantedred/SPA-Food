@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { MessageService } from 'src/app/message.service';
 import { Observable, of } from 'rxjs';
 import { User } from '../user';
 import { tap, catchError } from 'rxjs/operators';
@@ -16,8 +15,7 @@ export class UsersService {
   };
 
   private constructor(
-    private http: HttpClient,
-    private messageService: MessageService) { }
+    private http: HttpClient) { }
 
   public fetchUsers() : Observable<User[]> {
     return this.http.get<User[]>(Constants.usersUrl, this.jsonHeaders)
@@ -74,7 +72,7 @@ export class UsersService {
   }
 
   private log(message: string) {
-    this.messageService.add(`UsersService: ${message}`);
+    console.log(`UsersService: ${message}`);
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

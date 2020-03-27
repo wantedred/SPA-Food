@@ -32,40 +32,48 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 //Project
 import { NutrientsComponent } from './nutrition/nutrients/nutrients.component';
-import { MessagesComponent } from './messages/messages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { NourishmentComponent } from './nutrition/nourishment/nourishment.component';
 import { UserComponent } from './users/user/user.component';
 import { LoginComponent } from './users/authenticate/login/login.component';
 import { RegisterComponent } from './users/authenticate/register/register.component';
-import { DetailsComponent } from './users/account/details/details.component';
-import { SettingsComponent } from './users/account/settings/settings.component';
-import { UpgradeComponent } from './users/account/upgrade/upgrade.component';
 import { UsersOverviewComponent } from './admin/users/overview/users-overview.component';
 import { SearchComponent } from './admin/users/search/search.component';
 import { CreateUserComponent } from './admin/users/crud/create/create-user.component';
 import { SubmitComponent } from './nutrition/nourishments/submit/submit.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
+import { InboxComponent } from './professional/inbox/inbox.component';
+import { ClientDetailComponent } from './professional/clients/client-detail/client-detail.component';
+import { ClientsOverviewComponent } from './professional/clients/clients-overview/clients-overview.component';
+import { NewMessageComponent } from './professional/inbox/crud/new-message/new-message.component';
+import { AccountDetailsComponent } from './users/account/account-details/account-details.component';
+import { AccountSettingsComponent } from './users/account/account-settings/account-settings.component';
+import { AccountPreferencesComponent } from './users/account/account-preferences/account-preferences.component';
+import { AccountUpgradeComponent } from './users/account/account-upgrade/account-upgrade.component';
+import { HomePageComponent } from './home/home-page/home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     //Project
     NutrientsComponent,
-    MessagesComponent,
-    DashboardComponent,
     NourishmentComponent,
     UserComponent,
     LoginComponent,
-    DetailsComponent,
-    SettingsComponent,
-    UpgradeComponent,
     UsersOverviewComponent,
     SearchComponent,
     CreateUserComponent,
     SubmitComponent,
     UserDetailsComponent,
-    RegisterComponent
+    RegisterComponent,
+    InboxComponent,
+    ClientDetailComponent,
+    ClientsOverviewComponent,
+    NewMessageComponent,
+    AccountDetailsComponent,
+    AccountSettingsComponent,
+    AccountPreferencesComponent,
+    AccountUpgradeComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,7 +103,11 @@ import { UserDetailsComponent } from './users/user-details/user-details.componen
     MatSidenavModule,
     MatListModule,
     MatTabsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+  ],
+  exports: [
+  ],
+  entryComponents: [
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill', floatLabel: 'always' } },
