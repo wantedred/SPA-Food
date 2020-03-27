@@ -12,9 +12,9 @@
             <!-- Constructs the display name input -->
             <mat-form-field class="form-input-field">
                 <mat-label>Display name</mat-label>
-                <input type="text" #displayNameControl matInput [errorStateMatcher]="onChangeValidator" 
-                    formControlName="displayNameControl" minlength="3" maxLength="16" required disabled>
-                <button mat-icon-button matSuffix (click)="displayNameControl.disabled = false" [attr.aria-label]="'Edit display name'">
+                <input type="text" matInput [errorStateMatcher]="onChangeValidator" formControlName="displayNameControl" 
+                    minlength="3" maxLength="16" [disabled]="isControlDisabled('displayNameControl')" required>
+                <button mat-icon-button matSuffix (click)="toggleControlState('displayNameControl')">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <mat-error *ngIf="createForm.controls['displayNameControl'].hasError('required')">
@@ -28,72 +28,109 @@
             <mat-form-field class="form-input-field">
                 <mat-label>Email address</mat-label>
                 <input type="email" matInput [errorStateMatcher]="onChangeValidator" placeholder="example@email.com" formControlName="emailAddressControl" 
-                        minlength="5" maxLength="30" required>
-                    <!--<mat-spinner *ngIf="email.pending"></mat-spinner>-->
-                    <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('required')">
-                        Please enter your email address
-                    </mat-error>
-                    <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('minlength') || createForm.controls['emailAddressControl'].hasError('email')">
-                        Enter a valid email address
-                    </mat-error>
-                    <mat-error *ngIf="isEmailAddressTaken()">
-                        Email address already in use
-                    </mat-error>
-                </mat-form-field>
-                <!-- Constructs the password input -->
-                <mat-form-field class="form-input-field">
-                    <mat-label>Password</mat-label>
-                    <input type="password" matInput [errorStateMatcher]="onChangeValidator" placeholder="" formControlName="passwordControl" minlength="6" maxLength="30" required>
-                    <mat-error *ngIf="createForm.controls['passwordControl'].hasError('required')">
-                        Please enter a password
-                    </mat-error>
-                    <mat-error *ngIf="createForm.controls['passwordControl'].hasError('minlength')">
-                        Your password should be at least 6 characters
-                    </mat-error>
-                </mat-form-field>
-                <!-- Constructs the confirm password input -->
-                <mat-form-field class="form-input-field">
-                    <mat-label>Confirm password</mat-label>
-                    <input type="password" matInput [errorStateMatcher]="onChangeValidator" placeholder="" formControlName="confirmPasswordControl" minlength="6" maxLength="30" required>
-                    <mat-error *ngIf="createForm.controls['confirmPasswordControl'].hasError('required')">
-                        Please confirm your password
-                    </mat-error>
-                    <mat-error *ngIf="createForm.controls['confirmPasswordControl'].hasError('fieldsMismatch')">
-                        Passwords do not match
-                    </mat-error>
-                </mat-form-field>
+                        minlength="5" maxLength="30" [disabled]="isControlDisabled('emailAddressControl')" required>
+                <button mat-icon-button matSuffix (click)="toggleControlState('emailAddressControl')">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <!--<mat-spinner *ngIf="email.pending"></mat-spinner>-->
+                <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('required')">
+                    Please enter your email address
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('minlength') || createForm.controls['emailAddressControl'].hasError('email')">
+                    Enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="isEmailAddressTaken()">
+                    Email address already in use
+                </mat-error>
+            </mat-form-field>
+            <!-- Constructs the password input -->
+            <mat-form-field class="form-input-field">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput [errorStateMatcher]="onChangeValidator" placeholder="" formControlName="passwordControl" 
+                    minlength="6" maxLength="30" [disabled]="isControlDisabled('passwordControl')" required>
+                <button mat-icon-button matSuffix (click)="toggleControlState('passwordControl')">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <mat-error *ngIf="createForm.controls['passwordControl'].hasError('required')">
+                    Please enter a password
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['passwordControl'].hasError('minlength')">
+                    Your password should be at least 6 characters
+                </mat-error>
+            </mat-form-field>
             <!-- Constructs the sex input -->
-                <mat-form-field class="form-input-field">
-                    <mat-label>Sex</mat-label>
-                    <mat-select [errorStateMatcher]="onChangeValidator" formControlName="sexControl" required>
-                        <mat-option *ngFor="let sexname of sexNames" [value]="sexname.sex">
-                        {{sexname.name}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="createForm.controls['sexControl'].hasError('required')">
-                        Please select your sex so we can make the right nutrition calculations
-                    </mat-error>
-                </mat-form-field>
-                <!-- Constructs the extra sliders -->
-                <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Pregnant</mat-slide-toggle>
-                <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Lactating</mat-slide-toggle>
-                <mat-slide-toggle class="form-input-field" color="primary">Smoker</mat-slide-toggle>
-                 <!-- Constructs the dob input -->
-                <mat-form-field class="form-input-field">
-                    <mat-label>Date of birth</mat-label>
-                    <input matInput [errorStateMatcher]="onChangeValidator" [matDatepicker]="picker1" 
-                        [min]="minDate" [max]="maxDate" formControlName="dobControl" placeholder="Select your date of birth" required readonly>
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1 [startAt]="startDate"></mat-datepicker>
-                    <mat-error *ngIf="createForm.controls['dobControl'].hasError('required')">
-                        Please select your date of birth so we can make the right nutrition calculations
-                    </mat-error>
-                    <mat-error *ngIf="createForm.controls['dobControl'].hasError('invalidDate')">
-                        Please enter a valid date of birth
-                    </mat-error>
-                </mat-form-field>
+            <mat-form-field class="form-input-field">
+                <mat-label>Sex</mat-label>
+                <mat-select [errorStateMatcher]="onChangeValidator" formControlName="sexControl" [disabled]="isControlDisabled('sexControl')" required>
+                    <mat-option *ngFor="let sexname of sexNames" [value]="sexname.sex">
+                    {{sexname.name}}
+                    </mat-option>
+                </mat-select>
+                <button mat-icon-button matSuffix (click)="toggleControlState('sexControl')">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <mat-error *ngIf="createForm.controls['sexControl'].hasError('required')">
+                    Please select your sex so we can make the right nutrition calculations
+                </mat-error>
+            </mat-form-field>
+            <!-- Constructs the extra sliders -->
+            <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Pregnant</mat-slide-toggle>
+            <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Lactating</mat-slide-toggle>
+            <mat-slide-toggle class="form-input-field" color="primary">Smoker</mat-slide-toggle>
+            <!-- Constructs the dob input -->
+            <mat-form-field class="form-input-field">
+                <mat-label>Date of birth</mat-label>
+                <input matInput [errorStateMatcher]="onChangeValidator" [matDatepicker]="picker1" 
+                    [min]="minDate" [max]="maxDate" formControlName="dobControl" placeholder="Select your date of birth" 
+                    [disabled]="isControlDisabled('dobControl')" required readonly>
+                <button mat-icon-button matSuffix (click)="toggleControlState('dobControl')">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1 [startAt]="startDate"></mat-datepicker>
+                <mat-error *ngIf="createForm.controls['dobControl'].hasError('required')">
+                    Please select your date of birth so we can make the right nutrition calculations
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['dobControl'].hasError('invalidDate')">
+                    Please enter a valid date of birth
+                </mat-error>
+            </mat-form-field>
             <!-- Constructs the submit button -->
             <button mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="!isFormValid()">Save Changes</button>
         </form>
     </mat-card-content>
 </mat-card>
+<div style="height: 100vh;">
+<mat-sidenav-container fxFlexFill>
+    <mat-sidenav mode="side" opened>
+      <mat-nav-list>
+        <!-- Constructs the portrait screen navigation menu -->
+        <mat-list-item routerLink="/">
+          <mat-icon>notifications</mat-icon>
+          Account Details
+        </mat-list-item>
+
+        <mat-list-item routerLink="/">
+          <mat-icon>notifications</mat-icon>
+          Account Preferences
+        </mat-list-item>
+
+        <mat-list-item routerLink="/">
+          <mat-icon>notifications</mat-icon>
+          Account Settings
+        </mat-list-item>
+
+        <mat-list-item routerLink="/">
+          <mat-icon>notifications</mat-icon>
+          Account Upgrade
+        </mat-list-item>
+
+        <!-- Constructs the side menu close button -->
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+      <!-- Construct the page body content -->
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -4,10 +4,10 @@ import { Sex, sexNames, SexName } from 'src/app/users/sex';
 import { UsersService } from 'src/app/users/service/users.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { User } from 'src/app/users/user';
 import { FormValidatorService } from 'src/app/form-validators/form-validator.service';
-import { FormOnChangeValidator } from 'src/app/form-validators/form-on-change-validator';
+import { FormControlOnChangeValidator } from 'src/app/form-validators/form-on-change-validator';
 
 @Component({
   selector: 'app-account-details',
@@ -24,7 +24,7 @@ export class AccountDetailsComponent implements OnInit {
   minDate: Date = new Date();
   maxDate: Date = new Date();
 
-  onChangeValidator: FormOnChangeValidator = new FormOnChangeValidator();
+  onChangeValidator: FormControlOnChangeValidator = new FormControlOnChangeValidator();
   createForm:FormGroup;
 
    constructor(
@@ -38,23 +38,31 @@ export class AccountDetailsComponent implements OnInit {
       this.maxDate.setFullYear(this.startDate.getFullYear() - 12);
   }
 
-  toggle() {
-    console.log('clicked');
+  toggleControlState(controlName: string): void {
+    if (this.isControlDisabled(controlName)) {
+      this.createForm.get(controlName).enable();
+      return;
+    }
+    this.createForm.get(controlName).disable();
+  }
+
+  isControlDisabled(controlName: string): boolean {
+    return this.createForm.get(controlName).disabled;
   }
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group(
       {
-        displayNameControl: new FormControl(''
+        displayNameControl: new FormControl({value: '', disabled: true}
           , [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-        emailAddressControl: new FormControl(''
+        emailAddressControl: new FormControl({value: '', disabled: true}
           , [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email],
           [this.formValidatorService.emailAddressExists('emailAddressControl', this.usersService)]),
-        passwordControl: new FormControl(''
+        passwordControl: new FormControl({value: '', disabled: true}
           , [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
-        confirmPasswordControl: new FormControl('', [Validators.required]),
-        sexControl: new FormControl('', Validators.required),
-        dobControl: new FormControl('', Validators.required),
+        confirmPasswordControl: new FormControl({value: '', disabled: true}, [Validators.required]),
+        sexControl: new FormControl({value: '', disabled: true}, Validators.required),
+        dobControl: new FormControl({value: '', disabled: true}, Validators.required),
       }, {
         validators: [
           this.formValidatorService.fieldsMatch("passwordControl", "confirmPasswordControl"),

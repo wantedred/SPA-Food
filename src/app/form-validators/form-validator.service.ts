@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import { UsersService } from '../users/service/users.service';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,6 @@ import { catchError, map } from 'rxjs/operators';
 export class FormValidatorService {
 
   constructor() { }
-
 
   fieldsMatch(passwordKey: string, confirmPasswordKey: string): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {

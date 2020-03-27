@@ -3,7 +3,7 @@
     <!-- Constructs the card header -->
     <mat-card-header>
         <mat-card-title>Registration</mat-card-title>
-        <!--<mat-card-subtitle>Create an account</mat-card-subtitle>-->
+        <mat-card-subtitle *ngIf="step != '3'">Create a new account</mat-card-subtitle>
     </mat-card-header>
     <!-- Constructs the card content -->
     <mat-card-content>
@@ -93,7 +93,12 @@
                 </mat-form-field>
             </ng-template>
             <!-- Constructs the submit button -->
-            <button mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="!isFormValid()">Register</button>
+            <button *ngIf="step != '3'" mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="isFormValid() != null">Register</button>
+            <!-- Constructs the general failed form submission error message -->
+            <mat-error style="text-align: center;" *ngIf="step != '3' && submitErrorMessage != null">
+                {{submitErrorMessage}}
+            </mat-error>
+            <p *ngIf="step == '3'">Your account has been created, check your email inbox for your verification link.</p>
         </form>
     </mat-card-content>
 </mat-card>

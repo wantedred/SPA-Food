@@ -12,13 +12,15 @@ import { Sex } from './users/sex';
 export class AppComponent implements OnInit {
 
   title: string = 'Nutri Home Manager';
+  selectedIndex:number = -1;
+
   user: User = null;
 
   @Output() public sidenavToggle = new EventEmitter();
   @Output() public sidenavClose = new EventEmitter();
 
   constructor() {
-    /*this.user = new User();
+    this.user = new User();
     this.user.displayName = "MyDisplayName";
     this.user.dob = new Date();
     this.user.emailAddress = "email@email.com";
@@ -31,7 +33,7 @@ export class AppComponent implements OnInit {
     this.user.joinedAt = new Date();
     this.user.lastActiveAt = new Date();
     this.user.sex = Sex.Female;
-    this.user.password = "password";*/
+    this.user.password = "password";
   }
 
   ngOnInit() {
@@ -55,6 +57,10 @@ export class AppComponent implements OnInit {
 
   public onSidenavClose = () => {
     this.sidenavClose.emit();
+  }
+
+  public setSelectedIndex(selectedIndex: number) {
+    this.selectedIndex = selectedIndex;
   }
   
 }

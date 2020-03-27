@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { User } from 'src/app/users/user';
 import { FormValidatorService } from 'src/app/form-validators/form-validator.service';
-import { FormOnChangeValidator } from 'src/app/form-validators/form-on-change-validator';
+import { FormControlOnChangeValidator } from 'src/app/form-validators/form-on-change-validator';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +24,9 @@ export class RegisterComponent implements OnInit {
   minDate: Date = new Date();
   maxDate: Date = new Date();
 
-  onChangeValidator: FormOnChangeValidator = new FormOnChangeValidator();
+  submitErrorMessage: string = null;
+
+  onChangeValidator: FormControlOnChangeValidator = new FormControlOnChangeValidator();
   createForm:FormGroup;
 
   constructor(
@@ -74,37 +76,37 @@ export class RegisterComponent implements OnInit {
       return sex == Sex.Female;
     }
 
-    isFormValid(): boolean {
-      if (this.step == "1" && this.createForm.get('displayNameControl').invalid) {
-        console.log("displayNameControl not valid");
-        return false;
+    isFormValid(): string {
+      this.submitErrorMessage = null;
+
+      if (this.step == "1") {
+        if (this.createForm.get('displayNameControl').invalid) {
+          return "Your display name is invalid";
+        }
+        if (this.createForm.get('emailAddressControl').invalid) {
+          return "Your email address is invalid";
+        }
+        if (this.createForm.get('passwordControl').invalid) {
+          return "Your password is invalid";
+        }
+        if (this.createForm.get('confirmPasswordControl').invalid) {
+          return "Please password confirm is invalid";
+        }
+      } else if (this.step == "2") {
+        if (this.createForm.get('sexControl').invalid) {
+          return "Your sex is invalid";
+        }
+        if (this.createForm.get('dobControl').invalid) {
+          return "Your date of birth is invalid";
+        }
       }
-      if (this.step == "1" && this.createForm.get('emailAddressControl').invalid) {
-        console.log("emailAddressControl not valid");
-        return false;
-      }
-      if (this.step == "1" && this.createForm.get('passwordControl').invalid) {
-        console.log("passwordControl not valid");
-        return false;
-      }
-      if (this.step == "1" && this.createForm.get('confirmPasswordControl').invalid) {
-        console.log("confirmPasswordControl not valid");
-        return false;
-      }
-      if (this.step == "2" && this.createForm.get('sexControl').invalid) {
-        console.log("sexControl not valid");
-        return false;
-      }
-      if (this.step == "2" && this.createForm.get('dobControl').invalid) {
-        console.log("dobControl not valid");
-        return false;
-      }
-      return true;
+      return null;
     }
 
     onSubmit(): void {
-      if (!this.isFormValid()) {
-        console.log("Invalid registration form");
+      this.submitErrorMessage = this.isFormValid();
+
+      if (this.submitErrorMessage != null) {
         return;
       }
       if (this.step == "1") {
@@ -128,27 +130,34 @@ export class RegisterComponent implements OnInit {
         return;
       }
       if (this.user == null) {
-        console.error("User is null on step 2 of registration");
+        this.submitErrorMessage = "No user instance defined.";
         return;
       }
-      console.log("Register Form Values" + JSON.stringify(this.createForm.value));
+      if (this.step == "2") {
+        console.log("Register Form Values" + JSON.stringify(this.createForm.value));
 
-      let sex:Sex = this.createForm.controls['sexControl'].value;
-      let dob:Date = this.createForm.controls['dobControl'].value;
+        let sex:Sex = this.createForm.controls['sexControl'].value;
+        let dob:Date = this.createForm.controls['dobControl'].value;
 
-      this.user.sex = sex;
-      this.user.dob = dob;
+        this.user.sex = sex;
+        this.user.dob = dob;
 
-      console.warn("Posting user => " + this.user);
+        console.warn("Posting user => " + this.user);
 
-      let userResponse:User;
+        let userResponse:User;
 
-      this.usersService.addUser(this.user).subscribe(newUser => userResponse = newUser);
-  
-      if (userResponse == null) {
-        console.log("invalid user response");
+        this.usersService.addUser(this.user).subscribe(newUser => userResponse = newUser);
+    
+        if (userResponse == null) {
+          this.submitErrorMessage = "Server failed to respond, try again.";
+          return;
+        }
+        this.step = "3";
+        return;
       }
-      console.log("done");
+      if (this.step == "3") {
+
+      }
       //this.router.navigateByUrl("users/create");
     }
   

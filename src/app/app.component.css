@@ -11,3 +11,10 @@ mat-list-item {
 mat-sidenav-content {
   margin-top: 64px;
 }
+.nav-button {
+  line-height: 2rem;
+  text-decoration: none;
+}
+.nav-button:hover, .active {
+  border-bottom: 2px solid whitesmoke;
+}

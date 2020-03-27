@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { User } from 'src/app/users/user';
 import { FormValidatorService } from 'src/app/form-validators/form-validator.service';
-import { FormOnChangeValidator } from 'src/app/form-validators/form-on-change-validator';
+import { FormControlOnChangeValidator } from 'src/app/form-validators/form-on-change-validator';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Constants } from 'src/app/constants';
 import { Observable } from 'rxjs';
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   public user: User;
   loggedIn : boolean = false;
   
-  onChangeValidator: FormOnChangeValidator = new FormOnChangeValidator();
+  onChangeValidator: FormControlOnChangeValidator = new FormControlOnChangeValidator();
   createForm:FormGroup;
 
   constructor(
