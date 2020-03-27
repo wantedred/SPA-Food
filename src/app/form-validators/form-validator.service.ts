@@ -56,8 +56,9 @@ export class FormValidatorService {
         if (!control) { 
             return null; 
         }
-        return usersService.getUserByEmailAddress(control.value)
-            .pipe(map(user => (user ? { emailAddressTaken: true } : null)), catchError(() => of(null)));
+        return null;
+        /*return usersService.getUserByEmailAddress(control.value)
+            .pipe(map(user => (user ? { emailAddressTaken: true } : null)), catchError(() => of(null)));*/
     };
     /*return (formGroup: FormGroup) => {
         const control = formGroup.controls[controlName];
