@@ -99,6 +99,11 @@
                 {{submitErrorMessage}}
             </mat-error>
             <p *ngIf="step == '3'">Your account has been created, check your email inbox for your verification link.</p>
+
+            <div class="form-input-field" style="text-align: center; padding-top: 4px;">
+                <hr style="width: 50%; margin-top: 2px">
+                <span>Already have an account? </span><a routerLink="/auth/login">Click here</a>
+            </div>
         </form>
     </mat-card-content>
 </mat-card>

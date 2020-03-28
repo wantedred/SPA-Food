@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   @Output() public sidenavClose = new EventEmitter();
 
   constructor() {
-    this.user = new User();
+    /*this.user = new User();
     this.user.displayName = "MyDisplayName";
     this.user.dob = new Date();
     this.user.emailAddress = "email@email.com";
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     this.user.joinedAt = new Date();
     this.user.lastActiveAt = new Date();
     this.user.sex = Sex.Female;
-    this.user.password = "password";
+    this.user.password = "password";*/
   }
 
   ngOnInit() {
