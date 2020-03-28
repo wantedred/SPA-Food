@@ -7,10 +7,34 @@ mat-icon {
 mat-list-item {
     margin-right: 8px;
 }
+.card-header {
+    width: 100%;
+}
 .sub-menu-icon {
     float: right;
     position: absolute;
+    right: 6px;
+    margin-bottom: 24px;
+    /*padding-top: 32px;*/
+    /*position: absolute;
     margin-top: 10px;
     right: 4px;
-    z-index: 2;
+    z-index: 2;*/
+}
+.account-details-card {
+    width: auto;
+    margin: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+@media screen and (orientation:portrait) {
+
+}
+@media screen and (orientation:landscape) {
+    .account-details-card {
+        width: 40%;
+        display: block;
+        margin: 1% auto;
+    }
 }
