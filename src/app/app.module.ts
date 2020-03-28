@@ -51,6 +51,8 @@ import { AccountPreferencesComponent } from './users/account/account-preferences
 import { AccountUpgradeComponent } from './users/account/account-upgrade/account-upgrade.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { AccountComponent } from './users/account/account.component';
+import { RecoveryComponent } from './users/authenticate/recovery/recovery.component';
+import { RecipeComponent } from './recipes/recipe/recipe.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import { AccountComponent } from './users/account/account.component';
     AccountUpgradeComponent,
     HomePageComponent,
     AccountComponent,
+    RecoveryComponent,
+    RecipeComponent,
   ],
   imports: [
     BrowserModule,
