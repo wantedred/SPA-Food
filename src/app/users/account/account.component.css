@@ -1,0 +1,16 @@
+mat-sidenav-content {
+    margin-top: 0px;
+}
+mat-icon {
+    padding-right: 8px;
+}
+mat-list-item {
+    margin-right: 8px;
+}
+.sub-menu-icon {
+    float: right;
+    position: absolute;
+    margin-top: 10px;
+    right: 4px;
+    z-index: 2;
+}

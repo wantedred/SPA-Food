@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Sex, sexNames, SexName } from 'src/app/users/sex';
 
 import { UsersService } from 'src/app/users/service/users.service';
@@ -36,6 +36,7 @@ export class AccountDetailsComponent implements OnInit {
       this.startDate.setFullYear(this.startDate.getFullYear() - 18);
       this.minDate.setFullYear(this.startDate.getFullYear() - 120);
       this.maxDate.setFullYear(this.startDate.getFullYear() - 12);
+      
   }
 
   toggleControlState(controlName: string): void {

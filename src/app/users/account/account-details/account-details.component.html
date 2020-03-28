@@ -100,37 +100,3 @@
         </form>
     </mat-card-content>
 </mat-card>
-<div style="height: 100vh;">
-<mat-sidenav-container fxFlexFill>
-    <mat-sidenav mode="side" opened>
-      <mat-nav-list>
-        <!-- Constructs the portrait screen navigation menu -->
-        <mat-list-item routerLink="/">
-          <mat-icon>notifications</mat-icon>
-          Account Details
-        </mat-list-item>
-
-        <mat-list-item routerLink="/">
-          <mat-icon>notifications</mat-icon>
-          Account Preferences
-        </mat-list-item>
-
-        <mat-list-item routerLink="/">
-          <mat-icon>notifications</mat-icon>
-          Account Settings
-        </mat-list-item>
-
-        <mat-list-item routerLink="/">
-          <mat-icon>notifications</mat-icon>
-          Account Upgrade
-        </mat-list-item>
-
-        <!-- Constructs the side menu close button -->
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content fxFlexFill>
-      <!-- Construct the page body content -->
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>

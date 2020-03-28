@@ -1,0 +1,77 @@
+<!-- Constructs the side navigation button icon -->
+<button class="sub-menu-icon" mat-icon-button (click)="sidenav.toggle()" fxShow fxHide.gt-sm>
+    <mat-icon>more_vert</mat-icon>
+</button>
+<!-- Constructs the side navigation container -->
+<mat-sidenav-container fxFlexFill>
+    <!-- Constructs the wide screen side navigation -->
+    <mat-sidenav #left mode="side" position="start" opened fxShow="false" fxHide.gt-sm="false">
+        <mat-nav-list>
+            <!-- Constructs the navigation elements -->
+            <mat-list-item mat-list-item (click)="onMenuSelect('details');">
+                <mat-icon>message</mat-icon>
+                Details
+            </mat-list-item>
+
+            <mat-list-item mat-list-item (click)="onMenuSelect('preferences');">
+                <mat-icon>notifications</mat-icon>
+                Preferences
+              </mat-list-item>
+      
+              <mat-list-item mat-list-item (click)="onMenuSelect('settings');">
+                <mat-icon>account_box</mat-icon>
+                Settings
+              </mat-list-item>
+      
+              <mat-list-item mat-list-item (click)="onMenuSelect('upgrade');">
+                <mat-icon>account_box</mat-icon>
+                Upgrade
+              </mat-list-item>
+      
+              <mat-list-item mat-list-item (click)="onMenuSelect('logout');">
+                <mat-icon>account_box</mat-icon>
+                Logout
+              </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- Constructs the portrait screen navigation -->
+    <mat-sidenav #sidenav mode="side" position="end">
+        <mat-nav-list>
+            <!-- Constructs the navigation elements -->
+            <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('details');">
+                <mat-icon>message</mat-icon>
+                Details
+            </mat-list-item>
+      
+            <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('preferences');">
+                <mat-icon>notifications</mat-icon>
+                Preferences
+            </mat-list-item>
+      
+            <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('settings');">
+                <mat-icon>account_box</mat-icon>
+                Settings
+            </mat-list-item>
+      
+            <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('upgrade');">
+                <mat-icon>account_box</mat-icon>
+                Upgrade
+            </mat-list-item>
+      
+            <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('logout');">
+                <mat-icon>account_box</mat-icon>
+                Logout
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <!-- Constructs the content -->
+    <mat-sidenav-content>
+        <!-- Construct the page body content -->
+        <router-outlet></router-outlet>
+        <app-account-details *ngIf="selectedMenu == 'details'"></app-account-details>
+        <app-account-preferences *ngIf="selectedMenu == 'preferences'"></app-account-preferences>
+        <app-account-settings *ngIf="selectedMenu == 'settings'"></app-account-settings>
+        <app-account-upgrade *ngIf="selectedMenu == 'upgrade'"></app-account-upgrade>
+    </mat-sidenav-content>
+</mat-sidenav-container>

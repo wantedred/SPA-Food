@@ -50,6 +50,7 @@ import { AccountSettingsComponent } from './users/account/account-settings/accou
 import { AccountPreferencesComponent } from './users/account/account-preferences/account-preferences.component';
 import { AccountUpgradeComponent } from './users/account/account-upgrade/account-upgrade.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
+import { AccountComponent } from './users/account/account.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { HomePageComponent } from './home/home-page/home-page.component';
     AccountPreferencesComponent,
     AccountUpgradeComponent,
     HomePageComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,

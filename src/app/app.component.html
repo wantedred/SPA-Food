@@ -25,9 +25,9 @@
           Notifications
         </button>
 
-        <button *ngIf="isLoggedIn()" class="nav-button" (click)="setSelectedIndex(2)" [ngClass]="{'active': selectedIndex == 2}" mat-button routerLink="/account/details">
+        <button *ngIf="isLoggedIn()" class="nav-button" (click)="setSelectedIndex(2)" [ngClass]="{'active': selectedIndex == 2}" mat-button routerLink="/account">
           <mat-icon>account_box</mat-icon>
-          Account Details
+          Account
         </button>
 
         <button *ngIf="!isLoggedIn()" class="nav-button" (click)="setSelectedIndex(3)" [ngClass]="{'active': selectedIndex == 3}" mat-button routerLink="/auth/register">
@@ -77,9 +77,9 @@
           Notifications
         </mat-list-item>
 
-        <mat-list-item *ngIf="isLoggedIn()" mat-list-item (click)="sidenav.toggle()" routerLink="/account/details">
+        <mat-list-item *ngIf="isLoggedIn()" mat-list-item (click)="sidenav.toggle()" routerLink="/account">
           <mat-icon>account_box</mat-icon>
-          Account Details
+          Account
         </mat-list-item>
 
         <mat-list-item *ngIf="!isLoggedIn()" mat-list-item (click)="sidenav.toggle()" routerLink="/auth/register">

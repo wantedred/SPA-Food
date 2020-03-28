@@ -7,6 +7,7 @@ import { LoginComponent } from './users/authenticate/login/login.component';
 import { RegisterComponent } from './users/authenticate/register/register.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { AccountDetailsComponent } from './users/account/account-details/account-details.component';
+import { AccountComponent } from './users/account/account.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const routes: Routes = [
     { path: 'auth/login', component: LoginComponent },
     { path: 'auth/register', component: RegisterComponent },
 
-    { path: 'account', component: UserComponent },
+    { path: 'account', component: AccountComponent },
     { path: 'account/details', component: AccountDetailsComponent },
 
     { path: 'users/users-overview', component: UsersOverviewComponent },
