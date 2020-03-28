@@ -8,13 +8,15 @@ mat-list-item {
     margin-right: 8px;
 }
 .card-header {
+    display: inline-block;
     width: 100%;
 }
 .sub-menu-icon {
     float: right;
-    position: absolute;
-    right: 6px;
-    margin-bottom: 24px;
+    position: relative;
+    padding-bottom: 24px;
+    padding-left: 8px;
+    line-height: 10%;
     /*padding-top: 32px;*/
     /*position: absolute;
     margin-top: 10px;
