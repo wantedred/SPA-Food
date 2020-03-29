@@ -53,6 +53,8 @@ import { HomePageComponent } from './home/home-page/home-page.component';
 import { AccountComponent } from './users/account/account.component';
 import { RecoveryComponent } from './users/authenticate/recovery/recovery.component';
 import { RecipeComponent } from './recipes/recipe/recipe.component';
+import { InventoryComponent } from './users/inventory/inventory.component';
+import { MainNavigationComponent } from './navigation/main-navigation/main-navigation.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import { RecipeComponent } from './recipes/recipe/recipe.component';
     AccountComponent,
     RecoveryComponent,
     RecipeComponent,
+    InventoryComponent,
+    MainNavigationComponent,
   ],
   imports: [
     BrowserModule,

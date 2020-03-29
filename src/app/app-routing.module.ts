@@ -8,6 +8,10 @@ import { RegisterComponent } from './users/authenticate/register/register.compon
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { AccountDetailsComponent } from './users/account/account-details/account-details.component';
 import { AccountComponent } from './users/account/account.component';
+import { AccountPreferencesComponent } from './users/account/account-preferences/account-preferences.component';
+import { AccountSettingsComponent } from './users/account/account-settings/account-settings.component';
+import { AccountUpgradeComponent } from './users/account/account-upgrade/account-upgrade.component';
+import { InventoryComponent } from './users/inventory/inventory.component';
 
 
 const routes: Routes = [
@@ -19,6 +23,11 @@ const routes: Routes = [
 
     { path: 'account', component: AccountComponent },
     { path: 'account/details', component: AccountDetailsComponent },
+    { path: 'account/preferences', component: AccountPreferencesComponent },
+    { path: 'account/settings', component: AccountSettingsComponent },
+    { path: 'account/upgrade', component: AccountUpgradeComponent },
+    
+    { path: 'inventory', component: InventoryComponent },
 
     { path: 'users/users-overview', component: UsersOverviewComponent },
     { path: 'users/create', component: CreateUserComponent },

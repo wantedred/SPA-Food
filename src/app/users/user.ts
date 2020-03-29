@@ -22,7 +22,20 @@ export class User {
     public accountState: AccountState = AccountState.Member;
     public hasProfessional: boolean = false;
     public isProfessional: boolean = false;
+    public lastRoute: string = "/";
 
+
+    public hasInbox(): boolean {
+        return this.hasProfessional || this.isProfessional;
+    }
+
+    public isAdmin(): boolean {
+        return this.accountState == AccountState.Administrator;
+    }
+
+    public isFemale(): boolean {
+        return this.sex == Sex.Female;
+    }
 
     public getBmiLevel() : BmiLevel {
         let bmi: number = this.getBmi();

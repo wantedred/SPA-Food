@@ -14,6 +14,11 @@
       <!-- Constructs the wide screen navigation menu -->
       <div fxShow="true" fxHide.lt-md="true">
 
+        <mat-list-item class="nav-button" (click)="setSelectedIndex(6)" [ngClass]="{'active': selectedIndex == 6}" mat-button routerLink="/inventory">
+          <mat-icon>notifications</mat-icon>
+          Inventory
+        </mat-list-item>
+
         <!-- Messages for professionals communicating with clients -->
         <button *ngIf="hasInbox()" class="nav-button" (click)="setSelectedIndex(0)" [ngClass]="{'active': selectedIndex == 0}" mat-button routerLink="/inbox">
           <mat-icon>message</mat-icon>
@@ -61,9 +66,14 @@
     <mat-sidenav #sidenav>
       <mat-nav-list>
         <!-- Constructs the portrait screen navigation menu -->
-        <mat-list-item routerLink="/">
+        <mat-list-item mat-list-item routerLink="/">
           <mat-icon>notifications</mat-icon>
           Home
+        </mat-list-item>
+
+        <mat-list-item mat-list-item routerLink="/inventory">
+          <mat-icon>notifications</mat-icon>
+          Inventory
         </mat-list-item>
 
         <!-- Messages for professionals communicating with clients -->
