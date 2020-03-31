@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -57,6 +57,7 @@ import { MainNavigationComponent } from './navigation/main-navigation/main-navig
 import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
 import { FooterNavigationComponent } from './navigation/footer-navigation/footer-navigation.component';
 import { ChangePasswordComponent } from './users/authenticate/change-password/change-password.component';
+import { JwtInterceptor } from './users/authenticate/jwt/jwt-interceptor';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,15 @@ import { ChangePasswordComponent } from './users/authenticate/change-password/ch
   entryComponents: [
   ],
   providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill', floatLabel: 'always' } },
+    { 
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, 
+      useValue: { appearance: 'fill', floatLabel: 'always' } 
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
 })

@@ -6,10 +6,10 @@ import { Constants } from 'src/app/constants';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { handleError } from 'src/app/debug/http-error-handler';
-import { Observable } from 'rxjs';
 import { BasicHttpResponse } from 'src/app/server/http/basic-http-response';
 import { AuthHttpResponse } from 'src/app/server/http/auth-http-response';
-import { JwtResponse } from 'src/app/server/http/jwt-response';
+import { JwtService } from './jwt/jwt.service';
+import { JwtDetails } from './jwt/jwt-details';
 
 const authedUserKey: string = "authed_user";
 
@@ -27,11 +27,16 @@ export class AuthenticateService {
 
   constructor(
     private http: HttpClient,
-    private router: Router) { 
+    private router: Router,
+    private jwtService: JwtService) { 
     this.loadStoredUser();
   }
 
   public isLoggedIn(): boolean {
+    return this.hasAuthedUser() && this.jwtService.isAuthed();
+  }
+
+  public hasAuthedUser(): boolean {
     return this.authedUser != null;
   }
 
@@ -63,8 +68,37 @@ export class AuthenticateService {
     this.http.post<AuthHttpResponse>(Constants.loginUrl, {username: username, password: password}, this.jsonHeaders)
       .pipe(tap(_ => console.log("Login " + username))
       , catchError(handleError<AuthHttpResponse>('authenticate/login')))
-      .subscribe(resp => resp.success ? this.loadUser(resp.user) : errorMessage = resp.message);
+      .subscribe(resp => resp.success ? this.postLogin(resp) : errorMessage = resp.message);
     return errorMessage; //TODO implement jwt shit
+  }
+
+  private postLogin(authHttpResp: AuthHttpResponse) {
+    let jwtDetails: JwtDetails = new JwtDetails(authHttpResp.token, authHttpResp.refreshToken);
+    this.jwtService.storeJwt(jwtDetails);
+
+    //TODO call user details
+  }
+
+  public logout(): void {
+    if (!this.isLoggedIn()) {
+      console.error("Can't logout user since none is loaded");
+      return;
+    }
+    this.http.post<AuthHttpResponse>(Constants.logoutUrl, {
+      username: this.authedUser.emailAddress, 
+      refreshToken: this.jwtService.getStoredJwtDetails().refreshToken
+    }, this.jsonHeaders)
+      .pipe(tap(_ => console.log("Logout"))
+      , catchError(handleError<AuthHttpResponse>('authenticate/logout')))
+      .subscribe(resp => resp.success ? this.postLogout() : console.error(resp.message));
+  }
+
+  private postLogout(): void {
+    this.removeFromStorage(authedUserKey);
+    this.jwtService.removeJwtFromStorage();
+    this.authedUser = null;
+    this.router.navigateByUrl("/");
+    console.log("Logged out");
   }
 
   public delete(): void {
@@ -83,17 +117,6 @@ export class AuthenticateService {
     this.authedUser = user;
     this.storeUser();
     this.router.navigateByUrl(this.authedUser.lastRoute);
-  }
-
-  public logout(): void {
-    if (!this.isLoggedIn()) {
-      console.error("Can't logout user since none is loaded");
-      return;
-    }
-    this.removeFromStorage(authedUserKey);
-    this.authedUser = null;
-    this.router.navigateByUrl("/");
-    console.log("Logged out");
   }
 
   private loadStoredUser(): void {
