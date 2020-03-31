@@ -52,9 +52,11 @@ import { AccountUpgradeComponent } from './users/account/account-upgrade/account
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { AccountComponent } from './users/account/account.component';
 import { RecoveryComponent } from './users/authenticate/recovery/recovery.component';
-import { RecipeComponent } from './recipes/recipe/recipe.component';
 import { InventoryComponent } from './users/inventory/inventory.component';
 import { MainNavigationComponent } from './navigation/main-navigation/main-navigation.component';
+import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
+import { FooterNavigationComponent } from './navigation/footer-navigation/footer-navigation.component';
+import { ChangePasswordComponent } from './users/authenticate/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -81,9 +83,11 @@ import { MainNavigationComponent } from './navigation/main-navigation/main-navig
     HomePageComponent,
     AccountComponent,
     RecoveryComponent,
-    RecipeComponent,
     InventoryComponent,
     MainNavigationComponent,
+    RecipeDetailsComponent,
+    FooterNavigationComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

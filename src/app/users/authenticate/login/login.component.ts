@@ -12,6 +12,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Constants } from 'src/app/constants';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { AuthenticateService } from '../authenticate.service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,12 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private usersService: UsersService,
     private location: Location,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private authService: AuthenticateService) { 
+      if (authService.isLoggedIn()) {
+        router.navigateByUrl(authService.authedUser.lastRoute);
+      }
+  }
 
     ngOnInit(): void {
       this.createForm = this.formBuilder.group(

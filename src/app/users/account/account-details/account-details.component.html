@@ -1,12 +1,12 @@
 <!-- Constructs the account details form -->
-<form class="create-user-form" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+<form class="create-user-form" [formGroup]="createForm">
     <!-- Constructs the display name input -->
     <mat-form-field class="form-input-field">
         <mat-label>Display name</mat-label>
         <input type="text" matInput [errorStateMatcher]="onChangeValidator" formControlName="displayNameControl" 
             minlength="3" maxLength="16" [disabled]="isControlDisabled('displayNameControl')" required>
         <button mat-icon-button matSuffix (click)="toggleControlState('displayNameControl')">
-            <mat-icon>edit</mat-icon>
+            <mat-icon>{{getEditFieldIcon('displayNameControl')}}</mat-icon>
         </button>
         <mat-error *ngIf="createForm.controls['displayNameControl'].hasError('required')">
             Please enter a display name
@@ -21,7 +21,7 @@
         <input type="email" matInput [errorStateMatcher]="onChangeValidator" placeholder="example@email.com" formControlName="emailAddressControl" 
                 minlength="5" maxLength="30" [disabled]="isControlDisabled('emailAddressControl')" required>
         <button mat-icon-button matSuffix (click)="toggleControlState('emailAddressControl')">
-            <mat-icon>edit</mat-icon>
+            <mat-icon>{{getEditFieldIcon('emailAddressControl')}}</mat-icon>
         </button>
         <!--<mat-spinner *ngIf="email.pending"></mat-spinner>-->
         <mat-error *ngIf="createForm.controls['emailAddressControl'].hasError('required')">
@@ -34,21 +34,6 @@
             Email address already in use
         </mat-error>
     </mat-form-field>
-    <!-- Constructs the password input -->
-    <mat-form-field class="form-input-field">
-        <mat-label>Password</mat-label>
-        <input type="password" matInput [errorStateMatcher]="onChangeValidator" placeholder="" formControlName="passwordControl" 
-            minlength="6" maxLength="30" [disabled]="isControlDisabled('passwordControl')" required>
-        <button mat-icon-button matSuffix (click)="toggleControlState('passwordControl')">
-            <mat-icon>edit</mat-icon>
-        </button>
-        <mat-error *ngIf="createForm.controls['passwordControl'].hasError('required')">
-            Please enter a password
-        </mat-error>
-        <mat-error *ngIf="createForm.controls['passwordControl'].hasError('minlength')">
-            Your password should be at least 6 characters
-        </mat-error>
-    </mat-form-field>
     <!-- Constructs the sex input -->
     <mat-form-field class="form-input-field">
         <mat-label>Sex</mat-label>
@@ -58,16 +43,12 @@
             </mat-option>
         </mat-select>
         <button mat-icon-button matSuffix (click)="toggleControlState('sexControl')">
-            <mat-icon>edit</mat-icon>
+            <mat-icon>{{getEditFieldIcon('sexControl')}}</mat-icon>
         </button>
         <mat-error *ngIf="createForm.controls['sexControl'].hasError('required')">
             Please select your sex so we can make the right nutrition calculations
         </mat-error>
     </mat-form-field>
-    <!-- Constructs the extra sliders -->
-    <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Pregnant</mat-slide-toggle>
-    <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Lactating</mat-slide-toggle>
-    <mat-slide-toggle class="form-input-field" color="primary">Smoker</mat-slide-toggle>
     <!-- Constructs the dob input -->
     <mat-form-field class="form-input-field">
         <mat-label>Date of birth</mat-label>
@@ -75,7 +56,7 @@
             [min]="minDate" [max]="maxDate" formControlName="dobControl" placeholder="Select your date of birth" 
             [disabled]="isControlDisabled('dobControl')" required readonly>
         <button mat-icon-button matSuffix (click)="toggleControlState('dobControl')">
-            <mat-icon>edit</mat-icon>
+            <mat-icon>{{getEditFieldIcon('dobControl')}}</mat-icon>
         </button>
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1 [startAt]="startDate"></mat-datepicker>
@@ -86,6 +67,11 @@
             Please enter a valid date of birth
         </mat-error>
     </mat-form-field>
+    <!-- Constructs the extra sliders -->
+    <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Pregnant</mat-slide-toggle>
+    <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Lactating</mat-slide-toggle>
+    <mat-slide-toggle class="form-input-field" color="primary">Smoker</mat-slide-toggle>
+    <hr>
+    <a routerLink="/account/change-password">Change password</a>
     <!-- Constructs the submit button -->
-    <button mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="!isFormValid()">Save Changes</button>
 </form>

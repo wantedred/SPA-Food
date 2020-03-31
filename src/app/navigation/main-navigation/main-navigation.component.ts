@@ -8,23 +8,23 @@ import { AuthenticateService } from 'src/app/users/authenticate/authenticate.ser
 })
 export class MainNavigationComponent implements OnInit {
 
-  title: string = 'Nutri Home Manager';
+  title: string = 'Nachtglas';
   selectedIndex:number = -1;
 
   @Output() public sidenavToggle = new EventEmitter();
   @Output() public sidenavClose = new EventEmitter();
 
 
-  constructor(private authService: AuthenticateService) { }
+  constructor(public authService: AuthenticateService) { }
 
   ngOnInit(): void {
   }
 
-  hasInbox(): boolean {
+  public hasInbox(): boolean {
     return this.authService.isLoggedIn() && this.authService.authedUser.hasInbox();
   }
 
-  isAdmin(): boolean {
+  public isAdmin(): boolean {
     return this.authService.isLoggedIn() && this.authService.authedUser.isAdmin();
   }
 

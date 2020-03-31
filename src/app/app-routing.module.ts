@@ -12,20 +12,13 @@ import { AccountPreferencesComponent } from './users/account/account-preferences
 import { AccountSettingsComponent } from './users/account/account-settings/account-settings.component';
 import { AccountUpgradeComponent } from './users/account/account-upgrade/account-upgrade.component';
 import { InventoryComponent } from './users/inventory/inventory.component';
+import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
+import { ChangePasswordComponent } from './users/authenticate/change-password/change-password.component';
 
 
-const routes: Routes = [
+const mainRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomePageComponent },
-
-    { path: 'auth/login', component: LoginComponent },
-    { path: 'auth/register', component: RegisterComponent },
-
-    { path: 'account', component: AccountComponent },
-    { path: 'account/details', component: AccountDetailsComponent },
-    { path: 'account/preferences', component: AccountPreferencesComponent },
-    { path: 'account/settings', component: AccountSettingsComponent },
-    { path: 'account/upgrade', component: AccountUpgradeComponent },
     
     { path: 'inventory', component: InventoryComponent },
 
@@ -36,8 +29,33 @@ const routes: Routes = [
     { path: '*', component: HomePageComponent },
 ];
 
+const authRoutes: Routes = [
+  { path: 'auth/login', component: LoginComponent },
+  { path: 'auth/register', component: RegisterComponent },
+];
+
+const accountRoutes: Routes = [
+  { path: 'account', component: AccountComponent },
+  { path: 'account/details', component: AccountDetailsComponent },
+  { path: 'account/preferences', component: AccountPreferencesComponent },
+  { path: 'account/settings', component: AccountSettingsComponent },
+  { path: 'account/upgrade', component: AccountUpgradeComponent },
+  { path: 'account/change-password', component: ChangePasswordComponent },
+];
+
+const recipeRoutes: Routes = [
+  { path: 'recipes', component: RecipeDetailsComponent },
+  { path: 'recipes/submit', component: RecipeDetailsComponent },
+  { path: 'recipes/:id', component: RecipeDetailsComponent },
+];
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(mainRoutes),
+    RouterModule.forRoot(authRoutes),
+    RouterModule.forRoot(accountRoutes),
+    RouterModule.forRoot(recipeRoutes),
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

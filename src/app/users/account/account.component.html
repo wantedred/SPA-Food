@@ -18,27 +18,27 @@
                 <mat-nav-list>
                     <!-- Constructs the navigation elements -->
                     <mat-list-item mat-list-item (click)="onMenuSelect('details');">
-                        <mat-icon>message</mat-icon>
+                        <mat-icon>notes</mat-icon>
                         Details
                     </mat-list-item>
 
                     <mat-list-item mat-list-item (click)="onMenuSelect('preferences');">
-                        <mat-icon>notifications</mat-icon>
+                        <mat-icon>tune</mat-icon>
                         Preferences
                     </mat-list-item>
             
                     <mat-list-item mat-list-item (click)="onMenuSelect('settings');">
-                        <mat-icon>account_box</mat-icon>
+                        <mat-icon>settings</mat-icon>
                         Settings
                     </mat-list-item>
             
                     <mat-list-item mat-list-item (click)="onMenuSelect('upgrade');">
-                        <mat-icon>account_box</mat-icon>
+                        <mat-icon>style</mat-icon>
                         Upgrade
                     </mat-list-item>
             
-                    <mat-list-item mat-list-item (click)="onMenuSelect('logout');">
-                        <mat-icon>account_box</mat-icon>
+                    <mat-list-item mat-list-item (click)="logout();">
+                        <mat-icon>exit_to_app</mat-icon>
                         Logout
                     </mat-list-item>
                 </mat-nav-list>
@@ -49,27 +49,27 @@
                 <mat-nav-list>
                     <!-- Constructs the navigation elements -->
                     <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('details');">
-                        <mat-icon>message</mat-icon>
+                        <mat-icon>notes</mat-icon>
                         Details
                     </mat-list-item>
             
                     <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('preferences');">
-                        <mat-icon>notifications</mat-icon>
+                        <mat-icon>tune</mat-icon>
                         Preferences
                     </mat-list-item>
             
                     <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('settings');">
-                        <mat-icon>account_box</mat-icon>
+                        <mat-icon>settings</mat-icon>
                         Settings
                     </mat-list-item>
             
                     <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('upgrade');">
-                        <mat-icon>account_box</mat-icon>
+                        <mat-icon>style</mat-icon>
                         Upgrade
                     </mat-list-item>
             
-                    <mat-list-item mat-list-item (click)="sidenav.toggle(); onMenuSelect('logout');">
-                        <mat-icon>account_box</mat-icon>
+                    <mat-list-item mat-list-item (click)="sidenav.toggle(); logout();">
+                        <mat-icon>exit_to_app</mat-icon>
                         Logout
                     </mat-list-item>
                 </mat-nav-list>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Recipe } from './recipe';
+import { MealType } from './meal-type';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,16 @@ export class RecipeService {
   constructor() { }
 
 
-  public searchRecipes(): Observable<Recipe[]> {
+  public searchRecipes(query: string = "", mealType: MealType = null): Observable<Recipe[]> {
     return null;
   }
 
   public getRecipe(): Observable<Recipe> {
     return null;
+  }
+
+  public getRecipes(mealType: MealType = null) {
+
   }
 
   public getSimilarRecipes(): Observable<Recipe[]> {

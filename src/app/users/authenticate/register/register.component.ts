@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { User } from 'src/app/users/user';
 import { FormValidatorService } from 'src/app/form-validators/form-validator.service';
 import { FormControlOnChangeValidator } from 'src/app/form-validators/form-on-change-validator';
+import { AuthenticateService } from '../authenticate.service';
 
 @Component({
   selector: 'app-register',
@@ -34,7 +35,12 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private usersService: UsersService,
     private location: Location,
-    private formBuilder: FormBuilder) { 
+    private formBuilder: FormBuilder,
+    private authService: AuthenticateService) { 
+      if (authService.isLoggedIn()) {
+        router.navigateByUrl(authService.authedUser.lastRoute);
+        return;
+      }
       this.startDate.setFullYear(this.startDate.getFullYear() - 18);
       this.minDate.setFullYear(this.startDate.getFullYear() - 120);
       this.maxDate.setFullYear(this.startDate.getFullYear() - 12);
