@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   sexNames: SexName[] = sexNames;
   
   step:string = "1";
+  registering: boolean = false;
   user:User;
   startDate:Date = new Date();
   minDate: Date = new Date();
@@ -53,7 +54,7 @@ export class RegisterComponent implements OnInit {
             , [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
           emailAddressControl: new FormControl(''
             , [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email],
-            [this.formValidatorService.emailAddressExists('emailAddressControl', this.usersService)]),
+            [this.formValidatorService.emailAddressExists('emailAddressControl', this.authService)]),
           passwordControl: new FormControl(''
             , [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
           confirmPasswordControl: new FormControl('', [Validators.required]),
@@ -115,8 +116,10 @@ export class RegisterComponent implements OnInit {
       if (this.submitErrorMessage != null) {
         return;
       }
+      this.submitErrorMessage = null;
+
       if (this.step == "1") {
-        console.log("Submit Form Values" + JSON.stringify(this.createForm.value));
+        this.registering = true;
 
         let displayName:string = this.createForm.controls['displayNameControl'].value;
         let emailAddress:string = this.createForm.controls['emailAddressControl'].value;
@@ -124,15 +127,22 @@ export class RegisterComponent implements OnInit {
         let confirmPassword:string = this.createForm.controls['confirmPasswordControl'].value;
 
         if (password !== confirmPassword) {
-        
+          this.submitErrorMessage = "Your passwords don't match";
+          return;
         }
-        this.user = new User();
-        this.user.emailAddress = emailAddress;
-        this.user.password = password;
-        this.user.displayName = displayName;
-
-        this.step = "2";
-        //this.ngOnInit();
+        this.authService.validateEmail(emailAddress).subscribe(resp => {
+          if (!resp.success) {
+            this.submitErrorMessage = resp.message;
+            this.registering = false;
+            return;
+          }
+          this.user = new User();
+          this.user.emailAddress = emailAddress;
+          this.user.password = password;
+          this.user.displayName = displayName;
+          this.step = "2";
+          this.registering = false;
+        });
         return;
       }
       if (this.user == null) {
@@ -142,6 +152,8 @@ export class RegisterComponent implements OnInit {
       if (this.step == "2") {
         console.log("Register Form Values" + JSON.stringify(this.createForm.value));
 
+        this.registering = true;
+
         let sex:Sex = this.createForm.controls['sexControl'].value;
         let dob:Date = this.createForm.controls['dobControl'].value;
 
@@ -150,15 +162,15 @@ export class RegisterComponent implements OnInit {
 
         console.warn("Posting user => " + this.user);
 
-        let userResponse:User;
-
-        this.usersService.addUser(this.user).subscribe(newUser => userResponse = newUser);
-    
-        if (userResponse == null) {
-          this.submitErrorMessage = "Server failed to respond, try again.";
-          return;
-        }
-        this.step = "3";
+        this.authService.register(this.user).then(msg => {
+          if (msg != null) {
+            this.submitErrorMessage = msg;
+            this.registering = false;
+            return;
+          }
+          this.registering = false;
+          this.step = "3";
+        });
         return;
       }
       if (this.step == "3") {

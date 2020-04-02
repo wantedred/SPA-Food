@@ -52,7 +52,7 @@ export class AccountDetailsComponent implements OnInit {
           , [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
         emailAddressControl: new FormControl({value: this.authService.authedUser.emailAddress, disabled: true}
           , [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email],
-          [this.formValidatorService.emailAddressExists('emailAddressControl', this.usersService)]),
+          [this.formValidatorService.emailAddressExists('emailAddressControl', this.authService)]),
         sexControl: new FormControl({value: this.authService.authedUser.sex, disabled: true}, Validators.required),
         dobControl: new FormControl({value: this.authService.authedUser.dob, disabled: true}, Validators.required),
       }, {

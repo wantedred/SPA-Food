@@ -47,7 +47,8 @@ export class JwtInterceptor implements HttpInterceptor {
               this.isRefreshing = false;
               this.refreshTokenSubject.next(token.jwt);
               return next.handle(this.addToken(request, token.jwt));
-            }));
+            })
+          );
     
         } else {
           return this.refreshTokenSubject.pipe(
@@ -55,7 +56,8 @@ export class JwtInterceptor implements HttpInterceptor {
             take(1),
             switchMap(jwt => {
               return next.handle(this.addToken(request, jwt));
-            }));
+            })
+          );
         }
     }
 

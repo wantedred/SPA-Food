@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
   };
 
   public user: User;
-  loggedIn : boolean = false;
+  public loginMessage: string = "";
+  public loggingIn: boolean = false;
   
   onChangeValidator: FormControlOnChangeValidator = new FormControlOnChangeValidator();
   createForm:FormGroup;
@@ -50,8 +51,7 @@ export class LoginComponent implements OnInit {
           displayNameControl: new FormControl(''
             , [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
           emailAddressControl: new FormControl(''
-            , [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email],
-            [this.formValidatorService.emailAddressExists('emailAddressControl', this.usersService)]),
+            , [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email]),
           passwordControl: new FormControl(''
             , [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
           confirmPasswordControl: new FormControl('', [Validators.required]),
@@ -80,36 +80,31 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(): void {
+      this.loggingIn = true;
+
       if (!this.isFormValid()) {
         console.log("Invalid registration form");
+        this.loggingIn = false;
         return;
       }
       console.log("Logging in");
       
       let emailAddress:string = this.createForm.controls['emailAddressControl'].value;
       let password:string = this.createForm.controls['passwordControl'].value;
-      
-      this.login(emailAddress, password);
+
+      this.authService.login(emailAddress, password).then(msg => {
+        if (msg != null) {
+          this.loginMessage = msg;
+          this.loggingIn = false;
+          return;
+        }
+        this.loggingIn = false;
+        this.router.navigateByUrl(this.authService.authedUser.lastRoute);
+      });
     }
   
     goBack(): void {
       this.location.back();
-    }
-
-    public login(email: string, password: string) : Observable<User> {
-      return this.http.post<User>(Constants.loginUrl,
-        JSON.stringify({email, password}), this.jsonHeaders
-      ).pipe(tap(data => {
-        console.log("making request to get user logged in!");
-        if (localStorage.getItem('currentUser')) {
-          localStorage.removeItem('currentUser');
-        }
-        this.user = data;
-        console.log("current user email: " + this.user.emailAddress);
-        localStorage.setItem('currentUser', JSON.stringify(this.user));
-        this.loggedIn = true;
-        this.router.navigateByUrl("/");
-      }));
     }
 
 }

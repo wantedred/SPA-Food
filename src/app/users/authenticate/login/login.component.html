@@ -37,9 +37,9 @@
                 </mat-error>
             </mat-form-field>
             <!-- Constructs the submit button -->
-            <button mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="!isFormValid()">Login</button>
+            <button mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="loggingIn || !isFormValid()">Login</button>
             <mat-error style="text-align: center">
-                Login failed
+                {{loginMessage}}
             </mat-error>
             <div class="form-input-field" style="text-align: center; padding-top: 4px;">
                 <hr style="width: 50%; margin-top: 2px">

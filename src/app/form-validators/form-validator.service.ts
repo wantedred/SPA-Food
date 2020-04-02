@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import { UsersService } from '../users/service/users.service';
-import { Observable } from 'rxjs';
+import { Observable, timer, of } from 'rxjs';
+import { AuthenticateService } from '../users/authenticate/authenticate.service';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -49,12 +51,20 @@ export class FormValidatorService {
     };
   }
 
-  emailAddressExists(controlName: string, usersService: UsersService) : AsyncValidatorFn {
+  emailAddressExists(controlName: string, authService: AuthenticateService) : AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
         if (!control) { 
             return null; 
         }
-        return null;
+        return authService.validateEmail(control.value)
+            .pipe(map(user => (user ? { emailAddressTaken: true } : null)), catchError(() => of(null)));
+/*
+        authService.validateEmail(control.value).then(msg => {
+          
+        });
+        return timer(250).subscribe(this.authService.validateEmail(control.value)
+            .pipe(map(user => (user ? { emailAddressTaken: true } : null)), catchError(() => of(null))));
+        return null;*/
         /*return usersService.getUserByEmailAddress(control.value)
             .pipe(map(user => (user ? { emailAddressTaken: true } : null)), catchError(() => of(null)));*/
     };

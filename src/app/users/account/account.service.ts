@@ -16,6 +16,10 @@ export class AccountService {
     private http: HttpClient,
     private authService: AuthenticateService) { }
 
+  public fetch() {
+    //caches.keys.
+  }
+
   public updatePassword(oldPassword: string, newPassword: string): void {
 
   }

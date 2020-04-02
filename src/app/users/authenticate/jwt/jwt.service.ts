@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { JwtDetails } from './jwt-details';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthHttpResponse } from 'src/app/server/http/auth-http-response';
 import { tap, catchError } from 'rxjs/operators';
 import { Constants } from 'src/app/constants';
@@ -56,7 +55,6 @@ export class JwtService {
 
   public storeJwt(jwt: JwtDetails): void {
     localStorage.setItem(jwtStorageKey, JSON.stringify(jwt));
-    console.log("Stored JWT details");
   }
 
   public removeJwtFromStorage(): void {

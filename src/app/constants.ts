@@ -13,8 +13,11 @@ export class Constants {
     public static deleteAccountUrl: string = Constants.authUrl + "/delete";
     public static validatePasswordUrl: string = Constants.authUrl + "/validate-password";
     public static refreshJwtUrl: string = Constants.authUrl + "/refresh";
+    public static authFetchUrl: string = Constants.authUrl + "/fetch";
 
     //Account endpoints
+    public static validateEmailAddressUrl: string = Constants.accountUrl + "/validate/email";
+    public static accountFetchUrl: string = Constants.accountUrl + "/fetch";
     public static updatePasswordUrl: string = Constants.accountUrl + "/password/update";
     public static resetPasswordRequestUrl: string = Constants.accountUrl + "/recovery/request";
     public static resetPasswordValidateUrl: string = Constants.accountUrl + "/recovery/validate";

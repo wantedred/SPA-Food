@@ -93,9 +93,10 @@
                 </mat-form-field>
             </ng-template>
             <!-- Constructs the submit button -->
-            <button *ngIf="step != '3'" mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="isFormValid() != null">Register</button>
+            <button *ngIf="step == '1'" mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="isFormValid() != null">Continue</button>
+            <button *ngIf="step == '2'" mat-raised-button color="primary" class="form-input-field" type="submit" [disabled]="isFormValid() != null">Register</button>
             <!-- Constructs the general failed form submission error message -->
-            <mat-error style="text-align: center;" *ngIf="step != '3' && submitErrorMessage != null">
+            <mat-error style="text-align: center;">
                 {{submitErrorMessage}}
             </mat-error>
             <p *ngIf="step == '3'">Your account has been created, check your email inbox for your verification link.</p>
