@@ -14,6 +14,7 @@ export class Constants {
     public static validatePasswordUrl: string = Constants.authUrl + "/validate-password";
     public static refreshJwtUrl: string = Constants.authUrl + "/refresh";
     public static authFetchUrl: string = Constants.authUrl + "/fetch";
+    public static apiVersionFetchUrl: string = Constants.authUrl + "/version";
 
     //Account endpoints
     public static validateEmailAddressUrl: string = Constants.accountUrl + "/validate/email";

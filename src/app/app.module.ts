@@ -32,7 +32,6 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 //Project
 import { NutrientsComponent } from './nutrition/nutrients/nutrients.component';
-import { NourishmentComponent } from './nutrition/nourishment/nourishment.component';
 import { UserComponent } from './users/user/user.component';
 import { LoginComponent } from './users/authenticate/login/login.component';
 import { RegisterComponent } from './users/authenticate/register/register.component';
@@ -64,7 +63,6 @@ import { JwtInterceptor } from './users/authenticate/jwt/jwt-interceptor';
     AppComponent,
     //Project
     NutrientsComponent,
-    NourishmentComponent,
     UserComponent,
     LoginComponent,
     UsersOverviewComponent,

@@ -10,6 +10,9 @@ export class OverviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //fruits//by cat
+    //by ingredient
+    //by ...
   }
 
 }

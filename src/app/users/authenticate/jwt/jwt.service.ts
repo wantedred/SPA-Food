@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { JwtDetails } from './jwt-details';
 import { AuthHttpResponse } from 'src/app/server/http/auth-http-response';
 import { tap, catchError } from 'rxjs/operators';
 import { Constants } from 'src/app/constants';
 import { handleError } from 'src/app/debug/http-error-handler';
+import { BasicHttpResponse } from 'src/app/server/http/basic-http-response';
 
 const jwtStorageKey: string = "jwt";
 
 @Injectable({
   providedIn: 'root'
 })
-export class JwtService {
+export class JwtService implements OnInit {
 
   jsonHeaders = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,6 +20,10 @@ export class JwtService {
 
 
   constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.fetchApiVersion();
+  }
 
   public isAuthed(): boolean {
     return this.getStoredJwtDetails() != null;
@@ -40,7 +45,14 @@ export class JwtService {
         }
         console.error(resp.message);
         return resp;
-      }), catchError(handleError<AuthHttpResponse>('authenticate/jwt')));
+      }), catchError(handleError<AuthHttpResponse>('auth/jwt')));
+  }
+
+  public fetchApiVersion(): void {
+    this.http.get<BasicHttpResponse>(Constants.apiVersionFetchUrl)
+      .pipe(tap(_ => console.log("Fetch api version"))
+      , catchError(handleError<BasicHttpResponse>('auth/version')))
+      .subscribe(resp => resp.success ? console.log("Fetch API version") : console.log(resp.message));
   }
 
   public getStoredJwtDetails(): JwtDetails {
@@ -59,6 +71,14 @@ export class JwtService {
 
   public removeJwtFromStorage(): void {
     localStorage.removeItem(jwtStorageKey);
+  }
+
+  public storeApiVersion(apiVersion: string): void {
+    localStorage.setItem("api-version", apiVersion);
+  }
+
+  public getApiVersion(): string {
+    return localStorage.getItem("api-version");
   }
 
 }

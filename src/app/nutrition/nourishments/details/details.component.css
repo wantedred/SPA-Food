@@ -1,0 +1,28 @@
+.nourishment-card {
+    width: auto;
+    margin: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.example-header-image {
+    background-size: cover;
+}
+.form-input-field {
+    width: 100%;
+    /*white-space: pre;*/
+    margin-bottom: 8px;
+}
+@media screen and (orientation:portrait) {
+
+}
+@media screen and (orientation:landscape) {
+    .nourishment-card {
+        width: 40%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1%;
+        margin-bottom: auto;
+    }
+}

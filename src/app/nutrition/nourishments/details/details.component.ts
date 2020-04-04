@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Nourishment } from '../nourishment';
 
 @Component({
   selector: 'app-details',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailsComponent implements OnInit {
 
-  constructor() { }
+  @Inject nourishment: Nourishment;
+
+  constructor(public nourishment: Nourishment) { }
 
   ngOnInit(): void {
+
   }
 
 }

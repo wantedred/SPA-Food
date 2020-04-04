@@ -18,6 +18,7 @@ export class MainNavigationComponent implements OnInit {
   constructor(public authService: AuthenticateService) { }
 
   ngOnInit(): void {
+    this.authService.fetchApiVersion();
   }
 
   public hasInbox(): boolean {

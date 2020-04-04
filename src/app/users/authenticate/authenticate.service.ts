@@ -56,6 +56,10 @@ export class AuthenticateService {
       , catchError(handleError<BasicHttpResponse>('account/validate/email')));
   }
 
+  public fetchApiVersion(): void {
+    this.jwtService.fetchApiVersion();
+  }
+
   public async register(user: User): Promise<string> {
     if (this.isLoggedIn()) {
       this.router.navigateByUrl("/");

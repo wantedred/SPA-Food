@@ -1,4 +1,5 @@
-import { Nourishment } from '../nutrition/nourishment/nourishment';
+import { Nourishment } from '../nutrition/nourishments/nourishment';
+
 
 export interface Ingredient {
     nourishment: Nourishment;

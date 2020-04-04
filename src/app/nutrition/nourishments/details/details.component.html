@@ -1,1 +1,25 @@
-<p>details works!</p>
+<!-- Constructs the login card -->
+<mat-card class="nourishment-card">
+    <!-- Constructs the card header -->
+    <mat-card-header>
+        <div *ngIf="nourishment.thumbnail != null">
+            <div mat-card-avatar class="thumbnail" style="background-image: url('{{nourishment.thumbnail}}');"></div>
+        </div>
+        <mat-card-title>{{nourishment.name}}</mat-card-title>
+        <mat-card-subtitle *ngIf="nourishment.description != null">{{nourishment.description}}</mat-card-subtitle>
+    </mat-card-header>
+    <!-- Constructs the image -->
+    <div *ngIf="nourishment.image != null">
+        <img mat-card-image src="{{nourishment.image}}" alt="{{nourishment.name}}">
+    </div>
+    <!-- Constructs the card content -->
+    <mat-card-content>
+        <p>{{nourishment.description}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        Nutritional Values
+    </mat-card-actions>
+    <mat-card-footer>
+        Im a footer
+    </mat-card-footer>
+</mat-card>
