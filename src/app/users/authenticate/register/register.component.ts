@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   sexNames: SexName[] = sexNames;
   
   step:string = "1";
-  registering: boolean = false;
+  public registering: boolean = false;
   user:User;
   startDate:Date = new Date();
   minDate: Date = new Date();
@@ -107,7 +107,7 @@ export class RegisterComponent implements OnInit {
           return "Your date of birth is invalid";
         }
       }
-      return null;
+      return;
     }
 
     onSubmit(): void {

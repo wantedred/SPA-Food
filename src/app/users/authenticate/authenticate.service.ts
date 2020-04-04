@@ -25,13 +25,12 @@ export class AuthenticateService {
   };
 
   public authedUser: User;
-  private username: string;
 
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private jwtService: JwtService) { 
+    public jwtService: JwtService) { 
     this.loadStoredUser();
   }
 
@@ -65,7 +64,6 @@ export class AuthenticateService {
       this.router.navigateByUrl("/");
       return;
     }
-    console.log("register request");
     const regResp: AuthHttpResponse = await this.http.post<AuthHttpResponse>(Constants.registerUrl, user, this.jsonHeaders)
       .pipe(tap(_ => console.log("Register " + user.emailAddress))
       , catchError(handleError<AuthHttpResponse>('authenticate/register'))).toPromise();
@@ -73,25 +71,19 @@ export class AuthenticateService {
     if (!regResp.success) {
       return regResp.message;
     }
-    console.log("Post authenticate");
     const postAuthResp: string = await this.postAuthenticate(user.emailAddress, regResp, "reg");
 
     if (postAuthResp != null) {
       return postAuthResp;
     }
-    console.log("Finished registration");
     return null;
-      //resp => resp.success ? this.postAuthenticate(user.emailAddress, resp, "reg") : errorMessage = resp.message
   }
 
   public async login(username: string, password: string): Promise<string> {
-    console.log("Logging in");
-
     if (this.isLoggedIn()) {
       this.router.navigateByUrl("/");
       return;
     }
-    console.log("Login request");
     const authResp: AuthHttpResponse = await this.http.post<AuthHttpResponse>(Constants.loginUrl, {username: username, password: password}, this.jsonHeaders)
       .pipe(tap(_ => console.log("Login " + username))
       , catchError(handleError<AuthHttpResponse>('authenticate/login'))).toPromise();
@@ -99,13 +91,11 @@ export class AuthenticateService {
     if (!authResp.success) {
       return authResp.message;
     }
-    console.log("Post authenticate");
     const postAuthResp: string = await this.postAuthenticate(username, authResp, "log");
 
     if (postAuthResp != null) {
       return postAuthResp;
     }
-    console.log("Finished login");
     return null;
 
     /*return this.http.post<AuthHttpResponse>(Constants.loginUrl, {username: username, password: password}, this.jsonHeaders)
@@ -118,7 +108,6 @@ export class AuthenticateService {
     let jwtDetails: JwtDetails = new JwtDetails(authHttpResp.token, authHttpResp.refreshToken);
     this.jwtService.storeJwt(jwtDetails);
 
-    console.log("Auth fetching user");
     const authFetchRespMsg: string = await this.authFetch(ref, username);
 
     if (authFetchRespMsg != null) {
@@ -127,9 +116,7 @@ export class AuthenticateService {
     if (!this.isLoggedIn()) {
       return "Failed to login";
     }
-    console.log("Auth fetched user");
     return null;
-    //this.router.navigateByUrl(this.authedUser.lastRoute);
   }
 
   private async authFetch(ref: string, username: string = null): Promise<string> {

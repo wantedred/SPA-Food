@@ -5,6 +5,7 @@ export class Constants {
     public static usersUrl: string = Constants.serverUrl + "Users";
     public static accountUrl: string = Constants.serverUrl + "Account";
     public static authUrl: string = Constants.serverUrl + "Auth"
+    public static nourishmentsUrl: string = Constants.serverUrl + "Nourishments"
 
     //Auth endpoints
     public static loginUrl: string = Constants.authUrl + "/login";
@@ -22,5 +23,10 @@ export class Constants {
     public static updatePasswordUrl: string = Constants.accountUrl + "/password/update";
     public static resetPasswordRequestUrl: string = Constants.accountUrl + "/recovery/request";
     public static resetPasswordValidateUrl: string = Constants.accountUrl + "/recovery/validate";
+
+    //Nourishment endpoints
+    public static searchNourishmentUrl: string = Constants.nourishmentsUrl + "/search";
+    public static nourishmentDetailsUrl: string = Constants.nourishmentsUrl + "/details";
+    public static nourishmentSubmitUrl: string = Constants.nourishmentsUrl + "/submit";
 
 }

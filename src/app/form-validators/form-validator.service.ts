@@ -57,7 +57,7 @@ export class FormValidatorService {
             return null; 
         }
         return authService.validateEmail(control.value)
-            .pipe(map(user => (user ? { emailAddressTaken: true } : null)), catchError(() => of(null)));
+            .pipe(map(resp => (!resp.success ? { emailAddressTaken: true } : null)), catchError(() => of(null)));
 /*
         authService.validateEmail(control.value).then(msg => {
           

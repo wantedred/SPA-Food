@@ -22,6 +22,7 @@ export class User {
     public accountState: AccountState = AccountState.Member;
     public hasProfessional: boolean = false;
     public isProfessional: boolean = false;
+    public emailConfirmed: boolean = false;
     public lastRoute: string = "/";
 
 
