@@ -53,10 +53,15 @@
 
             <mat-menu #admin="matMenu">
                 <button mat-menu-item [matMenuTriggerFor]="adminUsers">Users</button>
+                <button mat-menu-item [matMenuTriggerFor]="adminNourishments">Nourishments</button>
             </mat-menu>
             <mat-menu #adminUsers="matMenu">
                 <button mat-menu-item (click)="sidenav.close()" routerLink="/users/users-overview">Overview</button>
                 <button mat-menu-item (click)="sidenav.close()" routerLink="/users/create">Create</button>
+            </mat-menu>
+            <mat-menu #adminNourishments="matMenu">
+                <button mat-menu-item (click)="sidenav.close()" routerLink="/nourishments/nourishments-overview">Overview</button>
+                <button mat-menu-item (click)="sidenav.close()" routerLink="/nourishments/create">Create</button>
             </mat-menu>
 
             <button *ngIf="authService.isLoggedIn()" class="nav-button" (click)="setSelectedIndex(1)" [ngClass]="{'active': selectedIndex == 1}"mat-button routerLink="/notifications">

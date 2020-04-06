@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Recipe } from './recipe';
-import { MealType } from './meal-type';
+import { MealType } from '../nutrition/util/meal-type';
 
 @Injectable({
   providedIn: 'root'

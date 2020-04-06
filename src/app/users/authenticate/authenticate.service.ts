@@ -208,7 +208,24 @@ export class AuthenticateService {
       console.warn("No stored user found to load");
       return;
     }
-    this.authedUser = JSON.parse(storedUserVal);
+    let user:User = new User();
+
+    let input = JSON.parse(storedUserVal);
+    
+    user.emailAddress = input.emailAddress;
+    user.accountState = input.accountState;
+    user.activity = input.activityLevel;
+    user.displayName = input.displayName;
+    user.dob = input.dob;
+    user.height = input.height;
+    user.weight = input.weight;
+    user.pregnant = input.pregnant;
+    user.smoker = input.smoker;
+    user.sex = input.sex;
+    user.lactating = input.lactating;
+    user.joinedAt = input.joinedAt;
+
+    this.authedUser = user;
     console.log("Loaded stored user");
   }
 

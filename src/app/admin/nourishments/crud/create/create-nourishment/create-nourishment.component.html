@@ -1,0 +1,47 @@
+
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>Create Nourishment</mat-card-title>
+        <mat-card-subtitle>Create a new nourishment to be added</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="create-user-form" [formGroup]="createForm" (ngSubmit)="onSubmit()">
+            <!-- Constructs the name input -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="" formControlName="nameControl" minlength="3" maxLength="50" required>
+                <mat-error *ngIf="createForm.controls['nameControl'].hasError('required')">
+                     Please enter a name
+                </mat-error>
+                <mat-error *ngIf="createForm.controls['nameControl'].hasError('minlength')">
+                     Your name should be at least 3 characters
+                </mat-error>
+            </mat-form-field>
+            <!-- Constructs the brand input -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Brand</mat-label>
+                <input matInput placeholder="" formControlName="brandControl" minlength="2" maxLength="30">
+            </mat-form-field>
+            <!-- Constructs the photo input -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Photo</mat-label>
+                <input matInput placeholder="" formControlName="photoControl" minlength="2" maxLength="30">
+            </mat-form-field>
+            <!-- Constructs the nourishment type input -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Sex</mat-label>
+                <mat-select formControlName="typeControl" required>
+                    <mat-option *ngFor="let nourishmentTypeName of nourishmentTypeNames" [value]="nourishmentTypeName.nourishmentType">
+                    {{nourishmentTypeName.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="createForm.controls['typeControl'].hasError('required')">
+                    Please select the nourishment type
+                </mat-error>
+                <!--<mat-error *ngIf="typeControl.hasError('required')">Please choose a sex so we can make the right nutrition calculations</mat-error>-->
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="example-full-width" type="submit" [disabled]="!createForm.valid">Submit</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+        

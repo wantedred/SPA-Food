@@ -17,6 +17,9 @@ import { ChangePasswordComponent } from './users/authenticate/change-password/ch
 import { AuthGuardService } from './users/authenticate/guards/auth-guard.service';
 import { NoAuthGuardService } from './users/authenticate/guards/no-auth-guard.service';
 import { AdminGuardService } from './users/authenticate/guards/admin-guard.service';
+import { NourishmentsOverviewComponent } from './admin/nourishments/nourishments-overview/nourishments-overview.component';
+import { CreateNourishmentComponent } from './admin/nourishments/crud/create/create-nourishment/create-nourishment.component';
+import { NourishmentDetailsComponent } from './nutrition/nourishments/nourishment-details/nourishment-details.component';
 
 
 const mainRoutes: Routes = [
@@ -52,6 +55,10 @@ const adminRoutes: Routes = [
   { path: 'users/users-overview', component: UsersOverviewComponent, canActivate: [AdminGuardService], canLoad: [AdminGuardService] },
   { path: 'users/create', component: CreateUserComponent, canActivate: [AdminGuardService], canLoad: [AdminGuardService] },
   { path: 'users/:id', component: UserComponent, canActivate: [AdminGuardService], canLoad: [AdminGuardService] }, //Should be last to not conflict with the static /users/ paths
+
+  { path: 'nourishments/nourishments-overview', component: NourishmentsOverviewComponent, canActivate: [AdminGuardService], canLoad: [AdminGuardService] },
+  { path: 'nourishments/create', component: CreateNourishmentComponent, canActivate: [AdminGuardService], canLoad: [AdminGuardService] },
+  { path: 'nourishments/:id', component: NourishmentDetailsComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,16 @@
+.example-card {
+    width: auto;
+    margin: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.create-user-form {
+    width: 96%;
+    margin: 2%;
+}
+.example-full-width {
+    width: 100%;
+    /*white-space: pre;*/
+    margin-bottom: 8px;
+}

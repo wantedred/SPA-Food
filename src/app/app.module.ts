@@ -36,7 +36,6 @@ import { UserComponent } from './users/user/user.component';
 import { LoginComponent } from './users/authenticate/login/login.component';
 import { RegisterComponent } from './users/authenticate/register/register.component';
 import { UsersOverviewComponent } from './admin/users/overview/users-overview.component';
-import { SearchComponent } from './admin/users/search/search.component';
 import { CreateUserComponent } from './admin/users/crud/create/create-user.component';
 import { SubmitComponent } from './nutrition/nourishments/submit/submit.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
@@ -57,6 +56,9 @@ import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.
 import { FooterNavigationComponent } from './navigation/footer-navigation/footer-navigation.component';
 import { ChangePasswordComponent } from './users/authenticate/change-password/change-password.component';
 import { JwtInterceptor } from './users/authenticate/jwt/jwt-interceptor';
+import { CreateNourishmentComponent } from './admin/nourishments/crud/create/create-nourishment/create-nourishment.component';
+import { NourishmentsOverviewComponent } from './admin/nourishments/nourishments-overview/nourishments-overview.component';
+import { NourishmentDetailsComponent } from './nutrition/nourishments/nourishment-details/nourishment-details.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,6 @@ import { JwtInterceptor } from './users/authenticate/jwt/jwt-interceptor';
     UserComponent,
     LoginComponent,
     UsersOverviewComponent,
-    SearchComponent,
     CreateUserComponent,
     SubmitComponent,
     UserDetailsComponent,
@@ -87,6 +88,9 @@ import { JwtInterceptor } from './users/authenticate/jwt/jwt-interceptor';
     RecipeDetailsComponent,
     FooterNavigationComponent,
     ChangePasswordComponent,
+    CreateNourishmentComponent,
+    NourishmentsOverviewComponent,
+    NourishmentDetailsComponent,
   ],
   imports: [
     BrowserModule,
