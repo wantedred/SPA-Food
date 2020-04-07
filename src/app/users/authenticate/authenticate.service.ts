@@ -174,6 +174,31 @@ export class AuthenticateService {
       .subscribe(resp => resp.success ? this.logout() : console.error(resp.message));
   }
 
+  public refreshJwt() {
+    if (!this.isLoggedIn()) {
+      console.error("Unable to refresh JWT since no user is logged in");
+      return;
+    }
+    let jwtDetails: JwtDetails = this.jwtService.getStoredJwtDetails();
+
+    if (!jwtDetails) {
+      console.error("Unable to refresh JWT since no details were found");
+      return;
+    }
+    return this.http.post<AuthHttpResponse>(Constants.refreshJwtUrl, {
+      username: this.authedUser.emailAddress,
+      refreshToken: jwtDetails.refreshToken
+    }, this.jsonHeaders)
+      .pipe(tap((resp: AuthHttpResponse) => {
+        if (resp.success) {
+          this.jwtService.storeJwt(new JwtDetails(resp.token, resp.refreshToken));
+          return resp;
+        }
+        console.error(resp.message);
+        return resp;
+      }), catchError(handleError<AuthHttpResponse>('auth/jwt')));
+  }
+
   private loadUser(resp: AuthFetchResponse): void {
     this.loadStoredUser();
 

@@ -12,7 +12,6 @@ export class Constants {
     public static registerUrl: string = Constants.authUrl + "/register";
     public static logoutUrl: string = Constants.authUrl + "/logout";
     public static deleteAccountUrl: string = Constants.authUrl + "/delete";
-    public static validatePasswordUrl: string = Constants.authUrl + "/validate-password";
     public static refreshJwtUrl: string = Constants.authUrl + "/refresh";
     public static authFetchUrl: string = Constants.authUrl + "/fetch";
     public static apiVersionFetchUrl: string = Constants.authUrl + "/version";

@@ -59,6 +59,8 @@ import { JwtInterceptor } from './users/authenticate/jwt/jwt-interceptor';
 import { CreateNourishmentComponent } from './admin/nourishments/crud/create/create-nourishment/create-nourishment.component';
 import { NourishmentsOverviewComponent } from './admin/nourishments/nourishments-overview/nourishments-overview.component';
 import { NourishmentDetailsComponent } from './nutrition/nourishments/nourishment-details/nourishment-details.component';
+import { UpdatePasswordComponent } from './users/account/update-password/update-password.component';
+import { AccountRecoveryComponent } from './users/account/account-recovery/account-recovery.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,8 @@ import { NourishmentDetailsComponent } from './nutrition/nourishments/nourishmen
     CreateNourishmentComponent,
     NourishmentsOverviewComponent,
     NourishmentDetailsComponent,
+    UpdatePasswordComponent,
+    AccountRecoveryComponent,
   ],
   imports: [
     BrowserModule,

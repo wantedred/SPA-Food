@@ -29,25 +29,6 @@ export class JwtService implements OnInit {
     return this.getStoredJwtDetails() != null;
   }
 
-  public refreshJwt() {
-    let jwtDetails: JwtDetails = this.getStoredJwtDetails();
-
-    if (!jwtDetails) {
-      console.error("Unable to refresh JWT since no details were found");
-      return;
-    }
-    return this.http.post<AuthHttpResponse>(Constants.refreshJwtUrl, jwtDetails, this.jsonHeaders)
-      .pipe(tap((resp: AuthHttpResponse) => {
-        if (resp.success) {
-          let jwtDetails: JwtDetails = new JwtDetails(resp.token, resp.refreshToken);
-          this.storeJwt(jwtDetails);
-          return resp;
-        }
-        console.error(resp.message);
-        return resp;
-      }), catchError(handleError<AuthHttpResponse>('auth/jwt')));
-  }
-
   public fetchApiVersion(): void {
     this.http.get<BasicHttpResponse>(Constants.apiVersionFetchUrl)
       .pipe(tap(_ => console.log("Fetch api version"))

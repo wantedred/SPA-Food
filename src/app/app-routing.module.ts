@@ -20,6 +20,8 @@ import { AdminGuardService } from './users/authenticate/guards/admin-guard.servi
 import { NourishmentsOverviewComponent } from './admin/nourishments/nourishments-overview/nourishments-overview.component';
 import { CreateNourishmentComponent } from './admin/nourishments/crud/create/create-nourishment/create-nourishment.component';
 import { NourishmentDetailsComponent } from './nutrition/nourishments/nourishment-details/nourishment-details.component';
+import { UpdatePasswordComponent } from './users/account/update-password/update-password.component';
+import { AccountRecoveryComponent } from './users/account/account-recovery/account-recovery.component';
 
 
 const mainRoutes: Routes = [
@@ -43,6 +45,8 @@ const accountRoutes: Routes = [
   { path: 'account/settings', component: AccountSettingsComponent, canActivate: [AuthGuardService], canLoad: [AuthGuardService] },
   { path: 'account/upgrade', component: AccountUpgradeComponent, canActivate: [AuthGuardService], canLoad: [AuthGuardService] },
   { path: 'account/change-password', component: ChangePasswordComponent, canActivate: [AuthGuardService], canLoad: [AuthGuardService] },
+  { path: 'account/update-password', component: UpdatePasswordComponent },
+  { path: 'account/recovery', component: AccountRecoveryComponent },
 ];
 
 const recipeRoutes: Routes = [

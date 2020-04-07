@@ -48,17 +48,11 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
       this.createForm = this.formBuilder.group(
         {
-          displayNameControl: new FormControl(''
-            , [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
           emailAddressControl: new FormControl(''
-            , [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email]),
+            , [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email],
+            [this.formValidatorService.emailAddressExists('emailAddressControl', this.authService)]),
           passwordControl: new FormControl(''
             , [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
-          confirmPasswordControl: new FormControl('', [Validators.required]),
-          sexControl: new FormControl('', Validators.required),
-          dobControl: new FormControl(new Date(), Validators.required),
-        }, {
-          validators: [this.formValidatorService.fieldsMatch("passwordControl", "confirmPasswordControl")]
         }
       );
     }

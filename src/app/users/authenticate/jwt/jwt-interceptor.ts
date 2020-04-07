@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, filter, take, switchMap, tap } from 'rxjs/operators';
 import { JwtDetails } from './jwt-details';
-import { JwtService } from './jwt.service';
+import { AuthenticateService } from '../authenticate.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -12,13 +12,13 @@ export class JwtInterceptor implements HttpInterceptor {
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
     
 
-    constructor(public jwtService: JwtService) {}
+    constructor(public authService: AuthenticateService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      let jwtDetails: JwtDetails = this.jwtService.getStoredJwtDetails();
+      let jwtDetails: JwtDetails = this.authService.jwtService.getStoredJwtDetails();
       let token: string = jwtDetails ? jwtDetails.token : null;
 
-      let apiVersion: string = this.jwtService.getApiVersion();
+      let apiVersion: string = this.authService.jwtService.getApiVersion();
 
       if (apiVersion || token) {
         request = this.prepareHeaders(request, token, apiVersion);
@@ -32,7 +32,7 @@ export class JwtInterceptor implements HttpInterceptor {
                 if (apiVersion) {
                   //TODO updates required?
                 }
-                this.jwtService.storeApiVersion(newApiVersion);
+                this.authService.jwtService.storeApiVersion(newApiVersion);
               }
             }
           }),
@@ -77,13 +77,13 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-      let apiVersion: string = this.jwtService.getApiVersion();
+      let apiVersion: string = this.authService.jwtService.getApiVersion();
 
       if (!this.isRefreshing) {
         this.isRefreshing = true;
         this.refreshTokenSubject.next(null);
     
-        return this.jwtService.refreshJwt().pipe(
+        return this.authService.refreshJwt().pipe(
           switchMap((token: any) => {
             this.isRefreshing = false;
             this.refreshTokenSubject.next(token.jwt);
