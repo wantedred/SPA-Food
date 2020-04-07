@@ -27,29 +27,29 @@ export class AccountService {
     //
   }
 
-  public changePassword(oldPassword: string, newPassword: string): Observable<AuthHttpResponse> {
+  public changePassword(currentPassword: string, newPassword: string): Observable<AuthHttpResponse> {
     if (!this.authService.isLoggedIn()) {
       console.error("Can't update password while not logged in");
       return;
     }
     let refreshToken = this.authService.jwtService.getStoredJwtDetails().refreshToken;
 
-    return this.http.post<AuthHttpResponse>(Constants.updatePasswordUrl, {
+    return this.http.post<AuthHttpResponse>(Constants.changePasswordUrl, {
         username: this.authService.authedUser.emailAddress, 
         refreshToken: refreshToken,
         resetToken: "",
-        currentPassword: oldPassword,
+        currentPassword: currentPassword,
         newPassword: newPassword }, this.jsonHeaders)
       .pipe(tap(_ => console.log("changePassword"))
-      , catchError(handleError<AuthHttpResponse>('account/password/update')));
+      , catchError(handleError<AuthHttpResponse>('account/password/change')));
   }
 
-  public updatePassword(username: string, oldPassword: string, newPassword: string, resetToken: string): Observable<AuthHttpResponse> {
+  public updatePassword(username: string, newPassword: string, resetToken: string): Observable<AuthHttpResponse> {
     return this.http.post<AuthHttpResponse>(Constants.updatePasswordUrl, {
         username: username, 
         refreshToken: "",
         resetToken: resetToken,
-        currentPassword: oldPassword,
+        currentPassword: "",
         newPassword: newPassword }, this.jsonHeaders)
       .pipe(tap(_ => console.log("updatePassword"))
       , catchError(handleError<AuthHttpResponse>('account/password/update')));

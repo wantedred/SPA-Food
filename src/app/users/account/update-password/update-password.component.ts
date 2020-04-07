@@ -17,12 +17,12 @@ export class UpdatePasswordComponent implements OnInit {
 
   resetToken: string = null;
   username: string = null;
+
   allowed: boolean = true;
   expired: boolean = false;
   errorMessage: string = null;
   updating: boolean = false;
   passChanged: boolean = false;
-
   hidePassword: boolean = true;
 
   onChangeValidator: FormControlOnChangeValidator = new FormControlOnChangeValidator();
@@ -41,28 +41,19 @@ export class UpdatePasswordComponent implements OnInit {
     }
     this.route.queryParams.subscribe(params => {
       this.resetToken = params['rt'];
+      this.username = params['u'];
     });
-    if (this.resetToken == null || this.resetToken == "") {
+    if (this.resetToken == null || this.resetToken == "" || this.username == null || this.username == "") {
       this.router.navigateByUrl("/");
       return;
     }
+    this.resetToken = decodeURIComponent(this.resetToken);
+    this.username = decodeURIComponent(this.username);
+    console.warn("RT => " + this.resetToken);
+    console.warn("U => " + this.username);
    }
 
   ngOnInit(): void {
-    let existingRt: string = localStorage.getItem("reset-token");
-    let username: string = localStorage.getItem("username");
-
-    if (existingRt == null || username == null || existingRt == "" || username == "") {
-      this.allowed = false;
-      this.errorMessage = "You're not allowed to do that";
-      return;
-    }
-    if (existingRt != this.resetToken) {
-      this.allowed = false;
-      this.expired = true;
-      this.errorMessage = "Your recovery session expired, request a new password reset";
-      return;
-    }
     this.createForm = this.formBuilder.group(
       {
         passwordControl: new FormControl(''
@@ -107,7 +98,7 @@ export class UpdatePasswordComponent implements OnInit {
     }
     this.updating = true;
 
-    this.accService.updatePassword(this.username, password, confirmPassword, this.resetToken)
+    this.accService.updatePassword(this.username, password, this.resetToken)
       .subscribe(resp => {
         if (!resp.success) {
           this.errorMessage = resp.message;

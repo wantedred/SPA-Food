@@ -20,6 +20,7 @@ export class Constants {
     public static validateEmailAddressUrl: string = Constants.accountUrl + "/validate/email";
     public static accountFetchUrl: string = Constants.accountUrl + "/fetch";
     public static updatePasswordUrl: string = Constants.accountUrl + "/password/update";
+    public static changePasswordUrl: string = Constants.accountUrl + "/password/change";
     public static resetPasswordRequestUrl: string = Constants.accountUrl + "/recovery/request";
     public static resetPasswordValidateUrl: string = Constants.accountUrl + "/recovery/validate";
 

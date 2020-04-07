@@ -56,8 +56,6 @@ export class AccountRecoveryComponent implements OnInit {
           this.updating = false;
           return;
         }
-        localStorage.setItem("reset-token", resp.resetToken);
-        localStorage.setItem("username", resp.username);
         this.updating = false;
         this.passChanged = true;
         return;
