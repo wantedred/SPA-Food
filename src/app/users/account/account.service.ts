@@ -5,9 +5,12 @@ import { catchError, tap } from 'rxjs/operators';
 import { handleError } from 'src/app/debug/http-error-handler';
 import { AuthHttpResponse } from 'src/app/server/http/auth-http-response';
 import { Constants } from 'src/app/constants';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { BasicHttpResponse } from 'src/app/server/http/basic-http-response';
 import { RecoverPasswordResponse } from 'src/app/server/http/recover-password-response';
+import { JwtDetails } from '../authenticate/jwt/jwt-details';
+import { NotificationsResponse } from 'src/app/server/http/notifications-response';
+import { AuthFetchResponse } from 'src/app/server/http/auth-fetch-response';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +26,99 @@ export class AccountService {
     private http: HttpClient,
     private authService: AuthenticateService) { }
 
-  public fetch() {
-    //
+  public async fetchUser() {
+    if (!this.authService.isLoggedIn()) {
+      console.error("Cant fetch user when not logged in");
+      return null;
+    }
+    const authFetchResp: AuthFetchResponse = await this.http.post<AuthFetchResponse>(Constants.authFetchUrl, {
+        username: this.authService.authedUser.emailAddress, 
+        ref: 'account'
+      }, this.jsonHeaders)
+      .pipe(tap(_ => console.log("fetchUser"))
+      , catchError(handleError<AuthFetchResponse>('account/fetch'))).toPromise();
+
+    if (!authFetchResp.success) {
+      return authFetchResp.message;
+    }
+    this.authService.loadUser(authFetchResp);
+    return null;
+  }
+
+  public fetchNotifications(): Observable<NotificationsResponse> {
+    if (!this.authService.isLoggedIn()) {
+      console.error("Cant fetch notifications when not logged in");
+      return null;
+    }
+    const httpOptions = {
+      headers: { 'Content-Type': 'application/json' },
+      params: {
+        'name': encodeURIComponent(this.authService.authedUser.emailAddress)
+      }
+    }
+    return this.http.get<NotificationsResponse>(Constants.fetchNotifsUrl, httpOptions)
+      .pipe(tap(_ => console.log("fetchNotifications"))
+      , catchError(handleError<NotificationsResponse>('account/notifs')));
+  }
+
+  public changeEmail(): Observable<BasicHttpResponse> {
+    if (!this.authService.isLoggedIn()) {
+      console.error("Can't change email when not logged in");
+
+      const resp: BasicHttpResponse = {
+        success: false,
+        message: "Something went wrong"
+      };
+      return of(resp);
+    }
+
+  }
+
+  public requestConfirmationEmail(): Observable<BasicHttpResponse> {
+    if (!this.authService.isLoggedIn()) {
+      console.error("Can't request confirmation email when not logged in");
+
+      const resp: BasicHttpResponse = {
+        success: false,
+        message: "Something went wrong"
+      };
+      return of(resp);
+    }
+    const httpOptions = {
+      headers: { 'Content-Type': 'application/json' },
+      params: {
+        'name': encodeURIComponent(this.authService.authedUser.emailAddress)
+      }
+    }
+    return this.http.get<BasicHttpResponse>(Constants.requestEmailConfirmationLinkUrl, httpOptions)
+      .pipe(tap(_ => console.log("requestConfirmationEmail"))
+      , catchError(handleError<BasicHttpResponse>('account/email/request')));
+  }
+
+  public async confirmEmail(username: string, validationToken: string): Promise<string> {
+    if (this.authService.isLoggedIn() && this.authService.authedUser.emailAddress != username) {
+      return "Invalid confirmation link";
+    }
+    const httpOptions = {
+      headers: { 'Content-Type': 'application/json' },
+      params: {
+        't': encodeURIComponent(validationToken),
+        'u': encodeURIComponent(username)
+      }
+    };
+    const authResp: AuthHttpResponse = await this.http.get<AuthHttpResponse>(Constants.confirmEmailAddressUrl, httpOptions)
+      .pipe(tap(_ => console.log("confirmEmail"))
+      , catchError(handleError<AuthHttpResponse>('account/email/confirm'))).toPromise();
+
+    if (!authResp.success) {
+      return authResp.message;
+    }
+    const postAuthResp: string = await this.authService.postAuthenticate(username, authResp, "log");
+
+    if (postAuthResp != null) {
+      return postAuthResp;
+    }
+    return null;
   }
 
   public changePassword(currentPassword: string, newPassword: string): Observable<AuthHttpResponse> {

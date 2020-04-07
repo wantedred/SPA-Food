@@ -65,8 +65,8 @@
             </mat-menu>
 
             <button *ngIf="authService.isLoggedIn()" class="nav-button" (click)="setSelectedIndex(1)" [ngClass]="{'active': selectedIndex == 1}"mat-button routerLink="/notifications">
-                <mat-icon *ngIf="!authService.hasNotifications()">notifications</mat-icon>
-                <mat-icon *ngIf="authService.hasNotifications()">notifications_active</mat-icon>
+                <mat-icon *ngIf="!hasNotifications()">notifications</mat-icon>
+                <mat-icon *ngIf="hasNotifications()">notifications_active</mat-icon>
             </button>
         </div>
       </mat-toolbar-row>
@@ -119,8 +119,8 @@
                 </mat-list-item>
 
                 <mat-list-item *ngIf="authService.isLoggedIn()" mat-list-item (click)="sidenav.toggle()" routerLink="/notifications">
-                    <mat-icon *ngIf="!authService.hasNotifications()">notifications</mat-icon>
-                    <mat-icon *ngIf="authService.hasNotifications()">notifications_active</mat-icon>
+                    <mat-icon *ngIf="!hasNotifications()">notifications</mat-icon>
+                    <mat-icon *ngIf="hasNotifications()">notifications_active</mat-icon>
                     Notifications
                 </mat-list-item>
   

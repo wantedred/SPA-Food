@@ -1,0 +1,20 @@
+<!-- Constructs the registration card -->
+<mat-card class="registration-card">
+    <!-- Constructs the card header -->
+    <mat-card-header>
+        <mat-card-title>Email Confirmation</mat-card-title>
+    </mat-card-header>
+    <!-- Constructs the card content -->
+    <mat-card-content>
+        <mat-spinner *ngIf="checking"></mat-spinner>
+        <mat-error style="text-align: center;">
+            {{errorMessage}}
+        </mat-error>
+        <div class="form-input-field" style="text-align: center; padding-top: 40px;">
+            <div *ngIf="!checking && errorMessage == null">
+                <p>Your email has been confirmed</p>
+                <a routerLink="/home/">Click here</a><span> to go to the home page</span>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

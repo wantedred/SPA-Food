@@ -10,6 +10,8 @@ import { FormControlOnChangeValidator } from 'src/app/form-validators/form-on-ch
 import { AuthenticateService } from '../../authenticate/authenticate.service';
 import { Constants } from 'src/app/constants';
 import { EditField } from 'src/app/form-validators/edit-field';
+import { AccountService } from '../account.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-account-details',
@@ -17,6 +19,8 @@ import { EditField } from 'src/app/form-validators/edit-field';
   styleUrls: ['./account-details.component.css']
 })
 export class AccountDetailsComponent implements OnInit {
+
+  confirmationEmailRequested: boolean = false;
 
   sexNames: SexName[] = sexNames;
   
@@ -32,10 +36,11 @@ export class AccountDetailsComponent implements OnInit {
    constructor(
     private formValidatorService: FormValidatorService,
     private router: Router,
-    private usersService: UsersService,
+    private accService: AccountService,
     private location: Location,
     private formBuilder: FormBuilder,
-    public authService: AuthenticateService) {
+    public authService: AuthenticateService,
+    private snackBar: MatSnackBar) {
       if (!authService.isLoggedIn()) {
         router.navigateByUrl(Constants.loginUrl);
         return;
@@ -65,6 +70,26 @@ export class AccountDetailsComponent implements OnInit {
     this.editFields.push(new EditField("emailAddressControl", this.authService.authedUser.emailAddress));
     this.editFields.push(new EditField("sexControl", this.authService.authedUser.sex));
     this.editFields.push(new EditField("dobControl", this.authService.authedUser.dob));
+  }
+
+  isEmailConfirmed(): boolean {
+    return this.authService.authedUser.emailConfirmed;
+  }
+
+  requestConfirmationEmail(): void {
+    this.accService.requestConfirmationEmail().subscribe(resp => {
+      this.confirmationEmailRequested = resp.success;
+
+      let snackbarRef = this.snackBar.open(!resp.success ? resp.message : "Confirmation email has been sent", "Dismiss", {
+        duration: 5000,
+      });
+      snackbarRef.afterDismissed().subscribe(() => {
+        console.log('The snack-bar was dismissed');
+      });
+      snackbarRef.onAction().subscribe(() => {
+        console.log('The snack-bar action was triggered!');
+      });
+    });
   }
 
   getEditFieldIcon(controlName: string): string {

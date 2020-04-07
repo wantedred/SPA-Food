@@ -49,8 +49,7 @@ export class LoginComponent implements OnInit {
       this.createForm = this.formBuilder.group(
         {
           emailAddressControl: new FormControl(''
-            , [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email],
-            [this.formValidatorService.emailAddressExists('emailAddressControl', this.authService)]),
+            , [Validators.required, Validators.minLength(5), Validators.maxLength(30), Validators.email]),
           passwordControl: new FormControl(''
             , [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
         }

@@ -22,6 +22,7 @@ import { CreateNourishmentComponent } from './admin/nourishments/crud/create/cre
 import { NourishmentDetailsComponent } from './nutrition/nourishments/nourishment-details/nourishment-details.component';
 import { UpdatePasswordComponent } from './users/account/update-password/update-password.component';
 import { AccountRecoveryComponent } from './users/account/account-recovery/account-recovery.component';
+import { ValidateEmailComponent } from './users/account/validate-email/validate-email.component';
 
 
 const mainRoutes: Routes = [
@@ -46,6 +47,7 @@ const accountRoutes: Routes = [
   { path: 'account/upgrade', component: AccountUpgradeComponent, canActivate: [AuthGuardService], canLoad: [AuthGuardService] },
   { path: 'account/change-password', component: ChangePasswordComponent, canActivate: [AuthGuardService], canLoad: [AuthGuardService] },
   { path: 'account/update-password', component: UpdatePasswordComponent },
+  { path: 'account/validate-email', component: ValidateEmailComponent },
   { path: 'account/recovery', component: AccountRecoveryComponent },
 ];
 

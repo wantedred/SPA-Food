@@ -34,7 +34,7 @@ export class UpdatePasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthenticateService,
     private accService: AccountService,
-    private router: Router,) {
+    private router: Router) {
     if (authService.isLoggedIn()) {
       this.router.navigateByUrl("/");
       return;
@@ -49,8 +49,6 @@ export class UpdatePasswordComponent implements OnInit {
     }
     this.resetToken = decodeURIComponent(this.resetToken);
     this.username = decodeURIComponent(this.username);
-    console.warn("RT => " + this.resetToken);
-    console.warn("U => " + this.username);
    }
 
   ngOnInit(): void {

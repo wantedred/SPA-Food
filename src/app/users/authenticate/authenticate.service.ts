@@ -104,7 +104,7 @@ export class AuthenticateService {
     //.subscribe(resp => resp.success ? this.postAuthenticate(username, resp, "log") : errorMessage = resp.message);
   }
 
-  private async postAuthenticate(username: string, authHttpResp: AuthHttpResponse, ref: string): Promise<string> {
+  public async postAuthenticate(username: string, authHttpResp: AuthHttpResponse, ref: string): Promise<string> {
     let jwtDetails: JwtDetails = new JwtDetails(authHttpResp.token, authHttpResp.refreshToken);
     this.jwtService.storeJwt(jwtDetails);
 
@@ -199,7 +199,7 @@ export class AuthenticateService {
       }), catchError(handleError<AuthHttpResponse>('auth/jwt')));
   }
 
-  private loadUser(resp: AuthFetchResponse): void {
+  public loadUser(resp: AuthFetchResponse): void {
     this.loadStoredUser();
 
     if (this.authedUser == null) {

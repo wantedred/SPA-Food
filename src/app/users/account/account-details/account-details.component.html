@@ -72,6 +72,12 @@
     <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Lactating</mat-slide-toggle>
     <mat-slide-toggle class="form-input-field" color="primary">Smoker</mat-slide-toggle>
     <hr>
+    <mat-label *ngIf="!isEmailConfirmed() && !confirmationEmailRequested">
+        <mat-icon style="font-size: 24px; float: right;">warning</mat-icon>
+        <p><span>Your email has not been confirmed yet which will limit your functionality.<br></span>
+        <a [routerLink]="" (click)="requestConfirmationEmail()">Click here</a><span> to confirm your email</span></p>
+        <hr>
+    </mat-label>
     <a routerLink="/account/change-password">Change password</a>
     <!-- Constructs the submit button -->
 </form>

@@ -28,6 +28,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 //Project
@@ -61,6 +62,7 @@ import { NourishmentsOverviewComponent } from './admin/nourishments/nourishments
 import { NourishmentDetailsComponent } from './nutrition/nourishments/nourishment-details/nourishment-details.component';
 import { UpdatePasswordComponent } from './users/account/update-password/update-password.component';
 import { AccountRecoveryComponent } from './users/account/account-recovery/account-recovery.component';
+import { ValidateEmailComponent } from './users/account/validate-email/validate-email.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +97,7 @@ import { AccountRecoveryComponent } from './users/account/account-recovery/accou
     NourishmentDetailsComponent,
     UpdatePasswordComponent,
     AccountRecoveryComponent,
+    ValidateEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,6 +128,7 @@ import { AccountRecoveryComponent } from './users/account/account-recovery/accou
     MatListModule,
     MatTabsModule,
     FlexLayoutModule,
+    MatSnackBarModule,
   ],
   exports: [
   ],
