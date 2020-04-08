@@ -11,6 +11,7 @@ import { RecoverPasswordResponse } from 'src/app/server/http/recover-password-re
 import { JwtDetails } from '../authenticate/jwt/jwt-details';
 import { NotificationsResponse } from 'src/app/server/http/notifications-response';
 import { AuthFetchResponse } from 'src/app/server/http/auth-fetch-response';
+import { AccountDetailsResponse } from 'src/app/server/http/account-details-response';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +27,19 @@ export class AccountService {
     private http: HttpClient,
     private authService: AuthenticateService) { }
 
-  public changeDetails(): void {
+  public async changeDetails(accDetailsResp: AccountDetailsResponse): Promise<string> {
+    if (!this.authService.isLoggedIn()) {
+      console.error("Cant change details when not logged in");
+      return null;
+    }
+    const resp: BasicHttpResponse = await this.http.post<BasicHttpResponse>(Constants.changeAccDetails, accDetailsResp, this.jsonHeaders)
+      .pipe(tap(_ => console.log("changeDetails"))
+      , catchError(handleError<BasicHttpResponse>('account/details/change'))).toPromise();
 
+    return !resp.success ? resp.message : null;
   }
   
-  public async fetchUser() {
+  public async fetchUser(): Promise<string> {
     if (!this.authService.isLoggedIn()) {
       console.error("Cant fetch user when not logged in");
       return null;

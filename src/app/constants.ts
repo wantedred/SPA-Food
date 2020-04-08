@@ -27,6 +27,7 @@ export class Constants {
     public static resetPasswordRequestUrl: string = Constants.accountUrl + "/recovery/request";
     public static resetPasswordValidateUrl: string = Constants.accountUrl + "/recovery/validate";
     public static fetchNotifsUrl: string = Constants.accountUrl + "/notifs";
+    public static changeAccDetails: string = Constants.accountUrl + "/details/change";
 
     //Nourishment endpoints
     public static searchNourishmentUrl: string = Constants.nourishmentsUrl + "/search";

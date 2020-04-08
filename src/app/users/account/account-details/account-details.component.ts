@@ -12,6 +12,7 @@ import { Constants } from 'src/app/constants';
 import { EditField } from 'src/app/form-validators/edit-field';
 import { AccountService } from '../account.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AccountDetailsResponse } from 'src/app/server/http/account-details-response';
 
 @Component({
   selector: 'app-account-details',
@@ -110,16 +111,20 @@ export class AccountDetailsComponent implements OnInit {
     let newValue: any = this.createForm.get(controlName).value;
 
     if (ef.value != newValue) {
+      let detailsUpdate: boolean = true;
+      let accDetailsResp: AccountDetailsResponse = new AccountDetailsResponse();
+      accDetailsResp.LoadFromUser(this.authService.authedUser);
+
       switch (controlName) {
         case "displayNameControl":
-          this.authService.authedUser.displayName = newValue;
+          accDetailsResp.displayName = newValue;
+
           break;
 
         case "emailAddressControl":
+          detailsUpdate = false;
+
           this.accService.changeEmail(newValue).then(resp => {
-            if (resp != null) {
-              return;
-            }
             let snackbarRef = this.snackBar.open(resp != null ? resp : "Email successfully updated", "Dismiss", {
               duration: 5000,
             });
@@ -141,9 +146,31 @@ export class AccountDetailsComponent implements OnInit {
           this.authService.authedUser.dob = newValue;
           break;
       }
-      ef.value = newValue;
-      //TODO update database and let that store the user
-      this.authService.storeUser();
+      if (detailsUpdate) {
+        ef.value = newValue;
+
+        this.accService.changeDetails(accDetailsResp).then(resp => {
+          if (resp != null) {
+            let snackbarRef = this.snackBar.open(resp, "Dismiss", {
+              duration: 5000,
+            });
+            snackbarRef.afterDismissed().subscribe(() => {
+              console.log('The snack-bar was dismissed');
+            });
+            snackbarRef.onAction().subscribe(() => {
+              console.log('The snack-bar action was triggered!');
+            });
+            return;
+          }
+          this.accService.fetchUser().then(resp => {
+            if (resp != null) {
+              console.error(resp);
+              return;
+            }
+            this.createForm.get(ef.controlName).patchValue(ef.value);
+          });
+        });
+      }
     }
     ef.value = newValue;
   }
