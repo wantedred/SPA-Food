@@ -39,7 +39,7 @@
         <mat-label>Sex</mat-label>
         <mat-select [errorStateMatcher]="onChangeValidator" formControlName="sexControl" [disabled]="isControlDisabled('sexControl')" required>
             <mat-option *ngFor="let sexname of sexNames" [value]="sexname.sex">
-            {{sexname.name}}
+            <span>{{sexname.name}}</span>
             </mat-option>
         </mat-select>
         <button mat-icon-button matSuffix (click)="toggleControlState('sexControl')">
@@ -71,13 +71,14 @@
     <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Pregnant</mat-slide-toggle>
     <mat-slide-toggle *ngIf="isFemale()" class="form-input-field" color="primary">Lactating</mat-slide-toggle>
     <mat-slide-toggle class="form-input-field" color="primary">Smoker</mat-slide-toggle>
+    <div style="width: 95%; padding-left: 2.5%;">
     <hr>
-    <mat-label *ngIf="!isEmailConfirmed() && !confirmationEmailRequested">
-        <mat-icon style="font-size: 24px; float: right;">warning</mat-icon>
-        <p><span>Your email has not been confirmed yet which will limit your functionality.<br></span>
-        <a [routerLink]="" (click)="requestConfirmationEmail()">Click here</a><span> to confirm your email</span></p>
-        <hr>
-    </mat-label>
-    <a routerLink="/account/change-password">Change password</a>
-    <!-- Constructs the submit button -->
+        <mat-label *ngIf="!isEmailConfirmed() && !confirmationEmailRequested">
+            <mat-icon style="font-size: 24px; float: right; color: darkred;">warning</mat-icon>
+            <p><span>Your email has not been confirmed yet which will limit your functionality.<br></span>
+            <a [routerLink]="" (click)="requestConfirmationEmail()">Click here</a><span> to confirm your email</span></p>
+            <hr>
+        </mat-label>
+        <a routerLink="/account/change-password">Change password</a>
+    </div>
 </form>

@@ -26,6 +26,10 @@ export class AccountService {
     private http: HttpClient,
     private authService: AuthenticateService) { }
 
+  public changeDetails(): void {
+
+  }
+  
   public async fetchUser() {
     if (!this.authService.isLoggedIn()) {
       console.error("Cant fetch user when not logged in");
@@ -61,17 +65,30 @@ export class AccountService {
       , catchError(handleError<NotificationsResponse>('account/notifs')));
   }
 
-  public changeEmail(): Observable<BasicHttpResponse> {
+  public async changeEmail(newEmailAddress: string): Promise<string> {
     if (!this.authService.isLoggedIn()) {
       console.error("Can't change email when not logged in");
-
-      const resp: BasicHttpResponse = {
-        success: false,
-        message: "Something went wrong"
-      };
-      return of(resp);
+      return null;
     }
+    let refreshToken = this.authService.jwtService.getStoredJwtDetails().refreshToken;
 
+    const authResp: AuthHttpResponse = await this.http.post<AuthHttpResponse>(Constants.changeEmailAddressUrl, {
+        username: this.authService.authedUser.emailAddress, 
+        refreshToken: refreshToken,
+        newEmailAddress: newEmailAddress
+      }, this.jsonHeaders)
+      .pipe(tap(_ => console.log("changeEmail"))
+      , catchError(handleError<AuthHttpResponse>('account/email/change'))).toPromise();
+
+    if (!authResp.success) {
+      return authResp.message;
+    }
+    const postAuthResp: string = await this.authService.postAuthenticate(newEmailAddress, authResp, "log");
+
+    if (postAuthResp != null) {
+      return postAuthResp;
+    }
+    return null;
   }
 
   public requestConfirmationEmail(): Observable<BasicHttpResponse> {

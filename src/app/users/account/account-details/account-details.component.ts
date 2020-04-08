@@ -99,7 +99,9 @@ export class AccountDetailsComponent implements OnInit {
   onEditModeChange(controlName: string): void {
     let ef:EditField = this.editFields.find(x => x.controlName == controlName);
 
-    if (ef.isInEditMode()) {
+    ef.toggleEditMode();
+
+    if (this.isControlDisabled(controlName)) {
       console.log(controlName + " is not in edit mode");
       return;
     }
@@ -114,7 +116,21 @@ export class AccountDetailsComponent implements OnInit {
           break;
 
         case "emailAddressControl":
-          this.authService.authedUser.emailAddress = newValue;
+          this.accService.changeEmail(newValue).then(resp => {
+            if (resp != null) {
+              return;
+            }
+            let snackbarRef = this.snackBar.open(resp != null ? resp : "Email successfully updated", "Dismiss", {
+              duration: 5000,
+            });
+            snackbarRef.afterDismissed().subscribe(() => {
+              console.log('The snack-bar was dismissed');
+            });
+            snackbarRef.onAction().subscribe(() => {
+              console.log('The snack-bar action was triggered!');
+            });
+            this.createForm.get(controlName).patchValue(this.authService.authedUser.emailAddress);
+          });
           break;
           
         case "sexControl":
@@ -130,7 +146,6 @@ export class AccountDetailsComponent implements OnInit {
       this.authService.storeUser();
     }
     ef.value = newValue;
-    ef.toggleEditMode();
   }
   
   toggleControlState(controlName: string): void {
