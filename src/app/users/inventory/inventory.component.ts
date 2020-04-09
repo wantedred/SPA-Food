@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Nourishment } from 'src/app/nutrition/nourishments/nourishment';
+import { InventoryService } from './inventory.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-inventory',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InventoryComponent implements OnInit {
 
-  constructor() { }
+  nourishments: Nourishment[] = [];
+
+
+  constructor(invService: InventoryService) { }
 
   ngOnInit(): void {
+
   }
+
+
 
 }

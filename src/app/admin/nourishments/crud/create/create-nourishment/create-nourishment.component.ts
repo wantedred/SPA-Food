@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Sex, SexName, sexNames } from 'src/app/users/sex';
-
-import { UsersService } from 'src/app/users/service/users.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormControl, FormGroup, Validators, AsyncValidator, AbstractControl, ValidationErrors, FormBuilder, ValidatorFn } from '@angular/forms';
-import { ActivityLevel } from 'src/app/nutrition/activity-level';
-import { User } from 'src/app/users/user';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { FormValidatorService } from 'src/app/form-validators/form-validator.service';
 import { NourishmentService } from 'src/app/nutrition/nourishments/nourishment.service';
 import { Nourishment } from 'src/app/nutrition/nourishments/nourishment';
@@ -20,11 +15,12 @@ import { NourishmentType, nourishmentTypeNames, NourishmentTypeName } from 'src/
 })
 export class CreateNourishmentComponent implements OnInit {
 
+  infoMessage:string = null;
+
   nourishmentTypeNames: NourishmentTypeName[] = nourishmentTypeNames;
   createForm:FormGroup;
 
   constructor(
-    private formValidatorService: FormValidatorService,
     private router: Router,
     private location: Location,
     private formBuilder: FormBuilder,
@@ -62,12 +58,18 @@ export class CreateNourishmentComponent implements OnInit {
     nourishment.nourishmentType = type;
     nourishment.nutrients = nutrients;
 
+    this.infoMessage = "Submitting...";
+
     console.warn("Posting nourishment => " + nourishment);
 
     this.nourishmentService.addNourishment(nourishment)
-      .subscribe(resp => resp.success ? console.log("success") : resp.message);
+      .subscribe(resp => resp.success ? this.infoMessage = "Successfully submitted" : this.infoMessage = resp.message);
 
-    this.router.navigateByUrl("nourishments/create");
+    this.createForm.reset();
+    
+    Object.keys(this.createForm.controls).forEach(key => {
+      this.createForm.get(key).setErrors(null);
+    });
   }
 
   goBack(): void {

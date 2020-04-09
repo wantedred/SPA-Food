@@ -52,7 +52,12 @@ export enum NourishmentType {
 
     SaucesCondiments = 36,
 
-    Tofu = 37
+    Tofu = 37,
+
+    Appetizer = 38,
+    Snack = 39,
+    Dessert = 40,
+    Soup = 41
 }
 export interface NourishmentTypeName {
     nourishmentType: NourishmentType;
@@ -100,4 +105,8 @@ export const nourishmentTypeNames: NourishmentTypeName[] = [
     {nourishmentType: NourishmentType.Candy, name: 'Candy'},
     {nourishmentType: NourishmentType.SaucesCondiments, name: 'SaucesCondiments'},
     {nourishmentType: NourishmentType.Tofu, name: 'Tofu'},
+    {nourishmentType: NourishmentType.Appetizer, name: 'Appetizer'},
+    {nourishmentType: NourishmentType.Snack, name: 'Snack'},
+    {nourishmentType: NourishmentType.Dessert, name: 'Dessert'},
+    {nourishmentType: NourishmentType.Soup, name: 'Soup'},
 ];

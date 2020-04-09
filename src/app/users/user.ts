@@ -2,6 +2,8 @@ import { Sex } from './sex';
 import { ActivityLevel } from '../nutrition/activity-level';
 import { AccountState } from './account-state';
 import { BmiLevel } from 'src/app/nutrition/bmi-level';
+import { InventoryService } from './inventory/inventory.service';
+import { Inventory } from './inventory/inventory';
 
 export class User {
 
@@ -23,6 +25,7 @@ export class User {
     public hasProfessional: boolean = false;
     public isProfessional: boolean = false;
     public emailConfirmed: boolean = false;
+    public inventory: Inventory = new Inventory();
     public lastRoute: string = "/";
 
 

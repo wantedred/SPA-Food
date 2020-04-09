@@ -5,7 +5,7 @@ import { UserComponent } from './users/user/user.component';
 import { CreateUserComponent } from './admin/users/crud/create/create-user.component';
 import { LoginComponent } from './users/authenticate/login/login.component';
 import { RegisterComponent } from './users/authenticate/register/register.component';
-import { HomePageComponent } from './home/home-page/home-page.component';
+import { HomePageComponent } from './home/home-page/home-page.component';s
 import { AccountDetailsComponent } from './users/account/account-details/account-details.component';
 import { AccountComponent } from './users/account/account.component';
 import { AccountPreferencesComponent } from './users/account/account-preferences/account-preferences.component';
@@ -28,8 +28,6 @@ import { ValidateEmailComponent } from './users/account/validate-email/validate-
 const mainRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomePageComponent },
-    
-    { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuardService], canLoad: [AuthGuardService] },
 
     { path: '*', component: HomePageComponent },
 ];
@@ -67,6 +65,10 @@ const adminRoutes: Routes = [
   { path: 'nourishments/:id', component: NourishmentDetailsComponent },
 ];
 
+const inventoryRoutes: Routes = [
+  { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuardService], canLoad: [AuthGuardService] },
+];
+
 @NgModule({
   imports: [
     RouterModule.forRoot(mainRoutes),
@@ -74,6 +76,7 @@ const adminRoutes: Routes = [
     RouterModule.forRoot(accountRoutes),
     RouterModule.forRoot(adminRoutes),
     RouterModule.forRoot(recipeRoutes),
+    RouterModule.forRoot(inventoryRoutes),
   ],
   exports: [RouterModule]
 })

@@ -68,7 +68,7 @@ export class AccountService {
       params: {
         'name': encodeURIComponent(this.authService.authedUser.emailAddress)
       }
-    }
+    };
     return this.http.get<NotificationsResponse>(Constants.fetchNotifsUrl, httpOptions)
       .pipe(tap(_ => console.log("fetchNotifications"))
       , catchError(handleError<NotificationsResponse>('account/notifs')));
@@ -115,7 +115,7 @@ export class AccountService {
       params: {
         'name': encodeURIComponent(this.authService.authedUser.emailAddress)
       }
-    }
+    };
     return this.http.get<BasicHttpResponse>(Constants.requestEmailConfirmationLinkUrl, httpOptions)
       .pipe(tap(_ => console.log("requestConfirmationEmail"))
       , catchError(handleError<BasicHttpResponse>('account/email/request')));

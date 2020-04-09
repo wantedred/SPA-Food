@@ -6,6 +6,8 @@ export class Constants {
     public static accountUrl: string = Constants.serverUrl + "Account";
     public static authUrl: string = Constants.serverUrl + "Auth"
     public static nourishmentsUrl: string = Constants.serverUrl + "Nourishments"
+    public static inventoryUrl: string = Constants.serverUrl + "Inventory";
+    public static dishUrl: string = Constants.serverUrl + "Dish";
 
     //Auth endpoints
     public static loginUrl: string = Constants.authUrl + "/login";
@@ -34,4 +36,9 @@ export class Constants {
     public static nourishmentDetailsUrl: string = Constants.nourishmentsUrl + "/details";
     public static nourishmentSubmitUrl: string = Constants.nourishmentsUrl + "/submit";
 
+    //Inventory endpoints
+    public static inventoryClearUrl: string = Constants.inventoryUrl + "/clear";
+
+    //Dish endpoints
+    public static dishSuggestUrl: string = Constants.dishUrl + "/suggest";
 }

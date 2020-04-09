@@ -29,7 +29,7 @@
             </mat-form-field>
             <!-- Constructs the nourishment type input -->
             <mat-form-field class="example-full-width">
-                <mat-label>Sex</mat-label>
+                <mat-label>Type</mat-label>
                 <mat-select formControlName="typeControl" required>
                     <mat-option *ngFor="let nourishmentTypeName of nourishmentTypeNames" [value]="nourishmentTypeName.nourishmentType">
                     {{nourishmentTypeName.name}}
@@ -41,6 +41,9 @@
                 <!--<mat-error *ngIf="typeControl.hasError('required')">Please choose a sex so we can make the right nutrition calculations</mat-error>-->
             </mat-form-field>
             <button mat-raised-button color="primary" class="example-full-width" type="submit" [disabled]="!createForm.valid">Submit</button>
+            <div *ngIf="infoMessage != null" class="form-input-field" style="text-align: center; padding-top: 4px;">
+                <span>{{infoMessage}}</span>
+            </div>
         </form>
     </mat-card-content>
 </mat-card>

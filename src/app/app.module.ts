@@ -38,7 +38,6 @@ import { LoginComponent } from './users/authenticate/login/login.component';
 import { RegisterComponent } from './users/authenticate/register/register.component';
 import { UsersOverviewComponent } from './admin/users/overview/users-overview.component';
 import { CreateUserComponent } from './admin/users/crud/create/create-user.component';
-import { SubmitComponent } from './nutrition/nourishments/submit/submit.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 import { InboxComponent } from './professional/inbox/inbox.component';
 import { ClientDetailComponent } from './professional/clients/client-detail/client-detail.component';
@@ -73,7 +72,6 @@ import { ValidateEmailComponent } from './users/account/validate-email/validate-
     LoginComponent,
     UsersOverviewComponent,
     CreateUserComponent,
-    SubmitComponent,
     UserDetailsComponent,
     RegisterComponent,
     InboxComponent,
