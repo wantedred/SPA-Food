@@ -1,1 +1,54 @@
-<p>inventory works!</p>
+<!-- Constructs the registration card -->
+<mat-card class="inventory-card">
+    <!-- Constructs the card header -->
+    <mat-card-header class="card-header">
+        <mat-card-title style="float:left;">Inventory</mat-card-title>
+    </mat-card-header>
+    <!-- Constructs the card content -->
+    <mat-card-content>
+        <!-- Constructs the right/top container -->
+        <div class="right-container">
+            <mat-form-field>
+                <mat-label>Add new item to inventory</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search...">
+                <button mat-icon-button matSuffix (click)="search()">
+                    <mat-icon>playlist_add</mat-icon>
+                </button>
+              </mat-form-field>
+            Im the right container
+        </div>
+        <!-- Constructs the left/bottom container -->
+        <div class="left-container">
+            <cdk-virtual-scroll-viewport itemSize="50">
+                <mat-list>
+                    <mat-list-item *cdkVirtualFor="let message of messages">
+                        <!--<div class="stack">-->
+                            <button class="sub-menu-icon" mat-icon-button>
+                                <mat-icon matListIcon class="action-icon" style="margin-top: 8px;" (click)="remove(message)" matTooltip="Remove">delete</mat-icon>
+                            </button>
+                            <button class="sub-menu-icon" mat-icon-button [matMenuTriggerFor]="inventoryItemMenu">
+                                <mat-icon matListIcon class="action-icon" style="margin-top: 8px;" matTooltip="More">more_vert</mat-icon>
+                            </button>
+                        <!--</div>-->
+                        <mat-menu #inventoryItemMenu="matMenu">
+                            <button mat-menu-item (click)="setQuantity(message, 1)">Set Quantity</button>
+                            <button mat-menu-item (click)="remove(message)">Remove</button>
+                        </mat-menu>
+                        <h2 matLine style="padding-left: 16px;"> {{message.from}} </h2>
+                        <div matLine style="padding-right: 16px;">
+                            <span style="padding-left: 16px;"> {{message.subject}} </span>
+                            <div matLine>
+                                <div class="stack">
+                                    <mat-icon class="action-icon" (click)="modifyQuantity(message, true)" matTooltip="Increase quantity">add</mat-icon>
+                                    <mat-icon class="action-icon" (click)="modifyQuantity(message, false)" matTooltip="Decrease quantity">remove</mat-icon>
+                                </div>
+                                <span class="quantity" style="padding-left: 16px;"> Quantity: <strong>{{message.content}}</strong> </span>
+                            </div>
+                        </div>
+                        <hr matLine>
+                    </mat-list-item>
+                </mat-list>
+            </cdk-virtual-scroll-viewport>
+        </div>
+    </mat-card-content>
+</mat-card>

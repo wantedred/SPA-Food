@@ -38,6 +38,9 @@ export class Constants {
 
     //Inventory endpoints
     public static inventoryClearUrl: string = Constants.inventoryUrl + "/clear";
+    public static inventoryAddUrl: string = Constants.inventoryUrl + "/add";
+    public static inventorySetUrl: string = Constants.inventoryUrl + "/set";
+    public static inventoryRemoveUrl: string = Constants.inventoryUrl + "/remove";
 
     //Dish endpoints
     public static dishSuggestUrl: string = Constants.dishUrl + "/suggest";

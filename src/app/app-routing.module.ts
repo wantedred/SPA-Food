@@ -5,7 +5,7 @@ import { UserComponent } from './users/user/user.component';
 import { CreateUserComponent } from './admin/users/crud/create/create-user.component';
 import { LoginComponent } from './users/authenticate/login/login.component';
 import { RegisterComponent } from './users/authenticate/register/register.component';
-import { HomePageComponent } from './home/home-page/home-page.component';s
+import { HomePageComponent } from './home/home-page/home-page.component';
 import { AccountDetailsComponent } from './users/account/account-details/account-details.component';
 import { AccountComponent } from './users/account/account.component';
 import { AccountPreferencesComponent } from './users/account/account-preferences/account-preferences.component';

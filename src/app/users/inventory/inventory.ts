@@ -1,5 +1,5 @@
-import { Nourishment } from 'src/app/nutrition/nourishments/nourishment';
+import { InventoryItem } from './inventory-item';
 
 export class Inventory {
-    nourishments: Nourishment[] = [];
+    inventoryItems: InventoryItem[] = [];
 }
