@@ -35,17 +35,15 @@
                             <button mat-menu-item (click)="remove(message)">Remove</button>
                         </mat-menu>
                         <h2 matLine style="padding-left: 16px;"> {{message.from}} </h2>
-                        <div matLine style="padding-right: 16px;">
+                        <p matLine style="padding-right: 16px;">
                             <span style="padding-left: 16px;"> {{message.subject}} </span>
-                            <div matLine>
-                                <div class="stack">
-                                    <mat-icon class="action-icon" (click)="modifyQuantity(message, true)" matTooltip="Increase quantity">add</mat-icon>
-                                    <mat-icon class="action-icon" (click)="modifyQuantity(message, false)" matTooltip="Decrease quantity">remove</mat-icon>
-                                </div>
-                                <span class="quantity" style="padding-left: 16px;"> Quantity: <strong>{{message.content}}</strong> </span>
-                            </div>
-                        </div>
-                        <hr matLine>
+                            <span class="stack">
+                                <mat-icon class="action-icon" (click)="modifyQuantity(message, true)" matTooltip="Increase quantity">add</mat-icon>
+                                <mat-icon class="action-icon" (click)="modifyQuantity(message, false)" matTooltip="Decrease quantity">remove</mat-icon>
+                            </span>
+                            <span class="quantity" style="padding-left: 16px;"> Quantity: <strong>{{message.content}}</strong> </span>
+                        </p>
+                        <hr matLine style="margin-top: 2.5%;">
                     </mat-list-item>
                 </mat-list>
             </cdk-virtual-scroll-viewport>
