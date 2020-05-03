@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Nourishment } from 'src/app/nutrition/nourishments/nourishment';
 import { NourishmentService } from 'src/app/nutrition/nourishments/nourishment.service';
@@ -29,9 +29,10 @@ export class NourishmentsOverviewComponent implements OnInit, AfterViewInit {
   columnNames: string[] = ['id', 'brand', 'name', 'type'];
   expandedElement: Nourishment | null;
 
-  resultsLength = 0;
-  isLoadingResults = true;
-  isHasNoResults = false;
+  resultsLength: number = 0;
+  isLoadingResults: boolean = true;
+  isHasNoResults: boolean = false;
+  message: string = null;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -39,16 +40,10 @@ export class NourishmentsOverviewComponent implements OnInit, AfterViewInit {
   data: MatTableDataSource<Nourishment> = null;
 
   public constructor(
-    private route: ActivatedRoute,
     private nourishmentService: NourishmentService,
     private location: Location) { }
 
   ngOnInit(): void {
-    this.nourishmentService.fetchNourishments().subscribe(nourishments => this.nourishments = nourishments);
-
-    this.isLoadingResults = false;
-    this.isHasNoResults = this.nourishments.length == 0;
-    this.resultsLength = this.nourishments.length;
   }
 
   applyFilter(event: Event) {
@@ -61,15 +56,29 @@ export class NourishmentsOverviewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // If the user changes the sort order, reset back to the first page.
-    this.data = new MatTableDataSource(this.nourishments);
-    this.data.paginator = this.paginator;
-    this.data.sort = this.sort;
+    this.nourishmentService.fetchNourishments().subscribe(nourishments => {
+      this.nourishments = nourishments;
+      this.isLoadingResults = false;
+      this.isHasNoResults = this.nourishments.length == 0;
+      this.resultsLength = this.nourishments.length;
+      // If the user changes the sort order, reset back to the first page.
+      this.data = new MatTableDataSource(this.nourishments);
+      this.data.paginator = this.paginator;
+      this.data.sort = this.sort;
+    });
   }
 
   delete(nourishment: Nourishment): void {
     this.nourishments = this.nourishments.filter(u => u !== nourishment);
-    this.nourishmentService.deleteNourishment(nourishment).subscribe();
+    this.nourishmentService.deleteNourishment(nourishment)
+      .subscribe(resp => {
+        if (!resp.success) {
+          this.message = resp.message;
+          return;
+        }
+        this.message = null;
+      }
+    );
   }
 
   goBack(): void {

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from '../user';
 import { Router } from '@angular/router';
-import { AccountState } from '../account-state';
 import { Constants } from 'src/app/constants';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { tap, catchError, flatMap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { handleError } from 'src/app/debug/http-error-handler';
 import { BasicHttpResponse } from 'src/app/server/http/basic-http-response';
 import { AuthHttpResponse } from 'src/app/server/http/auth-http-response';
@@ -206,7 +205,6 @@ export class AuthenticateService {
       this.authedUser = new User();
     }
     this.authedUser.emailAddress = resp.emailAddress;
-    this.authedUser.accountState = resp.accountState;
     this.authedUser.activity = resp.activityLevel;
     this.authedUser.displayName = resp.displayName;
     this.authedUser.dob = resp.dob;
@@ -217,6 +215,7 @@ export class AuthenticateService {
     this.authedUser.sex = resp.sex;
     this.authedUser.lactating = resp.lactating;
     this.authedUser.joinedAt = resp.joinedAt;
+    this.authedUser.roles = resp.roles;
 
     this.storeUser();
     this.router.navigateByUrl(this.authedUser.lastRoute);
@@ -238,7 +237,6 @@ export class AuthenticateService {
     let input = JSON.parse(storedUserVal);
     
     user.emailAddress = input.emailAddress;
-    user.accountState = input.accountState;
     user.activity = input.activityLevel;
     user.displayName = input.displayName;
     user.dob = input.dob;

@@ -6,10 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { User } from 'src/app/users/user';
-import { Sex } from 'src/app/users/sex';
-import { ActivityLevel } from 'src/app/nutrition/activity-level';
 import { UsersService } from 'src/app/users/service/users.service';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -41,16 +38,11 @@ export class UsersOverviewComponent implements OnInit, AfterViewInit {
   data: MatTableDataSource<User> = null;
 
   public constructor(
-    private route: ActivatedRoute,
     private usersService: UsersService,
     private location: Location) { }
 
   ngOnInit(): void {
-    this.usersService.fetchUsers().subscribe(users => this.users = users);
 
-    this.isLoadingResults = false;
-    this.isHasNoResults = this.users.length == 0;
-    this.resultsLength = this.users.length;
   }
 
   applyFilter(event: Event) {
@@ -63,10 +55,15 @@ export class UsersOverviewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // If the user changes the sort order, reset back to the first page.
-    this.data = new MatTableDataSource(this.users);
-    this.data.paginator = this.paginator;
-    this.data.sort = this.sort;
+    this.usersService.fetchUsers().subscribe(users => {
+      this.users = users;
+      this.isLoadingResults = false;
+      this.isHasNoResults = this.users.length == 0;
+      this.resultsLength = this.users.length;
+      this.data = new MatTableDataSource(this.users);
+      this.data.paginator = this.paginator;
+      this.data.sort = this.sort;
+    });
   }
 
   delete(user: User): void {

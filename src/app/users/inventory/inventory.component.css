@@ -33,7 +33,7 @@ mat-list-item {
   padding: 0;
   cursor: pointer;
 }
-.action-icon:after, .action-icon:before {
+.action-icon::after, .action-icon::before {
   display: block;
   position: absolute;
   top: 0;
@@ -81,6 +81,15 @@ cdk-virtual-scroll-viewport::-webkit-scrollbar-track {
 }
 cdk-virtual-scroll-viewport::-webkit-scrollbar-thumb {
   background-color: grey;
+}
+.example-option-img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir='rtl'] .example-option-img {
+  margin-right: 0;
+  margin-left: 8px;
 }
 @media screen and (orientation:portrait) {
   .left-container {

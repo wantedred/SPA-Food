@@ -10,38 +10,59 @@
         <div class="right-container">
             <mat-form-field>
                 <mat-label>Add new item to inventory</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Search...">
-                <button mat-icon-button matSuffix (click)="search()">
-                    <mat-icon>playlist_add</mat-icon>
-                </button>
-              </mat-form-field>
-            Im the right container
+                <input type="text" matInput [formControl]="itemSearchControlName" matInput (keyup)="applyFilter($event)" 
+                    placeholder="Search..." [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let nourishment of nourishmentSuggestions" [value]="nourishment.name">
+                        <img *ngIf="nourishment.thumbnail != null && nourishment.thumbnail != ''" class="example-option-img" aria-hidden [src]="nourishment.thumbnail" height="25">
+                        <span>{{nourishment.name}}</span> |
+                        <small>Brand: {{nourishment.brand}}</small>
+                        <button mat-icon-button matSuffix (click)="addToInv(nourishment)">
+                            <mat-icon>playlist_add</mat-icon>
+                        </button>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+                <p>Common item 1 - Potatoes<mat-icon>playlist_add</mat-icon></p>
+                <p>Common item 2 - Rice<mat-icon>playlist_add</mat-icon></p>
+                <p>Common item 3 - Apple<mat-icon>playlist_add</mat-icon></p>
+
+            <section style="float: left;" *ngFor="let dish of suitableDishes">
+                <app-dish-card [dish]="dish"></app-dish-card>
+            </section>
+            <section style="float: right;" *ngFor="let dish of optionalDishes">
+                <app-dish-card [dish]="dish"></app-dish-card>
+            </section>
         </div>
         <!-- Constructs the left/bottom container -->
         <div class="left-container">
+            <mat-form-field>
+                <input [formControl]="invSearchControl" matInput (keyup)="searchInv();" placeholder="Search...">
+            </mat-form-field>
             <cdk-virtual-scroll-viewport itemSize="50">
                 <mat-list>
-                    <mat-list-item *cdkVirtualFor="let message of messages">
+                    <mat-list-item *cdkVirtualFor="let invItem of invItems">
                         <!--<div class="stack">-->
-                            <button class="sub-menu-icon" mat-icon-button>
-                                <mat-icon matListIcon class="action-icon" style="margin-top: 8px;" (click)="remove(message)" matTooltip="Remove">delete</mat-icon>
-                            </button>
-                            <button class="sub-menu-icon" mat-icon-button [matMenuTriggerFor]="inventoryItemMenu">
-                                <mat-icon matListIcon class="action-icon" style="margin-top: 8px;" matTooltip="More">more_vert</mat-icon>
-                            </button>
+                            <!--<button class="sub-menu-icon" mat-icon-button>-->
+                                <mat-icon matListIcon class="action-icon" style="margin-top: 8px;" (click)="remove(invItem)" matTooltip="Remove">delete</mat-icon>
+                            <!--</button>-->
+                            <!--<button class="sub-menu-icon" mat-icon-button [matMenuTriggerFor]="inventoryItemMenu">-->
+                                <mat-icon matListIcon class="action-icon" style="margin-top: 8px;" matTooltip="More" [matMenuTriggerFor]="inventoryItemMenu">more_vert</mat-icon>
+                            <!--</button>-->
                         <!--</div>-->
                         <mat-menu #inventoryItemMenu="matMenu">
-                            <button mat-menu-item (click)="setQuantity(message, 1)">Set Quantity</button>
-                            <button mat-menu-item (click)="remove(message)">Remove</button>
+                            <button mat-menu-item (click)="setQuantity(invItem, 1)">Set Quantity</button>
+                            <button mat-menu-item (click)="remove(invItem)">Remove</button>
                         </mat-menu>
-                        <h2 matLine style="padding-left: 16px;"> {{message.from}} </h2>
-                        <p matLine style="padding-right: 16px;">
-                            <span style="padding-left: 16px;"> {{message.subject}} </span>
+                        <h2 matLine style="padding-left: 8px;"> {{invItem.nourishment.name}} </h2>
+                        <p matLine style="padding-right: 8px;">
+                            <span style="padding-left: 8px;"> {{invItem.nourishment.brand}} </span>
                             <span class="stack">
-                                <mat-icon class="action-icon" (click)="modifyQuantity(message, true)" matTooltip="Increase quantity">add</mat-icon>
-                                <mat-icon class="action-icon" (click)="modifyQuantity(message, false)" matTooltip="Decrease quantity">remove</mat-icon>
+                                <mat-icon class="action-icon" (click)="modifyQuantity(invItem, true)" matTooltip="Increase quantity">add</mat-icon>
+                                <mat-icon class="action-icon" (click)="modifyQuantity(invItem, false)" matTooltip="Decrease quantity">remove</mat-icon>
                             </span>
-                            <span class="quantity" style="padding-left: 16px;"> Quantity: <strong>{{message.content}}</strong> </span>
+                            <span class="quantity" style="padding-left: 8px;"> Quantity: <strong>{{invItem.quantity}}</strong> </span>
                         </p>
                         <hr matLine class="seperator">
                     </mat-list-item>

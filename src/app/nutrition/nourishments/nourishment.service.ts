@@ -24,8 +24,10 @@ export class NourishmentService {
     .pipe(tap(_ => console.log('fetched nourishments'))
     , catchError(handleError<Nourishment[]>('fetchNourishments', [])));
   }
-  public searchNourishments(searchType: NourishmentSearch): Observable<Nourishment[]> {
-    return this.http.post<Nourishment[]>(Constants.searchNourishmentUrl, searchType, this.jsonHeaders)
+  public searchNourishments( query: string): Observable<Nourishment[]> {
+    return this.http.post<Nourishment[]>(Constants.searchNourishmentUrl, {
+      query: query
+    }, this.jsonHeaders)
       .pipe(tap(x => x.length 
         ? console.log("found nourishments") 
         : console.log("No nourishments found")), 

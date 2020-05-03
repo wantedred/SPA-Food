@@ -1,6 +1,6 @@
 import { NotificationType } from './notification-type';
 
-export interface Notification {
+export interface SiteNotification {
     notificationType: NotificationType;
     message: string;
 }

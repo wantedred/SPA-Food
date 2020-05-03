@@ -31,6 +31,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 //Project
@@ -64,6 +65,7 @@ import { NourishmentDetailsComponent } from './nutrition/nourishments/nourishmen
 import { UpdatePasswordComponent } from './users/account/update-password/update-password.component';
 import { AccountRecoveryComponent } from './users/account/account-recovery/account-recovery.component';
 import { ValidateEmailComponent } from './users/account/validate-email/validate-email.component';
+import { DishCardComponent } from './nutrition/dishes/dish-card/dish-card.component';
 
 
 @NgModule({
@@ -99,6 +101,7 @@ import { ValidateEmailComponent } from './users/account/validate-email/validate-
     UpdatePasswordComponent,
     AccountRecoveryComponent,
     ValidateEmailComponent,
+    DishCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -130,7 +133,8 @@ import { ValidateEmailComponent } from './users/account/validate-email/validate-
     MatTabsModule,
     FlexLayoutModule,
     MatSnackBarModule,
-    ScrollingModule
+    ScrollingModule,
+    MatAutocompleteModule
   ],
   exports: [
   ],

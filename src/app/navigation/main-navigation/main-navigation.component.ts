@@ -24,8 +24,12 @@ export class MainNavigationComponent implements OnInit {
     this.authService.fetchApiVersion();
     
     if (this.authService.isLoggedIn()) {
-      this.accService.fetchUser();
-
+      this.accService.fetchUser().then(resp => {
+        if (resp != null) {
+          console.error(resp);
+          return;
+        }
+      });
       this.accService.fetchNotifications()
         .subscribe(resp => {
           if (!resp.success) {
